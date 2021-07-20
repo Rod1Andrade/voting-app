@@ -1,0 +1,26 @@
+{
+    "name": "rodri/voting-app",
+    "description": "Voting app backend api",
+    "type": "project",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Rodri\\VotingApp\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Rod1Andrade",
+            "email": "rodrigopires.profissional@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "php": ">=8.0",
+        "rodri/simple-router": "dev-develop",
+      "ext-pdo": "*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.5"
+    }
+}
