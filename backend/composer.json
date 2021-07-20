@@ -18,7 +18,8 @@
     "require": {
         "php": ">=8.0",
         "rodri/simple-router": "dev-develop",
-      "ext-pdo": "*"
+      "ext-pdo": "*",
+        "vlucas/phpdotenv": "^5.3"
     },
     "require-dev": {
         "phpunit/phpunit": "^9.5"

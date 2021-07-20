@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Rodri\VotingApp\App\Database;
+namespace Rodri\VotingApp\App\Database\Connection\Connection;
 
 
 use PDO;
