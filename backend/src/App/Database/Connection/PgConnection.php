@@ -5,7 +5,6 @@ namespace Rodri\VotingApp\App\Database\Connection;
 
 
 use PDO;
-use Rodri\VotingApp\App\Database\Connection\Connection\Connection;
 
 /**
  * Connection - PgConnection
@@ -18,7 +17,7 @@ class PgConnection extends Connection
      *
      * @return Connection
      */
-    public static function getConnection(): PgConnection
+    public static function getConnection(): Connection
     {
         if (!self::$instance)
             self::$instance = new PgConnection();

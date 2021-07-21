@@ -35,7 +35,6 @@ class Password
      */
     public function setValue(string $value): void
     {
-        // TODO: hash composition to encrypt password
         $this->value = $value;
     }
 

@@ -6,7 +6,6 @@ namespace Rodri\VotingApp\Features\Auth\Domain\ValueObjects;
 
 use DateTime;
 use DateTimeInterface;
-use JetBrains\PhpStorm\Pure;
 
 /**
  * Value Object BirthDate
@@ -41,11 +40,16 @@ class BirthDate
         $this->value = $value;
     }
 
+    public function getFormattedDate(): string
+    {
+        return $this->getValue()->format(DateTimeInterface::ISO8601);
+    }
+
     /**
      * @return string
      */
     public function __toString(): string
     {
-        return $this->getValue()->format(DateTimeInterface::ISO8601);
+        return $this->getFormattedDate();
     }
 }

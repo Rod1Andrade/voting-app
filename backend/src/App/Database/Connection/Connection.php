@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Rodri\VotingApp\App\Database\Connection\Connection;
+namespace Rodri\VotingApp\App\Database\Connection;
 
 
 use PDO;
@@ -12,8 +12,8 @@ use PDO;
  */
 abstract class Connection
 {
-    protected static Connection $instance;
-    protected ?PDO $pdoInstance;
+    protected static ?Connection $instance = null;
+    protected ?PDO $pdoInstance = null;
 
     protected const OPTIONS = [
         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_OBJ,

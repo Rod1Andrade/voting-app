@@ -36,7 +36,6 @@ class UserUuid
      */
     public function setValue(string $value): void
     {
-        //TODO: Uuid id composition to make easy a way to create a uuid value.
         $this->value = $value;
     }
 
