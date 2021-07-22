@@ -5,3 +5,6 @@
 /cover/
 /.phpunit.cache/
 .phpunit.result.cache
+
+# Ignore sqlite db
+/storage/db/

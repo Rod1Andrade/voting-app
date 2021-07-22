@@ -33,15 +33,6 @@ abstract class Connection
     public abstract function pdo(): PDO;
 
     /**
-     * Set the pdo instance.
-     * @param PDO $pdo
-     */
-    public function setPdo(PDO $pdo): void
-    {
-        $this->pdoInstance = $pdo;
-    }
-
-    /**
      * Private constructor to maintain singleton pattern.
      * @codeCoverageIgnore
      */

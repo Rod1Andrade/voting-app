@@ -5,36 +5,26 @@ namespace Features\Auth\External\DataLayer;
 
 
 use DateTime;
-use Dotenv\Dotenv;
 use PDO;
 use PHPUnit\Framework\TestCase;
-use Rodri\VotingApp\App\Database\Connection\PgConnection;
+use Rodri\VotingApp\App\Database\Connection\MemorySqliteConnection;
 use Rodri\VotingApp\Features\Auth\Domain\Entities\User;
 use Rodri\VotingApp\Features\Auth\Domain\ValueObjects\BirthDate;
 use Rodri\VotingApp\Features\Auth\Domain\ValueObjects\Email;
 use Rodri\VotingApp\Features\Auth\Domain\ValueObjects\Password;
 use Rodri\VotingApp\Features\Auth\Domain\ValueObjects\UserUuid;
 use Rodri\VotingApp\Features\Auth\External\DataLayer\RegisterUserDataLayer;
+use Rodri\VotingApp\Features\Auth\Infra\Exceptions\RegisterUserDataLayerException;
 
 class RegisterUserDataLayerTest extends TestCase
 {
-    /**
-     * @before
-     */
-    public function loadEnv() {
-        $dotenv = Dotenv::createUnsafeImmutable(__DIR__.'/../../../../../src/App/Config');
-        $dotenv->load();
-        $dotenv->safeLoad();
-    }
-
     public function testConnection(): void
     {
-        self::assertInstanceOf(PDO::class, PgConnection::getConnection()->pdo());
+        self::assertInstanceOf(PDO::class, MemorySqliteConnection::getConnection()->pdo());
     }
 
     public function testShouldStoreUserInDataBase(): void
     {
-        self::markTestSkipped('Store a user with success.');
         $dummyUser = new User(
             userUuid: new UserUuid('1342f1f3-5574-4c4b-80a0-d4d79cca5cea'),
             email: new Email('any@email.com'),
@@ -45,28 +35,63 @@ class RegisterUserDataLayerTest extends TestCase
         );
 
         # DataLayer with connection expected
-        $dataLayer = new RegisterUserDataLayer(PgConnection::getConnection());
+        $dataLayer = new RegisterUserDataLayer(MemorySqliteConnection::getConnection());
+        $dataLayer->setTableName('tb_user');
+
+        if($dataLayer->hasEmailAlready($dummyUser->getEmail())) {
+            self::markTestSkipped('Skipped: E-mail already exists');
+        }
 
         $dataLayer->invoke($dummyUser);
-
         self::assertTrue(true);
     }
 
     public function testShouldReturnTrueIfEmailAlreadyExist(): void
     {
-        self::markTestSkipped('Get email with success and returned true.');
         # DataLayer with connection expected
-        $dataLayer = new RegisterUserDataLayer(PgConnection::getConnection());
+        $dataLayer = new RegisterUserDataLayer(MemorySqliteConnection::getConnection());
+        $dataLayer->setTableName('tb_user');
 
         self::assertTrue($dataLayer->hasEmailAlready(new Email('any@email.com')));
     }
 
     public function testShouldReturnFalseIfEmailNotExists(): void
     {
-        self::markTestSkipped('Dont get email with success and returned false.');
         # DataLayer with connection expected
-        $dataLayer = new RegisterUserDataLayer(PgConnection::getConnection());
+        $dataLayer = new RegisterUserDataLayer(MemorySqliteConnection::getConnection());
+        $dataLayer->setTableName('tb_user');
 
         self::assertFalse($dataLayer->hasEmailAlready(new Email('anyd@email.com')));
+    }
+
+    public function testShouldThrowARegisterUserDataLayerExceptionWhenIsImpossibleStoreAUser(): void
+    {
+        self::expectException(RegisterUserDataLayerException::class);
+
+        $dummyUser = new User(
+            userUuid: new UserUuid('1342f1f3-5574-4c4b-80a0-d4d79cca5cea'),
+            email: new Email('any@email.com'),
+            password: new Password('anypassword1234'),
+            birthDate: new BirthDate(new DateTime('now')),
+            name: 'any',
+            lastname: 'any'
+        );
+
+        # DataLayer with connection expected
+        $dataLayer = new RegisterUserDataLayer(MemorySqliteConnection::getConnection());
+        $dataLayer->setTableName('tb_user+');
+
+        $dataLayer->invoke($dummyUser);
+    }
+
+
+    public function testShouldThrowARegisterUserDataLayerExceptionWhenIsImpossibleCheckIfEmailAlreadyExist(): void
+    {
+        self::expectException(RegisterUserDataLayerException::class);
+        # DataLayer with connection expected
+        $dataLayer = new RegisterUserDataLayer(MemorySqliteConnection::getConnection());
+        $dataLayer->setTableName('tb_user+');
+
+        $dataLayer->hasEmailAlready(new Email('any@emial.com'));
     }
 }

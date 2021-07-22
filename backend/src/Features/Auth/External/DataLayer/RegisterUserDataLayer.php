@@ -19,13 +19,25 @@ use RuntimeException;
 class RegisterUserDataLayer implements IRegisterUserDataLayer
 {
     public function __construct(
-        private Connection $connection
+        private Connection $connection,
+        private string $tableName = 'voting.tb_user'
     )
     {
     }
 
     /**
+     * Set te appropriated name for table.
+     * @param string $tableName
+     */
+    public function setTableName(string $tableName): void
+    {
+        $this->tableName = $tableName;
+    }
+
+
+    /**
      * @param User $user
+     * @codeCoverageIgnore
      */
     public function invoke(User $user): void
     {
@@ -33,7 +45,7 @@ class RegisterUserDataLayer implements IRegisterUserDataLayer
             $pdo = $this->connection->pdo();
             # sql prepare
             $statement = $pdo->prepare(
-                "INSERT INTO voting.tb_user(user_id, email, password, birth_date, name, last_name)
+                "INSERT INTO $this->tableName (user_id, email, password, birth_date, name, last_name)
                   VALUES (:userId, :email, :password, :birthDate, :name, :lastName)"
             );
 
@@ -59,11 +71,11 @@ class RegisterUserDataLayer implements IRegisterUserDataLayer
     {
         try {
             $pdo = $this->connection->pdo();
-            $statement = $pdo->prepare("SELECT email from voting.tb_user WHERE email = :email");
+            $statement = $pdo->prepare("SELECT email from $this->tableName WHERE email = :email");
             $statement->bindValue(':email', $email->getValue());
             $statement->execute();
 
-            return $statement->rowCount() >= 1;
+            return !empty($statement->fetch());
         } catch (PDOException | RuntimeException $e) {
             throw new RegisterUserDataLayerException($e);
         }
