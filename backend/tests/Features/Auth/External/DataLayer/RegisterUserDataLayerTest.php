@@ -8,6 +8,7 @@ use DateTime;
 use PDO;
 use PHPUnit\Framework\TestCase;
 use Rodri\VotingApp\App\Database\Connection\MemorySqliteConnection;
+use Rodri\VotingApp\Features\Auth\Domain\Adapters\IPasswordEncrypt;
 use Rodri\VotingApp\Features\Auth\Domain\Adapters\IUuid;
 use Rodri\VotingApp\Features\Auth\Domain\Entities\User;
 use Rodri\VotingApp\Features\Auth\Domain\ValueObjects\BirthDate;
@@ -31,10 +32,15 @@ class RegisterUserDataLayerTest extends TestCase
         $uuidMock->method('genUUIDv4')
             ->willReturn('a55f1a8d-ccfd-4a9a-9ab1-714efe85f5bc');
 
+        $passwordEncryptMock = self::createMock(IPasswordEncrypt::class);
+        $passwordEncryptMock->method('hash')
+            ->willReturn(password_hash('anysecret1234', PASSWORD_DEFAULT));
+
+
         $dummyUser = new User(
             userUuid: new UserUuid($uuidMock),
             email: new Email('any@email.com'),
-            password: new Password('anypassword1234'),
+            password: new Password('anysecret1234', $passwordEncryptMock),
             birthDate: new BirthDate(new DateTime('now')),
             name: 'any',
             lastname: 'any'
@@ -44,7 +50,7 @@ class RegisterUserDataLayerTest extends TestCase
         $dataLayer = new RegisterUserDataLayer(MemorySqliteConnection::getConnection());
         $dataLayer->setTableName('tb_user');
 
-        if($dataLayer->hasEmailAlready($dummyUser->getEmail())) {
+        if ($dataLayer->hasEmailAlready($dummyUser->getEmail())) {
             self::markTestSkipped('Skipped: E-mail already exists');
         }
 
@@ -77,10 +83,15 @@ class RegisterUserDataLayerTest extends TestCase
         $uuidMock->method('genUUIDv4')
             ->willReturn('a55f1a8d-ccfd-4a9a-9ab1-714efe85f5bc');
 
+        $passwordEncryptMock = self::createMock(IPasswordEncrypt::class);
+        $passwordEncryptMock->method('hash')
+            ->willReturn(password_hash('anysecret1234', PASSWORD_DEFAULT));
+
+
         $dummyUser = new User(
             userUuid: new UserUuid($uuidMock),
             email: new Email('any@email.com'),
-            password: new Password('anypassword1234'),
+            password: new Password('anysecret1234', $passwordEncryptMock),
             birthDate: new BirthDate(new DateTime('now')),
             name: 'any',
             lastname: 'any'
