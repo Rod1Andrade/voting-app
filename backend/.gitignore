@@ -4,3 +4,4 @@
 # Unit Tests Ignore cover
 /cover/
 /.phpunit.cache/
+.phpunit.result.cache
