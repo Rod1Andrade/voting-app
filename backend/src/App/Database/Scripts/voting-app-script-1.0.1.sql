@@ -1,5 +1,5 @@
 -- Voting app
--- Version: 1.0.0
+-- Version: 1.0.1
 -- Author: Rodrigo Andrade
 -- Since: 2021-20-07
 
@@ -32,6 +32,9 @@ create table if not exists voting.tb_user
     update_at  timestamp default null,
     primary key (user_id)
 );
+
+-- Alter table
+alter table voting.tb_user add constraint unique_email unique (email);
 
 -- triggers
 -- ### Triggers
