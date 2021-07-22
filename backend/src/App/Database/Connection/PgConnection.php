@@ -14,7 +14,7 @@ use PDO;
 class PgConnection extends Connection
 {
     /**
-     *
+     * Take the connection instance
      * @return Connection
      */
     public static function getConnection(): Connection
@@ -45,6 +45,7 @@ class PgConnection extends Connection
 
     /**
      * Private constructor to maintain singleton pattern.
+     * @codeCoverageIgnore
      */
     private function __construct()
     {
@@ -53,6 +54,7 @@ class PgConnection extends Connection
 
     /**
      * Private clone to maintain singleton pattern.
+     * @codeCoverageIgnore
      */
     protected function __clone(): void
     {
