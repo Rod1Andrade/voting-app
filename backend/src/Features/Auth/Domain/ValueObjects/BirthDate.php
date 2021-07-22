@@ -26,6 +26,7 @@ class BirthDate
 
     /**
      * @return DateTime
+     * @codeCoverageIgnore
      */
     public function getValue(): DateTime
     {
@@ -34,12 +35,18 @@ class BirthDate
 
     /**
      * @param DateTime $value
+     * @codeCoverageIgnore
      */
     public function setValue(DateTime $value): void
     {
         $this->value = $value;
     }
 
+    /**
+     * Return a formatted date in default pattern ISO8602
+     * @return string
+     * @codeCoverageIgnore
+     */
     public function getFormattedDate(): string
     {
         return $this->getValue()->format(DateTimeInterface::ISO8601);
@@ -47,6 +54,7 @@ class BirthDate
 
     /**
      * @return string
+     * @codeCoverageIgnore
      */
     public function __toString(): string
     {

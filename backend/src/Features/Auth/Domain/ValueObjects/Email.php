@@ -5,6 +5,7 @@ namespace Rodri\VotingApp\Features\Auth\Domain\ValueObjects;
 
 
 use JetBrains\PhpStorm\Pure;
+use Rodri\VotingApp\Features\Auth\Domain\Exceptions\InvalidEmailException;
 
 /**
  * Value Object Email
@@ -13,6 +14,8 @@ use JetBrains\PhpStorm\Pure;
  */
 class Email
 {
+    public const EMAIL_REGEX = '/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/';
+
     /**
      * Email constructor.
      * @param string $value
@@ -21,6 +24,7 @@ class Email
         private string $value,
     )
     {
+        $this->setValue($this->value);
     }
 
     /**
@@ -33,17 +37,32 @@ class Email
 
     /**
      * @param string $value
+     * @throws InvalidEmailException
      */
     public function setValue(string $value): void
     {
+        if (!self::isValid($value))
+            throw new InvalidEmailException('Invalid email');
+
         $this->value = $value;
     }
 
     /**
+     * @param string $value
+     * @return bool
+     */
+    public static function isValid(string $value): bool
+    {
+        return !empty(filter_var( $value, FILTER_VALIDATE_EMAIL));
+    }
+
+    /**
      * @return string
+     * @codeCoverageIgnore
      */
     #[Pure] public function __toString(): string
     {
         return $this->getValue();
     }
+
 }

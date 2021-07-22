@@ -41,7 +41,7 @@ class RegisterUserRepositoryTest extends TestCase
 
         $repository->invoke(new User(
             userUuid: new UserUuid($uuidMock),
-            email: new Email('any'),
+            email: new Email('any@email.com'),
             password: new Password('anysecret1234', $passwordEncryptMock),
             birthDate: new BirthDate(new DateTime('now')),
             name: 'any',
@@ -59,7 +59,7 @@ class RegisterUserRepositoryTest extends TestCase
 
         $repository = new RegisterUserRepository($dataLayer);
 
-        self::assertTrue($repository->hasEmailAlready(new Email('any')));
+        self::assertTrue($repository->hasEmailAlready(new Email('any@email.com')));
     }
 
     public function testShouldThrowADataLayerExceptionWhenIsImpossibleRegisterAUser(): void
@@ -88,7 +88,7 @@ class RegisterUserRepositoryTest extends TestCase
 
         $repository->invoke(new User(
             userUuid: new UserUuid($uuidMock),
-            email: new Email('any'),
+            email: new Email('any@email.com'),
             password: new Password('anysecret1234', $passwordEncryptMock),
             birthDate: new BirthDate(new DateTime('now')),
             name: 'any',
@@ -106,6 +106,6 @@ class RegisterUserRepositoryTest extends TestCase
 
         $repository = new RegisterUserRepository($dataLayer);
 
-        $repository->hasEmailAlready(new Email('any'));
+        $repository->hasEmailAlready(new Email('any@email.com'));
     }
 }

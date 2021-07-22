@@ -45,7 +45,7 @@ class RegisterUserUseCaseTest extends TestCase
 
         $useCase(new User(
             userUuid: new UserUuid($uuidMock),
-            email: new Email('any'),
+            email: new Email('any@email.com'),
             password: new Password('anysecret1234', $passwordEncryptMock),
             birthDate: new BirthDate(new DateTime('now')),
             name: 'any',
@@ -82,7 +82,7 @@ class RegisterUserUseCaseTest extends TestCase
 
         $useCase(new User(
             userUuid: new UserUuid($uuidMock),
-            email: new Email('any'),
+            email: new Email('any@email.com'),
             password: new Password('anysecret1234', $passwordEncryptMock),
             birthDate: new BirthDate(new DateTime('now')),
             name: 'any',
@@ -117,7 +117,7 @@ class RegisterUserUseCaseTest extends TestCase
 
         $useCase(new User(
             userUuid: new UserUuid($uuidMock),
-            email: new Email('any'),
+            email: new Email('any@email.com'),
             password: new Password('anysecret1234', $passwordEncryptMock),
             birthDate: new BirthDate(new DateTime('now')),
             name: 'any',
