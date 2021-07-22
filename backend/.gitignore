@@ -1,2 +1,6 @@
 /vendor/
 /.idea/
+
+# Unit Tests Ignore cover
+/cover/
+/.phpunit.cache/
