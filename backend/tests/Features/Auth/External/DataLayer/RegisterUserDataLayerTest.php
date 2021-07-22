@@ -5,7 +5,6 @@ namespace Features\Auth\External\DataLayer;
 
 
 use DateTime;
-use PDO;
 use PHPUnit\Framework\TestCase;
 use Rodri\VotingApp\App\Database\Connection\MemorySqliteConnection;
 use Rodri\VotingApp\Features\Auth\Domain\Adapters\IPasswordEncrypt;
@@ -20,10 +19,6 @@ use Rodri\VotingApp\Features\Auth\Infra\Exceptions\RegisterUserDataLayerExceptio
 
 class RegisterUserDataLayerTest extends TestCase
 {
-    public function testConnection(): void
-    {
-        self::assertInstanceOf(PDO::class, MemorySqliteConnection::getConnection()->pdo());
-    }
 
     public function testShouldStoreUserInDataBase(): void
     {

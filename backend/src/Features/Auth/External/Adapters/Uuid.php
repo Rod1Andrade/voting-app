@@ -14,6 +14,10 @@ use Rodri\VotingApp\Features\Auth\Domain\Adapters\IUuid;
 class Uuid implements IUuid
 {
 
+    /**
+     * @return string
+     * @codeCoverageIgnore
+     */
     public function genUUIDv4(): string
     {
         return RUuid::uuid4()->toString();
