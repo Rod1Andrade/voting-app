@@ -7,6 +7,7 @@ namespace Features\Auth\Infra\Repositories;
 use DateTime;
 use Exception;
 use PHPUnit\Framework\TestCase;
+use Rodri\VotingApp\Features\Auth\Domain\Adapters\IUuid;
 use Rodri\VotingApp\Features\Auth\Domain\Entities\User;
 use Rodri\VotingApp\Features\Auth\Domain\ValueObjects\BirthDate;
 use Rodri\VotingApp\Features\Auth\Domain\ValueObjects\Email;
@@ -23,8 +24,12 @@ class RegisterUserRepositoryTest extends TestCase
         $dataLayer = self::createMock(IRegisterUserDataLayer::class);
         $repository = new RegisterUserRepository($dataLayer);
 
+        $uuidMock = self::createMock(IUuid::class);
+        $uuidMock->method('genUUIDv4')
+            ->willReturn('a55f1a8d-ccfd-4a9a-9ab1-714efe85f5bc');
+
         $repository->invoke(new User(
-            userUuid: new UserUuid('any'),
+            userUuid: new UserUuid($uuidMock),
             email: new Email('any'),
             password: new Password('any'),
             birthDate: new BirthDate(new DateTime('now')),
@@ -56,8 +61,12 @@ class RegisterUserRepositoryTest extends TestCase
 
         $repository = new RegisterUserRepository($dataLayer);
 
+        $uuidMock = self::createMock(IUuid::class);
+        $uuidMock->method('genUUIDv4')
+            ->willReturn('a55f1a8d-ccfd-4a9a-9ab1-714efe85f5bc');
+
         $repository->invoke(new User(
-            userUuid: new UserUuid('any'),
+            userUuid: new UserUuid($uuidMock),
             email: new Email('any'),
             password: new Password('any'),
             birthDate: new BirthDate(new DateTime('now')),

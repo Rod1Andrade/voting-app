@@ -8,6 +8,7 @@ use DateTime;
 use PDO;
 use PHPUnit\Framework\TestCase;
 use Rodri\VotingApp\App\Database\Connection\MemorySqliteConnection;
+use Rodri\VotingApp\Features\Auth\Domain\Adapters\IUuid;
 use Rodri\VotingApp\Features\Auth\Domain\Entities\User;
 use Rodri\VotingApp\Features\Auth\Domain\ValueObjects\BirthDate;
 use Rodri\VotingApp\Features\Auth\Domain\ValueObjects\Email;
@@ -25,8 +26,13 @@ class RegisterUserDataLayerTest extends TestCase
 
     public function testShouldStoreUserInDataBase(): void
     {
+
+        $uuidMock = self::createMock(IUuid::class);
+        $uuidMock->method('genUUIDv4')
+            ->willReturn('a55f1a8d-ccfd-4a9a-9ab1-714efe85f5bc');
+
         $dummyUser = new User(
-            userUuid: new UserUuid('1342f1f3-5574-4c4b-80a0-d4d79cca5cea'),
+            userUuid: new UserUuid($uuidMock),
             email: new Email('any@email.com'),
             password: new Password('anypassword1234'),
             birthDate: new BirthDate(new DateTime('now')),
@@ -67,9 +73,12 @@ class RegisterUserDataLayerTest extends TestCase
     public function testShouldThrowARegisterUserDataLayerExceptionWhenIsImpossibleStoreAUser(): void
     {
         self::expectException(RegisterUserDataLayerException::class);
+        $uuidMock = self::createMock(IUuid::class);
+        $uuidMock->method('genUUIDv4')
+            ->willReturn('a55f1a8d-ccfd-4a9a-9ab1-714efe85f5bc');
 
         $dummyUser = new User(
-            userUuid: new UserUuid('1342f1f3-5574-4c4b-80a0-d4d79cca5cea'),
+            userUuid: new UserUuid($uuidMock),
             email: new Email('any@email.com'),
             password: new Password('anypassword1234'),
             birthDate: new BirthDate(new DateTime('now')),

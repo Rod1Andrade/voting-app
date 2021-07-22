@@ -7,6 +7,7 @@ namespace Features\Auth\Domain\UseCases;
 use DateTime;
 use Exception;
 use PHPUnit\Framework\TestCase;
+use Rodri\VotingApp\Features\Auth\Domain\Adapters\IUuid;
 use Rodri\VotingApp\Features\Auth\Domain\Entities\User;
 use Rodri\VotingApp\Features\Auth\Domain\Exceptions\RegisterUserException;
 use Rodri\VotingApp\Features\Auth\Domain\Repositories\IRegisterUserRepository;
@@ -27,8 +28,12 @@ class RegisterUserUseCaseTest extends TestCase
 
         $useCase = new RegisterUserUseCase($repository);
 
+        $uuidMock = self::createMock(IUuid::class);
+        $uuidMock->method('genUUIDv4')
+            ->willReturn('a55f1a8d-ccfd-4a9a-9ab1-714efe85f5bc');
+
         $useCase(new User(
-            userUuid: new UserUuid('any'),
+            userUuid: new UserUuid($uuidMock),
             email: new Email('any'),
             password: new Password('any'),
             birthDate: new BirthDate(new DateTime('now')),
@@ -50,8 +55,12 @@ class RegisterUserUseCaseTest extends TestCase
 
         $useCase = new RegisterUserUseCase($repository);
 
+        $uuidMock = self::createMock(IUuid::class);
+        $uuidMock->method('genUUIDv4')
+            ->willReturn('a55f1a8d-ccfd-4a9a-9ab1-714efe85f5bc');
+
         $useCase(new User(
-            userUuid: new UserUuid('any'),
+            userUuid: new UserUuid($uuidMock),
             email: new Email('any'),
             password: new Password('any'),
             birthDate: new BirthDate(new DateTime('now')),
@@ -71,8 +80,12 @@ class RegisterUserUseCaseTest extends TestCase
 
         $useCase = new RegisterUserUseCase($repository);
 
+        $uuidMock = self::createMock(IUuid::class);
+        $uuidMock->method('genUUIDv4')
+            ->willReturn('a55f1a8d-ccfd-4a9a-9ab1-714efe85f5bc');
+
         $useCase(new User(
-            userUuid: new UserUuid('any'),
+            userUuid: new UserUuid($uuidMock),
             email: new Email('any'),
             password: new Password('any'),
             birthDate: new BirthDate(new DateTime('now')),
