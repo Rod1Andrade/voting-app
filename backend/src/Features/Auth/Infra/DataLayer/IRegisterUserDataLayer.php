@@ -5,7 +5,6 @@ namespace Rodri\VotingApp\Features\Auth\Infra\DataLayer;
 
 
 use Exception;
-use Rodri\VotingApp\Features\Auth\Domain\Entities\User;
 use Rodri\VotingApp\Features\Auth\Domain\ValueObjects\Email;
 use Rodri\VotingApp\Features\Auth\Infra\DataTransferObjects\UserDTO;
 

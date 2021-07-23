@@ -27,7 +27,8 @@ class MemorySqliteConnection extends Connection
             !self::getConnection()->pdoInstance = new PDO(
                 'sqlite:' . __DIR__ . '/../../../../storage/db/memory_sqlite.sq3',
                 null, null,
-                [PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_OBJ]);
+                self::OPTIONS
+            );
         }
 
         return self::getConnection()->pdoInstance;

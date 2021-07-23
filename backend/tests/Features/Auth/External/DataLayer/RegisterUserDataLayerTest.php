@@ -27,7 +27,7 @@ class RegisterUserDataLayerTest extends TestCase
      */
     public function loadUser(): void
     {
-        self::$dummyUser = UserDTO::factoryUserDTO(new User(
+        self::$dummyUser = UserDTO::factoryUserDTOfromUser(new User(
             userUuid: new UserUuid('a55f1a8d-ccfd-4a9a-9ab1-714efe85f5bc'),
             email: new Email('any@email.com'),
             password: new Password(PasswordEncrypt::hash('anysecret1234')),

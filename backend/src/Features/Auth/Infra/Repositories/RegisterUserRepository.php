@@ -37,8 +37,8 @@ class RegisterUserRepository implements IRegisterUserRepository
     public function invoke(User $user): void
     {
         try {
-            $this->dataLayer->invoke(UserDTO::factoryUserDTO($user));
-        } catch (Exception $e) {
+            $this->dataLayer->invoke(UserDTO::factoryUserDTOfromUser($user));
+        } catch (Exception) {
             throw new RegisterUserDataLayerException('Impossible register a user');
         }
     }
@@ -52,7 +52,7 @@ class RegisterUserRepository implements IRegisterUserRepository
     {
         try {
             return $this->dataLayer->hasEmailAlready($email);
-        } catch (Exception $e) {
+        } catch (Exception) {
             throw new RegisterUserDataLayerException('Impossible check if email already exist.');
         }
     }

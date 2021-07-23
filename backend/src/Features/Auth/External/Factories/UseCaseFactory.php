@@ -13,6 +13,7 @@ class UseCaseFactory implements IUseCaseFactory
 {
 
     /**
+     * @param Connection $connection
      * @return IRegisterUserUseCase
      * @codeCoverageIgnore
      */

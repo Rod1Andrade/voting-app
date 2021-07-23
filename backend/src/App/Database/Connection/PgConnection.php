@@ -19,7 +19,7 @@ class PgConnection extends Connection
      */
     public static function getConnection(): Connection
     {
-        if (!self::$instance)
+        if (empty(self::$instance))
             self::$instance = new PgConnection();
 
         return self::$instance;

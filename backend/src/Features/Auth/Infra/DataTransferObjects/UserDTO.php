@@ -10,7 +10,10 @@ use Rodri\VotingApp\Features\Auth\Domain\ValueObjects\BirthDate;
 use Rodri\VotingApp\Features\Auth\Domain\ValueObjects\Email;
 use Rodri\VotingApp\Features\Auth\Domain\ValueObjects\Password;
 use Rodri\VotingApp\Features\Auth\Domain\ValueObjects\UserUuid;
+use Rodri\VotingApp\Features\Auth\External\Adapters\PasswordEncrypt;
+use Rodri\VotingApp\Features\Auth\External\Adapters\Uuid;
 use RuntimeException;
+use stdClass;
 
 /**
  * Class To Transfer data between layers - UserDTO
@@ -31,11 +34,28 @@ class UserDTO
     }
 
     /**
+     * @param stdClass $user
+     * @param string $uuid
+     * @return UserDTO
+     */
+    public static function factoryUserDTOFromStdClass(stdClass $user, string $uuid = ''): UserDTO
+    {
+        return new UserDTO(
+            userUuid: empty($uuid) ? Uuid::genUUIDv4() : $uuid,
+            email: $user->email,
+            password: PasswordEncrypt::hash($user->password),
+            birthDate: $user->birthDate,
+            name: $user->name,
+            lastName: $user->lastName
+        );
+    }
+    
+    /**
      * Create a instance of User DTO based on User
      * @param User $user
      * @return UserDTO
      */
-    public static function factoryUserDTO(User $user): UserDTO
+    public static function factoryUserDTOfromUser(User $user): UserDTO
     {
         return new UserDTO(
             userUuid: $user->getUserUuid()->getValue(),
@@ -51,13 +71,13 @@ class UserDTO
      * @param UserDTO $userDTO
      * @return User
      */
-    public static function factoryUser(UserDTO $userDTO): User
+    public static function FactoryUserFromDTO(UserDTO $userDTO): User
     {
         try {
             return new User(
                 userUuid: new UserUuid($userDTO->getUserUuid()),
                 email: new Email($userDTO->getEmail()),
-                password: new Password($userDTO->getPassword()),
+                password: new Password(PasswordEncrypt::hash($userDTO->getPassword())),
                 birthDate: new BirthDate(new DateTime($userDTO->getBirthDate())),
                 name: $userDTO->getName(),
                 lastname: $userDTO->getLastName()

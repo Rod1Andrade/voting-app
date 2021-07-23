@@ -38,7 +38,7 @@ class RegisterUserUseCase implements IRegisterUserUseCase
 
         try {
             $this->repository->invoke($user);
-        } catch (Exception $e) {
+        } catch (Exception) {
             throw new RegisterUserException('Impossible Register a user');
         }
     }
@@ -53,7 +53,7 @@ class RegisterUserUseCase implements IRegisterUserUseCase
         try {
             $this->checkIfEmailAlreadyExist($user->getEmail());
         } catch (RegisterUserException | RuntimeException $e) {
-            throw new $e;
+            throw new RegisterUserException($e->getMessage());
         }
     }
 
