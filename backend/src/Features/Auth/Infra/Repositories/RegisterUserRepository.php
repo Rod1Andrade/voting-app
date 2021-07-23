@@ -9,6 +9,7 @@ use Rodri\VotingApp\Features\Auth\Domain\Entities\User;
 use Rodri\VotingApp\Features\Auth\Domain\Repositories\IRegisterUserRepository;
 use Rodri\VotingApp\Features\Auth\Domain\ValueObjects\Email;
 use Rodri\VotingApp\Features\Auth\Infra\DataLayer\IRegisterUserDataLayer;
+use Rodri\VotingApp\Features\Auth\Infra\DataTransferObjects\UserDTO;
 use Rodri\VotingApp\Features\Auth\Infra\Exceptions\RegisterUserDataLayerException;
 
 /**
@@ -36,7 +37,7 @@ class RegisterUserRepository implements IRegisterUserRepository
     public function invoke(User $user): void
     {
         try {
-            $this->dataLayer->invoke($user);
+            $this->dataLayer->invoke(UserDTO::factoryUserDTO($user));
         } catch (Exception $e) {
             throw new RegisterUserDataLayerException('Impossible register a user');
         }

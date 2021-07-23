@@ -14,26 +14,27 @@ use Rodri\VotingApp\Features\Auth\Domain\ValueObjects\Password;
 use Rodri\VotingApp\Features\Auth\Domain\ValueObjects\UserUuid;
 use Rodri\VotingApp\Features\Auth\External\Adapters\PasswordEncrypt;
 use Rodri\VotingApp\Features\Auth\External\DataLayer\RegisterUserDataLayer;
+use Rodri\VotingApp\Features\Auth\Infra\DataTransferObjects\UserDTO;
 use Rodri\VotingApp\Features\Auth\Infra\Exceptions\RegisterUserDataLayerException;
 
 class RegisterUserDataLayerTest extends TestCase
 {
 
-    private static User $dummyUser;
+    private static UserDTO $dummyUser;
 
     /**
      * @before
      */
     public function loadUser(): void
     {
-        self::$dummyUser = new User(
+        self::$dummyUser = UserDTO::factoryUserDTO(new User(
             userUuid: new UserUuid('a55f1a8d-ccfd-4a9a-9ab1-714efe85f5bc'),
             email: new Email('any@email.com'),
             password: new Password(PasswordEncrypt::hash('anysecret1234')),
             birthDate: new BirthDate(new DateTime('now')),
             name: 'any',
             lastname: 'any'
-        );
+        ));
     }
 
     public function testShouldStoreUserInDataBase(): void
@@ -42,7 +43,7 @@ class RegisterUserDataLayerTest extends TestCase
         $dataLayer = new RegisterUserDataLayer(MemorySqliteConnection::getConnection());
         $dataLayer->setTableName('tb_user');
 
-        if ($dataLayer->hasEmailAlready(self::$dummyUser->getEmail())) {
+        if ($dataLayer->hasEmailAlready(new Email(self::$dummyUser->getEmail()))) {
             self::markTestSkipped('Skipped: E-mail already exists');
         }
 

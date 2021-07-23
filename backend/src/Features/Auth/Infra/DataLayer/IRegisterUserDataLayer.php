@@ -7,6 +7,7 @@ namespace Rodri\VotingApp\Features\Auth\Infra\DataLayer;
 use Exception;
 use Rodri\VotingApp\Features\Auth\Domain\Entities\User;
 use Rodri\VotingApp\Features\Auth\Domain\ValueObjects\Email;
+use Rodri\VotingApp\Features\Auth\Infra\DataTransferObjects\UserDTO;
 
 /**
  * Data Layer - Interface IRegisterUserDataLayer
@@ -16,10 +17,10 @@ use Rodri\VotingApp\Features\Auth\Domain\ValueObjects\Email;
 interface IRegisterUserDataLayer
 {
     /**
-     * @param User $user
+     * @param UserDTO $userDTO
      * @throws Exception
      */
-    public function invoke(User $user): void;
+    public function invoke(UserDTO $userDTO): void;
 
     /**
      * @param Email $email

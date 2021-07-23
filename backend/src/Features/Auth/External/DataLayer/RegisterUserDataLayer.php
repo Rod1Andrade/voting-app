@@ -5,9 +5,9 @@ namespace Rodri\VotingApp\Features\Auth\External\DataLayer;
 
 use PDOException;
 use Rodri\VotingApp\App\Database\Connection\Connection;
-use Rodri\VotingApp\Features\Auth\Domain\Entities\User;
 use Rodri\VotingApp\Features\Auth\Domain\ValueObjects\Email;
 use Rodri\VotingApp\Features\Auth\Infra\DataLayer\IRegisterUserDataLayer;
+use Rodri\VotingApp\Features\Auth\Infra\DataTransferObjects\UserDTO;
 use Rodri\VotingApp\Features\Auth\Infra\Exceptions\RegisterUserDataLayerException;
 use RuntimeException;
 
@@ -36,10 +36,10 @@ class RegisterUserDataLayer implements IRegisterUserDataLayer
 
 
     /**
-     * @param User $user
+     * @param UserDTO $userDTO
      * @codeCoverageIgnore
      */
-    public function invoke(User $user): void
+    public function invoke(UserDTO $userDTO): void
     {
         try {
             $pdo = $this->connection->pdo();
@@ -50,12 +50,12 @@ class RegisterUserDataLayer implements IRegisterUserDataLayer
             );
 
             # bind
-            $statement->bindValue(':userId', $user->getUserUuid()->getValue());
-            $statement->bindValue(':email', $user->getEmail()->getValue());
-            $statement->bindValue(':password', $user->getPassword()->getValue());
-            $statement->bindValue(':birthDate', $user->getBirthDate()->getFormattedDate());
-            $statement->bindValue(':name', $user->getName());
-            $statement->bindValue(':lastName', $user->getLastname());
+            $statement->bindValue(':userId', $userDTO->getUserUuid());
+            $statement->bindValue(':email', $userDTO->getEmail());
+            $statement->bindValue(':password', $userDTO->getPassword());
+            $statement->bindValue(':birthDate', $userDTO->getBirthDate());
+            $statement->bindValue(':name', $userDTO->getName());
+            $statement->bindValue(':lastName', $userDTO->getLastname());
 
             $statement->execute();
         } catch (PDOException | RuntimeException $e) {
