@@ -7,8 +7,6 @@ namespace Features\Auth\Domain\UseCases;
 use DateTime;
 use Exception;
 use PHPUnit\Framework\TestCase;
-use Rodri\VotingApp\Features\Auth\Domain\Adapters\IPasswordEncrypt;
-use Rodri\VotingApp\Features\Auth\Domain\Adapters\IUuid;
 use Rodri\VotingApp\Features\Auth\Domain\Entities\User;
 use Rodri\VotingApp\Features\Auth\Domain\Exceptions\RegisterUserException;
 use Rodri\VotingApp\Features\Auth\Domain\Repositories\IRegisterUserRepository;
@@ -17,9 +15,27 @@ use Rodri\VotingApp\Features\Auth\Domain\ValueObjects\BirthDate;
 use Rodri\VotingApp\Features\Auth\Domain\ValueObjects\Email;
 use Rodri\VotingApp\Features\Auth\Domain\ValueObjects\Password;
 use Rodri\VotingApp\Features\Auth\Domain\ValueObjects\UserUuid;
+use Rodri\VotingApp\Features\Auth\External\Adapters\PasswordEncrypt;
 
 class RegisterUserUseCaseTest extends TestCase
 {
+
+    private static User $dummyUser;
+
+    /**
+     * @before
+     */
+    public function loadUser(): void
+    {
+        self::$dummyUser = new User(
+            userUuid: new UserUuid('a55f1a8d-ccfd-4a9a-9ab1-714efe85f5bc'),
+            email: new Email('any@email.com'),
+            password: new Password(PasswordEncrypt::hash('anysecret1234')),
+            birthDate: new BirthDate(new DateTime('now')),
+            name: 'any',
+            lastname: 'any'
+        );
+    }
 
     public function testShouldCallUseCaseMethodByInvokeMethod(): void
     {
@@ -29,28 +45,7 @@ class RegisterUserUseCaseTest extends TestCase
 
         $useCase = new RegisterUserUseCase($repository);
 
-        $uuidMock = self::createMock(IUuid::class);
-        $uuidMock->method('genUUIDv4')
-            ->willReturn('a55f1a8d-ccfd-4a9a-9ab1-714efe85f5bc');
-
-        $passwordEncryptMock = self::createMock(IPasswordEncrypt::class);
-        $passwordEncryptMock->method('hash')
-            ->willReturn(password_hash('anysecret1234', PASSWORD_DEFAULT));
-
-        $passwordEncryptMock
-            ->method('check')
-            ->willReturn(
-                password_verify('anysecret1234', '$2y$10$7RL5ZSfCcsdKDeAnLnb1UO1PRUSKXsqsaNRTuYbwKDVnpYUvsBt.u')
-            );
-
-        $useCase(new User(
-            userUuid: new UserUuid($uuidMock),
-            email: new Email('any@email.com'),
-            password: new Password('anysecret1234', $passwordEncryptMock),
-            birthDate: new BirthDate(new DateTime('now')),
-            name: 'any',
-            lastname: 'any'
-        ));
+        $useCase(self::$dummyUser);
 
         self::assertTrue(true);
     }
@@ -66,28 +61,7 @@ class RegisterUserUseCaseTest extends TestCase
 
         $useCase = new RegisterUserUseCase($repository);
 
-        $uuidMock = self::createMock(IUuid::class);
-        $uuidMock->method('genUUIDv4')
-            ->willReturn('a55f1a8d-ccfd-4a9a-9ab1-714efe85f5bc');
-
-        $passwordEncryptMock = self::createMock(IPasswordEncrypt::class);
-        $passwordEncryptMock->method('hash')
-            ->willReturn(password_hash('anysecret1234', PASSWORD_DEFAULT));
-
-        $passwordEncryptMock
-            ->method('check')
-            ->willReturn(
-                password_verify('anysecret1234', '$2y$10$7RL5ZSfCcsdKDeAnLnb1UO1PRUSKXsqsaNRTuYbwKDVnpYUvsBt.u')
-            );
-
-        $useCase(new User(
-            userUuid: new UserUuid($uuidMock),
-            email: new Email('any@email.com'),
-            password: new Password('anysecret1234', $passwordEncryptMock),
-            birthDate: new BirthDate(new DateTime('now')),
-            name: 'any',
-            lastname: 'any'
-        ));
+        $useCase(self::$dummyUser);
     }
 
     public function testThrowAExceptionWhenEmailAlreadyExist(): void
@@ -101,27 +75,6 @@ class RegisterUserUseCaseTest extends TestCase
 
         $useCase = new RegisterUserUseCase($repository);
 
-        $uuidMock = self::createMock(IUuid::class);
-        $uuidMock->method('genUUIDv4')
-            ->willReturn('a55f1a8d-ccfd-4a9a-9ab1-714efe85f5bc');
-
-        $passwordEncryptMock = self::createMock(IPasswordEncrypt::class);
-        $passwordEncryptMock->method('hash')
-            ->willReturn(password_hash('anysecret1234', PASSWORD_DEFAULT));
-
-        $passwordEncryptMock
-            ->method('check')
-            ->willReturn(
-                password_verify('anysecret1234', '$2y$10$7RL5ZSfCcsdKDeAnLnb1UO1PRUSKXsqsaNRTuYbwKDVnpYUvsBt.u')
-            );
-
-        $useCase(new User(
-            userUuid: new UserUuid($uuidMock),
-            email: new Email('any@email.com'),
-            password: new Password('anysecret1234', $passwordEncryptMock),
-            birthDate: new BirthDate(new DateTime('now')),
-            name: 'any',
-            lastname: 'any'
-        ));
+        $useCase(self::$dummyUser);
     }
 }
