@@ -19,6 +19,7 @@ class RegisterUserUseCaseFacade
     /**
      * @param Connection $connection
      * @return IRegisterUserUseCase
+     * @codeCoverageIgnore
      */
     #[Pure] public function createUseCase(Connection $connection): IRegisterUserUseCase
     {
