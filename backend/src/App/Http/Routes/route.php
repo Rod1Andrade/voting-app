@@ -6,9 +6,9 @@ $router = new Router();
 
 # Settings
 $router->debug(getenv('DEV_MODE'));
-//$router->headerConfigs([
-//    'Content-type: application/json;charset=utf-8'
-//]);
+$router->headerConfigs([
+    'Content-type: application/json;charset=utf-8'
+]);
 $router->setControllerNamespace('Rodri\VotingApp\App\Http\Controllers');
 
 # Routes

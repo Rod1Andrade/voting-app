@@ -16,6 +16,7 @@ class PgConnection extends Connection
     /**
      * Take the connection instance
      * @return Connection
+     * @codeCoverageIgnore
      */
     public static function getConnection(): Connection
     {
@@ -28,6 +29,7 @@ class PgConnection extends Connection
     /**
      * Get Single Postgres PDO connection.
      * @return PDO
+     * @codeCoverageIgnore
      */
     public function pdo(): PDO
     {

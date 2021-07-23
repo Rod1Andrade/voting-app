@@ -24,6 +24,7 @@ class AuthController
      * Register user Method
      * @param Request $request
      * @return Response
+     * @codeCoverageIgnore
      */
     public function registerUser(Request $request): Response
     {
