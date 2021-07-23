@@ -5,7 +5,6 @@ namespace Rodri\VotingApp\Features\Auth\Domain\ValueObjects;
 
 
 use JetBrains\PhpStorm\Pure;
-use Rodri\VotingApp\Features\Auth\Domain\Adapters\IUuid;
 
 /**
  * Value Object UserUuid
@@ -15,17 +14,14 @@ use Rodri\VotingApp\Features\Auth\Domain\Adapters\IUuid;
 class UserUuid
 {
 
-    private string $value;
-
     /**
      * Email constructor.
-     * @param IUuid $uuid
+     * @param string $value
      */
     public function __construct(
-        IUuid $uuid,
+        private string $value,
     )
     {
-        $this->setValue($uuid);
     }
 
     /**
@@ -37,11 +33,11 @@ class UserUuid
     }
 
     /**
-     * @param IUuid $uuid
+     * @param string $value
      */
-    public function setValue(IUuid $uuid): void
+    public function setValue(string $value): void
     {
-        $this->value = $uuid->genUUIDv4();
+        $this->value = $value;
     }
 
     /**

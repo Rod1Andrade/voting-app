@@ -6,14 +6,14 @@ namespace Features\Auth\Domain\Entities;
 
 use DateTime;
 use PHPUnit\Framework\TestCase;
-use Rodri\VotingApp\Features\Auth\Domain\Adapters\IPasswordEncrypt;
-use Rodri\VotingApp\Features\Auth\Domain\Adapters\IUuid;
 use Rodri\VotingApp\Features\Auth\Domain\Entities\User;
 use Rodri\VotingApp\Features\Auth\Domain\Exceptions\InvalidEmailException;
 use Rodri\VotingApp\Features\Auth\Domain\ValueObjects\BirthDate;
 use Rodri\VotingApp\Features\Auth\Domain\ValueObjects\Email;
 use Rodri\VotingApp\Features\Auth\Domain\ValueObjects\Password;
 use Rodri\VotingApp\Features\Auth\Domain\ValueObjects\UserUuid;
+use Rodri\VotingApp\Features\Auth\External\Adapters\PasswordEncrypt;
+use Rodri\VotingApp\Features\Auth\External\Adapters\Uuid;
 
 class UserTest extends TestCase
 {
@@ -24,48 +24,21 @@ class UserTest extends TestCase
      */
     public function loadUser(): void
     {
-        $uuidMock = self::createMock(IUuid::class);
-        $uuidMock->method('genUUIDv4')
-            ->willReturn('a55f1a8d-ccfd-4a9a-9ab1-714efe85f5bc');
-
-        $passwordEncryptMock = self::createMock(IPasswordEncrypt::class);
-        $passwordEncryptMock->method('hash')
-            ->willReturn(password_hash('anysecret1234', PASSWORD_DEFAULT));
-
-        $passwordEncryptMock
-            ->method('check')
-            ->willReturn(
-                password_verify('anysecret1234', '$2y$10$7RL5ZSfCcsdKDeAnLnb1UO1PRUSKXsqsaNRTuYbwKDVnpYUvsBt.u')
-            );
-
         self::$user = new User(
-            new UserUuid($uuidMock),
+            new UserUuid(Uuid::genUUIDv4()),
             new Email('any@email.com'),
-            new Password('anysecret1234', $passwordEncryptMock),
+            new Password(PasswordEncrypt::hash('anysecret1234')),
             new BirthDate(new DateTime('now')), 'any', 'any');
     }
 
     public function testShouldThrowAInvalidEmailExceptionWhenHasAInvalidEmail(): void
     {
         self::expectException(InvalidEmailException::class);
-        $uuidMock = self::createMock(IUuid::class);
-        $uuidMock->method('genUUIDv4')
-            ->willReturn('a55f1a8d-ccfd-4a9a-9ab1-714efe85f5bc');
-
-        $passwordEncryptMock = self::createMock(IPasswordEncrypt::class);
-        $passwordEncryptMock->method('hash')
-            ->willReturn(password_hash('anysecret1234', PASSWORD_DEFAULT));
-
-        $passwordEncryptMock
-            ->method('check')
-            ->willReturn(
-                password_verify('anysecret1234', '$2y$10$7RL5ZSfCcsdKDeAnLnb1UO1PRUSKXsqsaNRTuYbwKDVnpYUvsBt.u')
-            );
 
         self::$user = new User(
-            new UserUuid($uuidMock),
+            new UserUuid(Uuid::genUUIDv4()),
             new Email('any@email.com.'),
-            new Password('anysecret1234', $passwordEncryptMock),
+            new Password('anysecret1234'),
             new BirthDate(new DateTime('now')), 'any', 'any');
     }
 

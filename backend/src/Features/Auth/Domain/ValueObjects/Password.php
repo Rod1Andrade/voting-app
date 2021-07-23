@@ -5,7 +5,7 @@ namespace Rodri\VotingApp\Features\Auth\Domain\ValueObjects;
 
 
 use JetBrains\PhpStorm\Pure;
-use Rodri\VotingApp\Features\Auth\Domain\Adapters\IPasswordEncrypt;
+use Rodri\VotingApp\Features\Auth\External\Adapters\PasswordEncrypt;
 
 /**
  * Value Object Password
@@ -16,14 +16,11 @@ class Password
     /**
      * Email constructor.
      * @param string $value
-     * @param IPasswordEncrypt $passwordEncrypt
      */
     public function __construct(
         private string $value,
-        private IPasswordEncrypt $passwordEncrypt
     )
     {
-        $this->setValue($value);
     }
 
     /**
@@ -39,12 +36,30 @@ class Password
      */
     public function setValue(string $value): void
     {
-        $this->value = $this->passwordEncrypt->hash($value);
+        $this->value = $value;
     }
 
+    /**
+     * Hash a password passed by argument or hash da password
+     * plain in the object.
+     * @param string $value
+     * @return string
+     */
+    public function hash(string $value = ''): string
+    {
+        if(empty($value))
+            return PasswordEncrypt::hash($this->value);
+
+        return PasswordEncrypt::hash($value);
+    }
+
+    /**
+     * @param string $value
+     * @return bool
+     */
     public function check(string $value): bool
     {
-        return $this->passwordEncrypt->check($this->value, $value);
+        return PasswordEncrypt::check($this->value, $value);
     }
 
     /**

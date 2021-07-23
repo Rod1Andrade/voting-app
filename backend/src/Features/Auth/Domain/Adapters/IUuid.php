@@ -13,5 +13,5 @@ interface IUuid
      * Generate a uuid and return it like a string.
      * @return string
      */
-    public function  genUUIDv4(): string;
+    public static function  genUUIDv4(): string;
 }

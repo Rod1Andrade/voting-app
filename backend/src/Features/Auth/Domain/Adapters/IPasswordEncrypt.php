@@ -14,13 +14,13 @@ interface IPasswordEncrypt
      * @param string $password
      * @return string
      */
-    public function hash(string $password): string;
+    public static function hash(string $password): string;
 
     /**
      * Check if the password is equals
-     * @param string $basePassword
+     * @param string $hashPassword
      * @param string $password
      * @return bool
      */
-    public function check(string $basePassword, string $password): bool;
+    public static function check(string $hashPassword, string $password): bool;
 }

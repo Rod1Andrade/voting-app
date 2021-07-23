@@ -18,7 +18,7 @@ class Uuid implements IUuid
      * @return string
      * @codeCoverageIgnore
      */
-    public function genUUIDv4(): string
+    public static function genUUIDv4(): string
     {
         return RUuid::uuid4()->toString();
     }
