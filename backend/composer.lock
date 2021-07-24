@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9f2dc79affb7d916d2d45fd784bf0b82",
+    "content-hash": "e8fda917adff449c299cf35bb0648912",
     "packages": [
         {
             "name": "brick/math",
@@ -368,16 +368,16 @@
         },
         {
             "name": "rodri/simple-router",
-            "version": "dev-develop",
+            "version": "v1.1.2-alpha",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Rod1Andrade/simple-router.git",
-                "reference": "a82f723694ebac08fb6569c92c4dbd8d4d55348f"
+                "reference": "c40a8ff715e49b4c18db5ecbe20c9725e8c988b2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Rod1Andrade/simple-router/zipball/a82f723694ebac08fb6569c92c4dbd8d4d55348f",
-                "reference": "a82f723694ebac08fb6569c92c4dbd8d4d55348f",
+                "url": "https://api.github.com/repos/Rod1Andrade/simple-router/zipball/c40a8ff715e49b4c18db5ecbe20c9725e8c988b2",
+                "reference": "c40a8ff715e49b4c18db5ecbe20c9725e8c988b2",
                 "shasum": ""
             },
             "require": {
@@ -412,9 +412,9 @@
             ],
             "support": {
                 "issues": "https://github.com/Rod1Andrade/simple-router/issues",
-                "source": "https://github.com/Rod1Andrade/simple-router/tree/develop"
+                "source": "https://github.com/Rod1Andrade/simple-router/tree/v1.1.2-alpha"
             },
-            "time": "2021-07-14T13:23:51+00:00"
+            "time": "2021-07-24T01:54:06+00:00"
         },
         {
             "name": "symfony/polyfill-ctype",
@@ -2757,7 +2757,7 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "rodri/simple-router": 20
+        "rodri/simple-router": 15
     },
     "prefer-stable": false,
     "prefer-lowest": false,

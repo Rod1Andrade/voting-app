@@ -1,5 +1,6 @@
 <?php
 
+use Rodri\SimpleRouter\Helpers\Header;
 use Rodri\SimpleRouter\Router;
 
 $router = new Router();
@@ -7,7 +8,7 @@ $router = new Router();
 # Settings
 $router->debug(getenv('DEV_MODE'));
 $router->headerConfigs([
-    'Content-type: application/json;charset=utf-8'
+    Header::APPLICATION_JSON_UTF8
 ]);
 $router->setControllerNamespace('Rodri\VotingApp\App\Http\Controllers');
 
