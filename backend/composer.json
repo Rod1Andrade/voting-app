@@ -28,7 +28,8 @@
     "phpunit/php-code-coverage": "*"
   },
   "scripts": {
-    "test-cover": "php -dxdebug.mode=coverage vendor/phpunit/phpunit/phpunit tests/ --coverage-html cover/"
+    "test-cover": "php -dxdebug.mode=coverage vendor/phpunit/phpunit/phpunit tests/ --coverage-html cover/",
+    "run-dev": "php -S localhost:8000 -t public"
   },
   "scripts-descriptions": {
     "test-cover": "Run the php unit tests with cover"

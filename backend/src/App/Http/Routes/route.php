@@ -14,7 +14,8 @@ $router->setControllerNamespace('Rodri\VotingApp\App\Http\Controllers');
 
 # Routes
 $router->group(['/auth'], function (Router $router) {
-    $router->post(['/signup'], 'AuthController#registerUser');
+    $router->post(['/signUp'], 'AuthController#registerUser');
+    $router->post(['/signIn'], 'AuthController#authenticateUser');
 });
 
 # Dispatcher
