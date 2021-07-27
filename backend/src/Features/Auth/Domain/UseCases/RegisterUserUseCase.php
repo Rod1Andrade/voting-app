@@ -9,6 +9,10 @@ use Rodri\VotingApp\Features\Auth\Domain\Entities\User;
 use Rodri\VotingApp\Features\Auth\Domain\Exceptions\RegisterUserException;
 use Rodri\VotingApp\Features\Auth\Domain\Repositories\IRegisterUserRepository;
 use Rodri\VotingApp\Features\Auth\Domain\ValueObjects\Email;
+use Rodri\VotingApp\Features\Auth\Domain\ValueObjects\Password;
+use Rodri\VotingApp\Features\Auth\Domain\ValueObjects\UserUuid;
+use Rodri\VotingApp\Features\Auth\External\Adapters\PasswordEncrypt;
+use Rodri\VotingApp\Features\Auth\External\Adapters\Uuid;
 use RuntimeException;
 
 /**
@@ -37,6 +41,14 @@ class RegisterUserUseCase implements IRegisterUserUseCase
         $this->validate($user);
 
         try {
+            # Generator UUID
+            $user->setUserUuid(new UserUuid(Uuid::genUUIDv4()));
+
+            # Encrypt Password
+            $password = $user->getPassword()->getValue();
+            if(PasswordEncrypt::isNotEncrypt($password))
+                $user->setPassword(new Password(PasswordEncrypt::hash($password)));
+
             $this->repository->invoke($user);
         } catch (Exception) {
             throw new RegisterUserException('Impossible Register a user');

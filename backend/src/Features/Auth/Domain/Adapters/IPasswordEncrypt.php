@@ -9,6 +9,9 @@ namespace Rodri\VotingApp\Features\Auth\Domain\Adapters;
  */
 interface IPasswordEncrypt
 {
+
+    public const DEFAULT_HASH = PASSWORD_BCRYPT;
+
     /**
      * Hash the password and return it
      * @param string $password
@@ -23,4 +26,11 @@ interface IPasswordEncrypt
      * @return bool
      */
     public static function check(string $hashPassword, string $password): bool;
+
+    /**
+     * Check if the password has any encrypt
+     * @param string $password
+     * @return bool
+     */
+    public static function isNotEncrypt(string $password): bool;
 }

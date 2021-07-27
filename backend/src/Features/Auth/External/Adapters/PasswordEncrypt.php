@@ -18,4 +18,9 @@ class PasswordEncrypt implements IPasswordEncrypt
     {
         return password_verify($password, $hashPassword);
     }
+
+    public static function isNotEncrypt(string $password): bool
+    {
+        return password_get_info($password)['algoName'] !== IPasswordEncrypt::DEFAULT_HASH;
+    }
 }

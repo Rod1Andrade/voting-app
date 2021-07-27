@@ -50,15 +50,14 @@ class UserDTO
 
     /**
      * @param stdClass $user
-     * @param string $uuid
      * @return UserDTO
      */
     #[Pure] public static function factoryUserDTOFromStdClass(stdClass $user): UserDTO
     {
         return new UserDTO(
-            userUuid: $user->userUuid ?? $user->user_id ?? null, // TODO: Colocar uuid generator fora do dto
+            userUuid: $user->userUuid ?? $user->user_id ?? null,
             email: $user->email ?? null,
-            password: $user->password ?? null, // TODO: Colocar hash de senha fora do dto
+            password: $user->password ?? null,
             birthDate: $user->birthDate ??null,
             name: $user->name ?? null,
             lastName: $user->lastName ?? null
