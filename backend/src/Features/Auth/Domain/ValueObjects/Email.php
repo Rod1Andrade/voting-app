@@ -14,8 +14,6 @@ use Rodri\VotingApp\Features\Auth\Domain\Exceptions\InvalidEmailException;
  */
 class Email
 {
-    public const EMAIL_REGEX = '/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/';
-
     /**
      * Email constructor.
      * @param string $value
