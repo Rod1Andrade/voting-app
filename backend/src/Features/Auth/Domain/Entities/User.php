@@ -18,126 +18,118 @@ class User
 {
     /**
      * User constructor.
-     * @param UserUuid $userUuid
-     * @param Email $email
-     * @param Password $password
-     * @param BirthDate $birthDate
-     * @param string $name
-     * @param string $lastname
+     * @param UserUuid|null $userUuid
+     * @param Email|null $email
+     * @param Password|null $password
+     * @param BirthDate|null $birthDate
+     * @param string|null $name
+     * @param string|null $lastname
      */
     public function __construct(
-        private UserUuid $userUuid,
-        private Email $email,
-        private Password $password,
-        private BirthDate $birthDate,
-        private string $name,
-        private string $lastname
+        private ?UserUuid $userUuid = null,
+        private ?Email $email = null,
+        private ?Password $password = null,
+        private ?BirthDate $birthDate = null,
+        private ?string $name = null,
+        private ?string $lastname = null
     )
     {
     }
 
     /**
-     * @return UserUuid
+     * @return UserUuid|null
      */
-    public function getUserUuid(): UserUuid
+    public function getUserUuid(): ?UserUuid
     {
         return $this->userUuid;
     }
 
     /**
-     * @param UserUuid $userUuid
-     * @codeCoverageIgnore
+     * @param UserUuid|null $userUuid
      */
-    public function setUserUuid(UserUuid $userUuid): void
+    public function setUserUuid(?UserUuid $userUuid): void
     {
         $this->userUuid = $userUuid;
     }
 
     /**
-     * @return Email
+     * @return Email|null
      */
-    public function getEmail(): Email
+    public function getEmail(): ?Email
     {
         return $this->email;
     }
 
     /**
-     * @param Email $email
-     * @codeCoverageIgnore
+     * @param Email|null $email
      */
-    public function setEmail(Email $email): void
+    public function setEmail(?Email $email): void
     {
         $this->email = $email;
     }
 
     /**
-     * @return Password
+     * @return Password|null
      */
-    public function getPassword(): Password
+    public function getPassword(): ?Password
     {
         return $this->password;
     }
 
     /**
-     * @param Password $password
-     * @codeCoverageIgnore
+     * @param Password|null $password
      */
-    public function setPassword(Password $password): void
+    public function setPassword(?Password $password): void
     {
         $this->password = $password;
     }
 
     /**
-     * @return BirthDate
-     * @codeCoverageIgnore
+     * @return BirthDate|null
      */
-    public function getBirthDate(): BirthDate
+    public function getBirthDate(): ?BirthDate
     {
         return $this->birthDate;
     }
 
     /**
-     * @param BirthDate $birthDate
-     * @codeCoverageIgnore
+     * @param BirthDate|null $birthDate
      */
-    public function setBirthDate(BirthDate $birthDate): void
+    public function setBirthDate(?BirthDate $birthDate): void
     {
         $this->birthDate = $birthDate;
     }
 
     /**
-     * @return string
-     * @codeCoverageIgnore
+     * @return string|null
      */
-    public function getName(): string
+    public function getName(): ?string
     {
         return $this->name;
     }
 
     /**
-     * @param string $name
-     * @codeCoverageIgnore
+     * @param string|null $name
      */
-    public function setName(string $name): void
+    public function setName(?string $name): void
     {
         $this->name = $name;
     }
 
     /**
-     * @return string
-     * @codeCoverageIgnore
+     * @return string|null
      */
-    public function getLastname(): string
+    public function getLastname(): ?string
     {
         return $this->lastname;
     }
 
     /**
-     * @param string $lastname
-     * @codeCoverageIgnore
+     * @param string|null $lastname
      */
-    public function setLastname(string $lastname): void
+    public function setLastname(?string $lastname): void
     {
         $this->lastname = $lastname;
     }
+
 }
