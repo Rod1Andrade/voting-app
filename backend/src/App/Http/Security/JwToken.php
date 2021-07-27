@@ -3,8 +3,13 @@
 
 namespace Rodri\VotingApp\App\Http\Security;
 
+use DateInterval;
 use DateTime;
+use DateTimeInterface;
+use Firebase\JWT\ExpiredException;
 use Firebase\JWT\JWT;
+use Firebase\JWT\SignatureInvalidException;
+use Rodri\VotingApp\App\Http\Exceptions\InvalidTokenException;
 use stdClass;
 
 /**
@@ -18,7 +23,12 @@ class JwToken
     /**
      * Default algorithm H256
      */
-    public const DEFAULT_ALGORITHM = 'H256';
+    public const DEFAULT_ALGORITHM = 'HS256';
+
+    /**
+     * Token request default
+     */
+    public const DEFAULT_TOKEN = 'Bearer ';
 
     /**
      * Encode a payload with Json Web token pattern.
@@ -27,7 +37,8 @@ class JwToken
      */
     public static function encode(array $payload): string
     {
-        $payload['exp'] = (new DateTime('now'))->modify('+1h');
+        $expirationDate = (new DateTime('now'))->add(new DateInterval('PT2H'));
+        $payload['exp'] = $expirationDate->format(DateTimeInterface::ISO8601);
 
         return JWT::encode($payload, getenv('JWT_KEY'));
     }
@@ -39,7 +50,14 @@ class JwToken
      */
     public static function decode(string $jwt): stdClass
     {
-        //TODO: Invalid JWT Token exception
-        return JWT::decode($jwt, getenv('JWT_KEY'), [JwToken::DEFAULT_ALGORITHM]);
+        try {
+            return JWT::decode(
+                str_replace(JwToken::DEFAULT_TOKEN, '', $jwt),
+                getenv('JWT_KEY'),
+                [JwToken::DEFAULT_ALGORITHM]
+            );
+        } catch (SignatureInvalidException | ExpiredException $e) {
+            throw new InvalidTokenException($e);
+        }
     }
 }
