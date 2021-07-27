@@ -15,14 +15,17 @@ use stdClass;
 class JwToken
 {
 
+    /**
+     * Default algorithm H256
+     */
     public const DEFAULT_ALGORITHM = 'H256';
 
     /**
      * Encode a payload with Json Web token pattern.
-     * @param $payload
+     * @param array $payload
      * @return string
      */
-    public static function encode($payload): string
+    public static function encode(array $payload): string
     {
         $payload['exp'] = (new DateTime('now'))->modify('+1h');
 
@@ -31,10 +34,10 @@ class JwToken
 
     /**
      * Decode and return a jwt.
-     * @param $jwt
+     * @param string $jwt
      * @return stdClass
      */
-    public static function decode($jwt): stdClass
+    public static function decode(string $jwt): stdClass
     {
         //TODO: Invalid JWT Token exception
         return JWT::decode($jwt, getenv('JWT_KEY'), [JwToken::DEFAULT_ALGORITHM]);
