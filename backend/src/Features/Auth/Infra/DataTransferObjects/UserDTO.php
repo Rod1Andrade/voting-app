@@ -11,7 +11,6 @@ use Rodri\VotingApp\Features\Auth\Domain\ValueObjects\BirthDate;
 use Rodri\VotingApp\Features\Auth\Domain\ValueObjects\Email;
 use Rodri\VotingApp\Features\Auth\Domain\ValueObjects\Password;
 use Rodri\VotingApp\Features\Auth\Domain\ValueObjects\UserUuid;
-use RuntimeException;
 use stdClass;
 
 /**
@@ -35,6 +34,7 @@ class UserDTO
     /**
      * @param array $user
      * @return UserDTO
+     * @codeCoverageIgnore
      */
     #[Pure] public static function factoryUserDTOFromArray(array $user): UserDTO
     {
@@ -51,6 +51,7 @@ class UserDTO
     /**
      * @param stdClass $user
      * @return UserDTO
+     * @codeCoverageIgnore
      */
     #[Pure] public static function factoryUserDTOFromStdClass(stdClass $user): UserDTO
     {
@@ -58,16 +59,17 @@ class UserDTO
             userUuid: $user->userUuid ?? $user->user_id ?? null,
             email: $user->email ?? null,
             password: $user->password ?? null,
-            birthDate: $user->birthDate ??null,
+            birthDate: $user->birthDate ?? null,
             name: $user->name ?? null,
             lastName: $user->lastName ?? null
         );
     }
-    
+
     /**
      * Create a instance of User DTO based on User
      * @param User $user
      * @return UserDTO
+     * @codeCoverageIgnore
      */
     public static function factoryUserDTOfromUser(User $user): UserDTO
     {
@@ -84,25 +86,24 @@ class UserDTO
     /**
      * @param UserDTO $userDTO
      * @return User
+     * @throws Exception
+     * @codeCoverageIgnore
      */
     public static function FactoryUserFromDTO(UserDTO $userDTO): User
     {
-        try {
-            return new User(
-                userUuid: $userDTO->userUuid ? new UserUuid($userDTO->getUserUuid()) : null,
-                email: $userDTO->email ? new Email($userDTO->getEmail()) : null,
-                password: $userDTO->password ? new Password($userDTO->getPassword()) : null,
-                birthDate: $userDTO->birthDate ? new BirthDate(new DateTime($userDTO->getBirthDate())) : null,
-                name: $userDTO->email ? $userDTO->getName(): null,
-                lastname: $userDTO->lastName ? $userDTO->getLastName() : null
-            );
-        } catch (Exception $e) {
-            throw new RuntimeException($e);
-        }
+        return new User(
+            userUuid: $userDTO->userUuid ? new UserUuid($userDTO->getUserUuid()) : null,
+            email: $userDTO->email ? new Email($userDTO->getEmail()) : null,
+            password: $userDTO->password ? new Password($userDTO->getPassword()) : null,
+            birthDate: $userDTO->birthDate ? new BirthDate(new DateTime($userDTO->getBirthDate())) : null,
+            name: $userDTO->email ? $userDTO->getName() : null,
+            lastname: $userDTO->lastName ? $userDTO->getLastName() : null
+        );
     }
 
     /**
      * @return string|null
+     * @codeCoverageIgnore
      */
     public function getUserUuid(): ?string
     {
@@ -111,6 +112,7 @@ class UserDTO
 
     /**
      * @param string|null $userUuid
+     * @codeCoverageIgnore
      */
     public function setUserUuid(?string $userUuid): void
     {
@@ -119,6 +121,7 @@ class UserDTO
 
     /**
      * @return string|null
+     * @codeCoverageIgnore
      */
     public function getEmail(): ?string
     {
@@ -127,6 +130,7 @@ class UserDTO
 
     /**
      * @param string|null $email
+     * @codeCoverageIgnore
      */
     public function setEmail(?string $email): void
     {
@@ -135,6 +139,7 @@ class UserDTO
 
     /**
      * @return string|null
+     * @codeCoverageIgnore
      */
     public function getPassword(): ?string
     {
@@ -143,6 +148,7 @@ class UserDTO
 
     /**
      * @param string|null $password
+     * @codeCoverageIgnore
      */
     public function setPassword(?string $password): void
     {
@@ -151,6 +157,7 @@ class UserDTO
 
     /**
      * @return string|null
+     * @codeCoverageIgnore
      */
     public function getBirthDate(): ?string
     {
@@ -159,6 +166,7 @@ class UserDTO
 
     /**
      * @param string|null $birthDate
+     * @codeCoverageIgnore
      */
     public function setBirthDate(?string $birthDate): void
     {
@@ -167,6 +175,7 @@ class UserDTO
 
     /**
      * @return string|null
+     * @codeCoverageIgnore
      */
     public function getName(): ?string
     {
@@ -175,6 +184,7 @@ class UserDTO
 
     /**
      * @param string|null $name
+     * @codeCoverageIgnore
      */
     public function setName(?string $name): void
     {
@@ -183,6 +193,7 @@ class UserDTO
 
     /**
      * @return string|null
+     * @codeCoverageIgnore
      */
     public function getLastName(): ?string
     {
@@ -191,6 +202,7 @@ class UserDTO
 
     /**
      * @param string|null $lastName
+     * @codeCoverageIgnore
      */
     public function setLastName(?string $lastName): void
     {

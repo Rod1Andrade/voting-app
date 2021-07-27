@@ -25,6 +25,7 @@ class Password
 
     /**
      * @return string
+     * @codeCoverageIgnore
      */
     public function getValue(): string
     {
@@ -33,6 +34,7 @@ class Password
 
     /**
      * @param string $value
+     * @codeCoverageIgnore
      */
     public function setValue(string $value): void
     {
@@ -44,6 +46,7 @@ class Password
      * plain in the object.
      * @param string $value
      * @return string
+     * @codeCoverageIgnore
      */
     public function hash(string $value = ''): string
     {
@@ -56,6 +59,7 @@ class Password
     /**
      * @param string $value
      * @return bool
+     * @codeCoverageIgnore
      */
     public function check(string $value): bool
     {

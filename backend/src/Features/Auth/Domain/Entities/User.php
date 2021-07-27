@@ -38,6 +38,7 @@ class User
 
     /**
      * @return UserUuid|null
+     * @codeCoverageIgnore
      */
     public function getUserUuid(): ?UserUuid
     {
@@ -46,6 +47,7 @@ class User
 
     /**
      * @param UserUuid|null $userUuid
+     * @codeCoverageIgnore
      */
     public function setUserUuid(?UserUuid $userUuid): void
     {
@@ -54,6 +56,7 @@ class User
 
     /**
      * @return Email|null
+     * @codeCoverageIgnore
      */
     public function getEmail(): ?Email
     {
@@ -62,6 +65,7 @@ class User
 
     /**
      * @param Email|null $email
+     * @codeCoverageIgnore
      */
     public function setEmail(?Email $email): void
     {
@@ -70,6 +74,7 @@ class User
 
     /**
      * @return Password|null
+     * @codeCoverageIgnore
      */
     public function getPassword(): ?Password
     {
@@ -78,6 +83,7 @@ class User
 
     /**
      * @param Password|null $password
+     * @codeCoverageIgnore
      */
     public function setPassword(?Password $password): void
     {
@@ -86,6 +92,7 @@ class User
 
     /**
      * @return BirthDate|null
+     * @codeCoverageIgnore
      */
     public function getBirthDate(): ?BirthDate
     {
@@ -94,6 +101,7 @@ class User
 
     /**
      * @param BirthDate|null $birthDate
+     * @codeCoverageIgnore
      */
     public function setBirthDate(?BirthDate $birthDate): void
     {
@@ -102,6 +110,7 @@ class User
 
     /**
      * @return string|null
+     * @codeCoverageIgnore
      */
     public function getName(): ?string
     {
@@ -110,6 +119,7 @@ class User
 
     /**
      * @param string|null $name
+     * @codeCoverageIgnore
      */
     public function setName(?string $name): void
     {
@@ -118,6 +128,7 @@ class User
 
     /**
      * @return string|null
+     * @codeCoverageIgnore
      */
     public function getLastname(): ?string
     {
@@ -126,6 +137,7 @@ class User
 
     /**
      * @param string|null $lastname
+     * @codeCoverageIgnore
      */
     public function setLastname(?string $lastname): void
     {

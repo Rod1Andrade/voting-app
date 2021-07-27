@@ -26,6 +26,7 @@ class UserUuid
 
     /**
      * @return string
+     * @codeCoverageIgnore
      */
     public function getValue(): string
     {
@@ -34,6 +35,7 @@ class UserUuid
 
     /**
      * @param string $value
+     * @codeCoverageIgnore
      */
     public function setValue(string $value): void
     {
