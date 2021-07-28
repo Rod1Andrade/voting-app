@@ -17,7 +17,7 @@
   "minimum-stability": "stable",
   "require": {
     "php": ">=8.0",
-    "rodri/simple-router": "v1.2.2-alpha",
+    "rodri/simple-router": "v1.3.2-alpha",
     "ext-pdo": "*",
     "vlucas/phpdotenv": "^5.3",
     "ramsey/uuid": "*",
@@ -28,10 +28,14 @@
     "phpunit/php-code-coverage": "*"
   },
   "scripts": {
-    "test-cover": "php -dxdebug.mode=coverage vendor/phpunit/phpunit/phpunit tests/ --coverage-html cover/",
-    "run-dev": "php -S localhost:8000 -t public"
+    "test": "php -dxdebug.mode=coverage vendor/phpunit/phpunit/phpunit tests/ --coverage-html cover/",
+    "dev": [
+      "Composer\\Config::disableProcessTimeout",
+      "php -S localhost:8000 -t public"
+    ]
   },
   "scripts-descriptions": {
-    "test-cover": "Run the php unit tests with cover"
+    "test": "Run the php unit tests with cover",
+    "dev": "Run the development Server"
   }
 }

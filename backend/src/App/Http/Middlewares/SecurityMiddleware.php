@@ -23,9 +23,9 @@ class SecurityMiddleware implements MiddlewareInterface
     {
         try {
             $payload = JwToken::decode($request->authorization());
-            $request->userUuid = $payload->sub;
+            $request->addValue('userUuid', $payload->sub);
         } catch (InvalidTokenException) {
-            return new Response(['error' => 'Invalid signature'], StatusCode::BAD_REQUEST);
+            return new Response(Response::NONE_RESPONSE, StatusCode::FORBIDDEN);
         }
 
         return true;

@@ -13,7 +13,7 @@ class TestController
     {
         return new Response([
             'message' => 'Hello authenticate user',
-            'userUuid' => $request->userUuid
+            'userUuid' => $request->getValue('userUuid')
         ]);
     }
 }
