@@ -6,11 +6,16 @@ namespace Rodri\VotingApp\App\Http\Security;
 use DateInterval;
 use DateTime;
 use DateTimeInterface;
+use Exception;
+use Firebase\JWT\BeforeValidException;
 use Firebase\JWT\ExpiredException;
 use Firebase\JWT\JWT;
 use Firebase\JWT\SignatureInvalidException;
+use InvalidArgumentException;
 use Rodri\VotingApp\App\Http\Exceptions\InvalidTokenException;
+use RuntimeException;
 use stdClass;
+use UnexpectedValueException;
 
 /**
  * Class JWT Generator
@@ -56,7 +61,15 @@ class JwToken
                 getenv('JWT_KEY'),
                 [JwToken::DEFAULT_ALGORITHM]
             );
-        } catch (SignatureInvalidException | ExpiredException $e) {
+        } catch (
+            InvalidArgumentException |
+            UnexpectedValueException |
+            BeforeValidException |
+            SignatureInvalidException |
+            ExpiredException |
+            RuntimeException |
+            Exception $e
+        ) {
             throw new InvalidTokenException($e);
         }
     }

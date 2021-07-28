@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3616dfc67e5da76c5b180a998e655fd3",
+    "content-hash": "bd6f83ff75b78c724e253387ed73b244",
     "packages": [
         {
             "name": "brick/math",
@@ -425,16 +425,16 @@
         },
         {
             "name": "rodri/simple-router",
-            "version": "v1.3.2-alpha",
+            "version": "v1.3.3-alpha",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Rod1Andrade/simple-router.git",
-                "reference": "3929bb79430298bd65454f06db6b972fdf2d565b"
+                "reference": "28e8ea3b67fb2e49f28f1ac785fcda57c872119d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Rod1Andrade/simple-router/zipball/3929bb79430298bd65454f06db6b972fdf2d565b",
-                "reference": "3929bb79430298bd65454f06db6b972fdf2d565b",
+                "url": "https://api.github.com/repos/Rod1Andrade/simple-router/zipball/28e8ea3b67fb2e49f28f1ac785fcda57c872119d",
+                "reference": "28e8ea3b67fb2e49f28f1ac785fcda57c872119d",
                 "shasum": ""
             },
             "require": {
@@ -469,9 +469,9 @@
             ],
             "support": {
                 "issues": "https://github.com/Rod1Andrade/simple-router/issues",
-                "source": "https://github.com/Rod1Andrade/simple-router/tree/v1.3.2-alpha"
+                "source": "https://github.com/Rod1Andrade/simple-router/tree/v1.3.3-alpha"
             },
-            "time": "2021-07-28T10:53:59+00:00"
+            "time": "2021-07-28T11:13:16+00:00"
         },
         {
             "name": "symfony/polyfill-ctype",
