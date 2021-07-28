@@ -20,7 +20,5 @@ $router->group(['/auth'], function (Router $router) {
     $router->post(['/signIn'], 'AuthController#authenticateUser');
 });
 
-$router->get(['/test', 'middleware' => 'SecurityMiddleware'], 'TestController#test');
-
 # Dispatcher
 $router->dispatch();
