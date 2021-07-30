@@ -17,7 +17,7 @@ use Rodri\VotingApp\Features\VotingSection\Domain\ValueObjects\VotingOptionUuid;
 use Rodri\VotingApp\Features\VotingSection\Domain\ValueObjects\VotingUuid;
 use RuntimeException;
 
-class CreatedVotingSectionUseCaseTest extends TestCase
+class CreateVotingSectionUseCaseTest extends TestCase
 {
     public function testShouldThrowARuntimeExceptionWhenIsNotPossibleCreateAVotingSection(): void
     {
@@ -30,8 +30,8 @@ class CreatedVotingSectionUseCaseTest extends TestCase
         $useCase = new CreateVotingSectionUseCase($repository);
 
         $dummyVotingSearchUUID = new VotingOptionUuid('votingOptionUuid');
-        $startDate = new DateTime('2021-07-29T14:01:38+0000');
-        $finishDate = new DateTime('2021-07-29T15:01:38+0000');
+        $startDate = new DateTime('now');
+        $finishDate = new DateTime('tomorrow');
 
         $dummyVotingUUID = new VotingUuid('uuid');
         $dummyVoting = new Voting(
