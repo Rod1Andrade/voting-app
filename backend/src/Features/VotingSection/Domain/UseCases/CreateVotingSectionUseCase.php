@@ -6,7 +6,6 @@ namespace Rodri\VotingApp\Features\VotingSection\Domain\UseCases;
 use Rodri\VotingApp\Features\VotingSection\Domain\Entities\Voting;
 use Rodri\VotingApp\Features\VotingSection\Domain\Exceptions\CreateVotingSectionException;
 use Rodri\VotingApp\Features\VotingSection\Domain\Repositories\ICreatedVotingSectionRepository;
-use Rodri\VotingApp\Features\VotingSection\Domain\ValueObjects\VotingUuid;
 use RuntimeException;
 
 /**
@@ -25,7 +24,7 @@ class CreateVotingSectionUseCase implements ICreateVotingSectionUseCase
 
     public function __invoke(Voting $voting): void
     {
-        try{
+        try {
             ($this->repository)($voting);
         } catch (RuntimeException $e) {
             throw new CreateVotingSectionException($e);

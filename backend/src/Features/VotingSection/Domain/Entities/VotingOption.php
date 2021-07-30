@@ -15,27 +15,27 @@ use Rodri\VotingApp\Features\VotingSection\Domain\ValueObjects\VotingUuid;
 class VotingOption
 {
     public function __construct(
-        private VotingOptionUuid $votingOptionUuid,
-        private VotingUuid $votingUuid,
-        private Title $title
+        private ?VotingOptionUuid $votingOptionUuid = null,
+        private ?VotingUuid $votingUuid = null,
+        private ?Title $title = null
     )
     {
     }
 
     /**
-     * @return VotingOptionUuid
+     * @return VotingOptionUuid|null
      * @codeCoverageIgnore
      */
-    public function getVotingOptionUuid(): VotingOptionUuid
+    public function getVotingOptionUuid(): ?VotingOptionUuid
     {
         return $this->votingOptionUuid;
     }
 
     /**
-     * @param VotingOptionUuid $votingOptionUuid
+     * @param VotingOptionUuid|null $votingOptionUuid
      * @codeCoverageIgnore
      */
-    public function setVotingOptionUuid(VotingOptionUuid $votingOptionUuid): void
+    public function setVotingOptionUuid(?VotingOptionUuid $votingOptionUuid): void
     {
         $this->votingOptionUuid = $votingOptionUuid;
     }

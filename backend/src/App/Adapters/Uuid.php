@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Rodri\VotingApp\Features\Auth\External\Adapters;
+namespace Rodri\VotingApp\App\Adapters;
 
 use Ramsey\Uuid\Uuid as RUuid;
 use Rodri\VotingApp\Features\Auth\Domain\Adapters\IUuid;

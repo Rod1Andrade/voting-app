@@ -21,10 +21,10 @@ class Voting
     private array $votingOptions;
 
     public function __construct(
-        private ?VotingUuid $votingUuid,
-        private ?Subject $subject,
-        DateTime $createdDate,
-        DateTime $finishDate,
+        private ?VotingUuid $votingUuid = null,
+        private ?Subject $subject = null,
+        DateTime $createdDate = null,
+        DateTime $finishDate = null,
         array $votingOptions = []
     )
     {

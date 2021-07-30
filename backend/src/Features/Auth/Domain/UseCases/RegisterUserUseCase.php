@@ -11,8 +11,8 @@ use Rodri\VotingApp\Features\Auth\Domain\Repositories\IRegisterUserRepository;
 use Rodri\VotingApp\Features\Auth\Domain\ValueObjects\Email;
 use Rodri\VotingApp\Features\Auth\Domain\ValueObjects\Password;
 use Rodri\VotingApp\Features\Auth\Domain\ValueObjects\UserUuid;
+use Rodri\VotingApp\App\Adapters\Uuid;
 use Rodri\VotingApp\Features\Auth\External\Adapters\PasswordEncrypt;
-use Rodri\VotingApp\Features\Auth\External\Adapters\Uuid;
 use RuntimeException;
 
 /**
