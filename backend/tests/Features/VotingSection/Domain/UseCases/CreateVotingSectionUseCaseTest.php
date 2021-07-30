@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 use Rodri\VotingApp\Features\VotingSection\Domain\Entities\Voting;
 use Rodri\VotingApp\Features\VotingSection\Domain\Entities\VotingOption;
 use Rodri\VotingApp\Features\VotingSection\Domain\Exceptions\CreateVotingSectionException;
-use Rodri\VotingApp\Features\VotingSection\Domain\Repositories\ICreatedVotingSectionRepository;
+use Rodri\VotingApp\Features\VotingSection\Domain\Repositories\ICreateVotingSectionRepository;
 use Rodri\VotingApp\Features\VotingSection\Domain\UseCases\CreateVotingSectionUseCase;
 use Rodri\VotingApp\Features\VotingSection\Domain\ValueObjects\Subject;
 use Rodri\VotingApp\Features\VotingSection\Domain\ValueObjects\Title;
@@ -23,7 +23,7 @@ class CreateVotingSectionUseCaseTest extends TestCase
     {
         self::expectException(CreateVotingSectionException::class);
 
-        $repository = self::createMock(ICreatedVotingSectionRepository::class);
+        $repository = self::createMock(ICreateVotingSectionRepository::class);
         $repository->method('__invoke')
             ->willThrowException(new RuntimeException());
 

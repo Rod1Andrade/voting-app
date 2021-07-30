@@ -24,7 +24,6 @@ class VotingOption
 
     /**
      * @return VotingOptionUuid|null
-     * @codeCoverageIgnore
      */
     public function getVotingOptionUuid(): ?VotingOptionUuid
     {
@@ -33,7 +32,6 @@ class VotingOption
 
     /**
      * @param VotingOptionUuid|null $votingOptionUuid
-     * @codeCoverageIgnore
      */
     public function setVotingOptionUuid(?VotingOptionUuid $votingOptionUuid): void
     {
@@ -41,37 +39,33 @@ class VotingOption
     }
 
     /**
-     * @return VotingUuid
-     * @codeCoverageIgnore
+     * @return VotingUuid|null
      */
-    public function getVotingUuid(): VotingUuid
+    public function getVotingUuid(): ?VotingUuid
     {
         return $this->votingUuid;
     }
 
     /**
-     * @param VotingUuid $votingUuid
-     * @codeCoverageIgnore
+     * @param VotingUuid|null $votingUuid
      */
-    public function setVotingUuid(VotingUuid $votingUuid): void
+    public function setVotingUuid(?VotingUuid $votingUuid): void
     {
         $this->votingUuid = $votingUuid;
     }
 
     /**
-     * @return Title
-     * @codeCoverageIgnore
+     * @return Title|null
      */
-    public function getTitle(): Title
+    public function getTitle(): ?Title
     {
         return $this->title;
     }
 
     /**
-     * @param Title $title
-     * @codeCoverageIgnore
+     * @param Title|null $title
      */
-    public function setTitle(Title $title): void
+    public function setTitle(?Title $title): void
     {
         $this->title = $title;
     }

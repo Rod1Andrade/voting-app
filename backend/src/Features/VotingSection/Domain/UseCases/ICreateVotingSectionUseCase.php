@@ -15,6 +15,7 @@ interface ICreateVotingSectionUseCase
     /**
      * Created a VotingSection
      * @param Voting $voting Entity
+     * @param string $schema
      */
     public function __invoke(Voting $voting): void;
 }

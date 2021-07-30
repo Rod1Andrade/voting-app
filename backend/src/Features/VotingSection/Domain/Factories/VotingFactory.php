@@ -21,6 +21,7 @@ class VotingFactory implements IVotingFactory
 
     public static function create(string $subject, DateTime $startDate, DateTime $finishDate, array $votingOptions): Voting
     {
+
         $voting = new Voting(
             votingUuid: new VotingUuid(Uuid::genUUIDv4()),
             subject: new Subject($subject),

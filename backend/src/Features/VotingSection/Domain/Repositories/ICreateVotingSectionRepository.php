@@ -11,7 +11,7 @@ use RuntimeException;
  * @package Rodri\VotingApp\Features\VotingSection\Domain\Repositories
  * @author Rodrigo Andrade
  */
-interface ICreatedVotingSectionRepository
+interface ICreateVotingSectionRepository
 {
     /**
      * @param Voting $voting
