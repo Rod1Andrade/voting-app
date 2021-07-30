@@ -4,6 +4,7 @@
 namespace Features\VotingSection\Domain\Entities;
 
 
+use DateInterval;
 use DateTime;
 use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
@@ -47,29 +48,29 @@ class VotingTest extends TestCase
             new VotingUuid('uuid'),
             new Subject('Subject'),
             new DateTime('now'),
-            new DateTime('yesterday'),
+            new DateTime('yesterday')
         );
     }
 
     public function testShouldThrowAInvalidArgumentExceptionWhenTheFinishDateIsLessThanCreatedDateInHours(): void
     {
         self::expectExceptionMessage('The created date needs be bigger than finish date at least 1 hour.');
-        $startDate = new DateTime('2021-07-29T14:01:38+0000');
-        $finishDate = new DateTime('2021-07-29T14:30:38+0000');
+        $startDate = new DateTime('now');
+        $finishDate = (new DateTime('now'))->add(new DateInterval('PT30M'));;
 
         new Voting(
             new VotingUuid('uuid'),
             new Subject('Subject'),
             $startDate,
-            $finishDate
+            $finishDate,
         );
     }
 
-    public function testShouldSetTheFinishDateIfIsBiggerOrEqualsCreatedDate(): void
+    public function testShouldSetTheFinishDateIfIsBiggerCreatedDate(): void
     {
 
-        $startDate = new DateTime('2021-07-29T14:01:38+0000');
-        $finishDate = new DateTime('2021-07-29T15:01:38+0000');
+        $startDate = new DateTime('now');
+        $finishDate = new DateTime('tomorrow');
 
         new Voting(
             new VotingUuid('uuid'),
@@ -86,8 +87,8 @@ class VotingTest extends TestCase
 
         $dummyVotingSearchUUID = new VotingOptionUuid('votingOptionUuid');
 
-        $startDate = new DateTime('2021-07-29T14:01:38+0000');
-        $finishDate = new DateTime('2021-07-29T15:01:38+0000');
+        $startDate = new DateTime('now');
+        $finishDate = new DateTime('tomorrow');
 
         $dummyVotingUUID = new VotingUuid('uuid');
         $dummyVoting = new Voting(
@@ -113,8 +114,8 @@ class VotingTest extends TestCase
     {
         self::expectExceptionMessage('The array of voting options needs be instance of Voting Option');
 
-        $startDate = new DateTime('2021-07-29T14:01:38+0000');
-        $finishDate = new DateTime('2021-07-29T15:01:38+0000');
+        $startDate = new DateTime('now');
+        $finishDate = new DateTime('tomorrow');
 
         new Voting(
             new VotingUuid('uuid'),
