@@ -25,7 +25,7 @@ class VotingDTO
         private ?string $subject = null,
         private ?string $startDate = null,
         private ?string $finishDate = null,
-        array $votingOptions = [],
+        array           $votingOptions = [],
     )
     {
         $this->setListOfVotingOptionDTO($votingOptions);
@@ -58,7 +58,7 @@ class VotingDTO
             subject: $voting->subject ?? null,
             startDate: $voting->startDate ?? null,
             finishDate: $voting->finishDate ?? null,
-            votingOptions:$voting->votingOptions ?? []
+            votingOptions: $voting->votingOptions ?? []
         );
     }
 
@@ -75,13 +75,13 @@ class VotingDTO
             startDate: new DateTime($votingDTO->getStartDate()),
             finishDate: new DateTime($votingDTO->getFinishDate()),
             votingOptions: array_map(function ($value) {
-                if($value instanceof VotingOptionDTO) {
+                if ($value instanceof VotingOptionDTO) {
                     return new VotingOption(title: new Title($value->getTitle()));
-                }
-                else {
+                } else {
                     return null;
                 }
             }, $votingDTO->getVotingOptions()),
+            uuid: $votingDTO->getVotingUuid(),
         );
     }
 
@@ -176,7 +176,7 @@ class VotingDTO
 
                 $this->votingOptions[] = VotingOptionDTO::createVotingOptionDTOFromVotingOption($votingOption);
 
-            } else if(is_string($votingOption)) {
+            } else if (is_string($votingOption)) {
 
                 $this->votingOptions[] = VotingOptionDTO::createVotingOptionDTOFromVotingOption(
                     new VotingOption(title: new Title($votingOption))

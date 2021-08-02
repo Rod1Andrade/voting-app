@@ -12,6 +12,7 @@ use Rodri\VotingApp\App\Database\Connection\MemorySqliteConnection;
 use Rodri\VotingApp\Features\VotingSection\External\Factories\VotingSectionUseCaseFactory;
 use Rodri\VotingApp\Features\VotingSection\Infra\DataTransferObjects\VotingDTO;
 use RuntimeException;
+use stdClass;
 
 /**
  * Class VotingSectionController
@@ -27,9 +28,18 @@ class VotingSectionController
      */
     public function createVotingSection(Request $request): Response
     {
+        $body = json_decode($request->body());
+
+        # Validate the body values
+        if(!$this->validateCreateVotingBodyRequest($body)) {
+            return new Response([
+                'Invalid Request' => 'The body needs have: subject, start date, finish date and voting options.'],
+                StatusCode::BAD_REQUEST
+            );
+        }
 
         # Body DTO conversion
-        $votingDTO = VotingDTO::createVotingDTOfromStdClass(json_decode($request->body()));
+        $votingDTO = VotingDTO::createVotingDTOfromStdClass($body);
 
         # Use case factory
         $createVotingUseCase = VotingSectionUseCaseFactory::createVotingSectionUseCase(MemorySqliteConnection::getConnection());
@@ -37,9 +47,25 @@ class VotingSectionController
         try {
             $createVotingUseCase(VotingDTO::createVotingFromVotingDTO($votingDTO));
         } catch (RuntimeException | Exception $e) {
-            return new Response([$e->getMessage()], StatusCode::BAD_REQUEST);
+            return new Response([
+                'message' => $e->getMessage()],
+                StatusCode::BAD_REQUEST
+            );
         }
 
         return new Response();
+    }
+
+    /**
+     * Validate the request expecteds values
+     * @param stdClass $body
+     * @return bool
+     */
+    private function validateCreateVotingBodyRequest(stdClass $body): bool
+    {
+        return isset($body->subject)
+            && isset($body->startDate)
+            && isset($body->finishDate)
+            && isset($body->votingOptions);
     }
 }
