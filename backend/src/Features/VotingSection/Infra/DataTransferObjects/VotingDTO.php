@@ -21,7 +21,7 @@ class VotingDTO
     private array $votingOptions;
 
     private function __construct(
-        private string  $userUuid,
+        private ?string  $userUuid = null,
         private ?string $votingUuid = null,
         private ?string $subject = null,
         private ?string $startDate = null,
@@ -56,7 +56,7 @@ class VotingDTO
     public static function createVotingDTOfromStdClass(stdClass $voting): VotingDTO
     {
         return new VotingDTO(
-            userUuid: $voting->userUuid,
+            userUuid: $voting->userUuid ?? null,
             votingUuid: $voting->votingUuid ?? null,
             subject: $voting->subject ?? null,
             startDate: $voting->startDate ?? null,

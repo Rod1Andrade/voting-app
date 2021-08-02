@@ -91,11 +91,53 @@ class VotingSectionController
     }
 
     /**
+     * Return all voting sections subjects.
+     *
+     * @param Request $request
+     * @return Response
+     */
+    public function showAllVotingSections(Request $request): Response
+    {
+        $offset = (int)$request->param(':offset');
+        $limit = (int)$request->param(':limit');
+
+        $this->validateLimitAndOffset($offset, $limit);
+
+        # Use case factory
+        $showAllVotingSectionsUseCase = VotingSectionUseCaseFactory::showAllVotingSectionUseCase(PgConnection::getConnection());
+        $response = $showAllVotingSectionsUseCase($offset, $limit);
+
+        return new Response(array_map(function ($value) {
+            if ($value instanceof VotingDTO) {
+                return [
+                    'votingUuid' => $value->getVotingUuid(),
+                    'subject' => $value->getSubject(),
+                    'startDate' => $value->getStartDate(),
+                    'finishDate' => $value->getFinishDate()
+                ];
+            } else {
+                return null;
+            }
+        }, $response));
+    }
+
+    /**
+     * @param int $offset
+     * @param int $limit
+     */
+    private function validateLimitAndOffset(int &$offset, int &$limit): void
+    {
+        $offset = empty($offset) ? 0 : $offset;
+        $limit = empty($limit) ? 10 : $limit;
+    }
+
+    /**
      * Validate the request expecteds values
      * @param stdClass $body
      * @return bool
      */
-    private function validateCreateVotingBodyRequest(stdClass $body): bool
+    private
+    function validateCreateVotingBodyRequest(stdClass $body): bool
     {
         return isset($body->subject)
             && isset($body->startDate)
