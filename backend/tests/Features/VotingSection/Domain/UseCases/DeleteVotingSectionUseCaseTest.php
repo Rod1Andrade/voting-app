@@ -4,6 +4,7 @@ namespace Features\VotingSection\Domain\UseCases;
 
 use PHPUnit\Framework\TestCase;
 use PHPUnit\Util\Exception;
+use Rodri\VotingApp\Features\Auth\Domain\ValueObjects\UserUuid;
 use Rodri\VotingApp\Features\VotingSection\Domain\Exceptions\DeleteVotingSectionException;
 use Rodri\VotingApp\Features\VotingSection\Domain\Repositories\IDeleteVotingSectionRepository;
 use Rodri\VotingApp\Features\VotingSection\Domain\UseCases\DeleteVotingSectionUseCase;
@@ -20,7 +21,7 @@ class DeleteVotingSectionUseCaseTest extends TestCase
             ->willThrowException(new Exception());
 
         $usecase = new DeleteVotingSectionUseCase($repositoy);
-        $usecase(new VotingUuid('any'));
+        $usecase(new VotingUuid('any'), new UserUuid('any'));
     }
 
     public function testShouldThrowADeleteVotingSectionExceptionWhenIsNotPresentTheVotingUUid(): void
@@ -30,6 +31,6 @@ class DeleteVotingSectionUseCaseTest extends TestCase
         $repositoy = self::createMock(IDeleteVotingSectionRepository::class);
 
         $usecase = new DeleteVotingSectionUseCase($repositoy);
-        $usecase(new VotingUuid(''));
+        $usecase(new VotingUuid(''), new UserUuid('any'));
     }
 }

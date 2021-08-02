@@ -21,15 +21,16 @@ class DeleteVotingSectionDataLayer implements IDeleteVotingSectionDataLayer
     {
     }
 
-    public function __invoke(string $votingUuid): void
+    public function __invoke(string $votingUuid, string $userUuid): void
     {
         $pdo = $this->connection->pdo();
 
         $statement = $pdo->prepare("DELETE FROM {$this->schema}tb_voting
-            WHERE voting_uuid = :votingUuid");
+            WHERE voting_uuid = :votingUuid AND user_uuid = :userUuid");
 
         try {
             $statement->bindValue(':votingUuid', $votingUuid);
+            $statement->bindValue(':userUuid', $userUuid);
             $statement->execute();
         } catch (\PDOException $e) {
             throw new DeleteVotingSectionDataLayerException($e);
