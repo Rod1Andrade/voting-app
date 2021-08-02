@@ -1,5 +1,5 @@
 -- Voting app - Memory
--- Version: 1.1.1
+-- Version: 2.0.0
 -- Author: Rodrigo Andrade
 -- Since: 2021-20-07
 
@@ -39,13 +39,15 @@ end;
 
 -- ##### Voting #####
 create table if not exists tb_voting(
+    user_uuid uuid,
     voting_uuid uuid, -- UUID is vendor by application
     subject varchar not null,
     start_date timestamp not null, -- is vendor by application
     finish_date timestamp not null, -- is vendor by application
     create_at timestamp default current_timestamp, -- database controlled
     update_at timestamp default null, -- database controlled
-    primary key (voting_uuid)
+    primary key (voting_uuid),
+    foreign key (user_uuid) references tb_user(user_id) on delete cascade
 );
 
 -- Triggers
@@ -71,6 +73,7 @@ create table if not exists tb_voting_option(
     update_at timestamp default null, -- database controlled
     primary key (voting_option_uuid),
     foreign key (voting_uuid) references tb_voting(voting_uuid) on delete cascade
+
 );
 
 -- alter tables

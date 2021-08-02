@@ -8,6 +8,7 @@ use DateInterval;
 use DateTime;
 use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
+use Rodri\VotingApp\Features\Auth\Domain\ValueObjects\UserUuid;
 use Rodri\VotingApp\Features\VotingSection\Domain\Entities\Voting;
 use Rodri\VotingApp\Features\VotingSection\Domain\Entities\VotingOption;
 use Rodri\VotingApp\Features\VotingSection\Domain\ValueObjects\Subject;
@@ -21,6 +22,7 @@ class VotingTest extends TestCase
     public function testShouldSetTheCreatedDateIfIsBiggerOrEqualsToday(): void
     {
         new Voting(
+            new UserUuid('a55f1a8d-ccfd-4a9a-9ab1-714efe85f5bc'),
             new VotingUuid('uuid'),
             new Subject('Subject'),
             new DateTime('now'),
@@ -34,6 +36,7 @@ class VotingTest extends TestCase
     {
         self::expectException(InvalidArgumentException::class);
         new Voting(
+            new UserUuid('a55f1a8d-ccfd-4a9a-9ab1-714efe85f5bc'),
             new VotingUuid('uuid'),
             new Subject('Subject'),
             new DateTime('yesterday'),
@@ -45,6 +48,7 @@ class VotingTest extends TestCase
     {
         self::expectExceptionMessage('The date needs be bigger than finish date.');
         new Voting(
+            new UserUuid('a55f1a8d-ccfd-4a9a-9ab1-714efe85f5bc'),
             new VotingUuid('uuid'),
             new Subject('Subject'),
             new DateTime('now'),
@@ -59,6 +63,7 @@ class VotingTest extends TestCase
         $finishDate = (new DateTime('now'))->add(new DateInterval('PT30M'));;
 
         new Voting(
+            new UserUuid('a55f1a8d-ccfd-4a9a-9ab1-714efe85f5bc'),
             new VotingUuid('uuid'),
             new Subject('Subject'),
             $startDate,
@@ -73,6 +78,7 @@ class VotingTest extends TestCase
         $finishDate = new DateTime('tomorrow');
 
         new Voting(
+            new UserUuid('a55f1a8d-ccfd-4a9a-9ab1-714efe85f5bc'),
             new VotingUuid('uuid'),
             new Subject('Subject'),
             $startDate,
@@ -92,6 +98,7 @@ class VotingTest extends TestCase
 
         $dummyVotingUUID = new VotingUuid('uuid');
         $dummyVoting = new Voting(
+            new UserUuid('a55f1a8d-ccfd-4a9a-9ab1-714efe85f5bc'),
             $dummyVotingUUID,
             new Subject('Subject'),
             $startDate,
@@ -118,6 +125,7 @@ class VotingTest extends TestCase
         $finishDate = new DateTime('tomorrow');
 
         new Voting(
+            new UserUuid('a55f1a8d-ccfd-4a9a-9ab1-714efe85f5bc'),
             new VotingUuid('uuid'),
             new Subject('Subject'),
             $startDate,

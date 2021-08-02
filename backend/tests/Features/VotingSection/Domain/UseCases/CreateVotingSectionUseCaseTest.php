@@ -6,6 +6,7 @@ namespace Features\VotingSection\Domain\UseCases;
 
 use DateTime;
 use PHPUnit\Framework\TestCase;
+use Rodri\VotingApp\Features\Auth\Domain\ValueObjects\UserUuid;
 use Rodri\VotingApp\Features\VotingSection\Domain\Entities\Voting;
 use Rodri\VotingApp\Features\VotingSection\Domain\Entities\VotingOption;
 use Rodri\VotingApp\Features\VotingSection\Domain\Exceptions\CreateVotingSectionException;
@@ -35,6 +36,7 @@ class CreateVotingSectionUseCaseTest extends TestCase
 
         $dummyVotingUUID = new VotingUuid('uuid');
         $dummyVoting = new Voting(
+            new UserUuid('a55f1a8d-ccfd-4a9a-9ab1-714efe85f5bc'),
             $dummyVotingUUID,
             new Subject('Subject'),
             $startDate,

@@ -6,6 +6,7 @@ namespace Features\VotingSection\Domain\Factories;
 
 use DateTime;
 use PHPUnit\Framework\TestCase;
+use Rodri\VotingApp\Features\Auth\Domain\ValueObjects\UserUuid;
 use Rodri\VotingApp\Features\VotingSection\Domain\Entities\Voting;
 use Rodri\VotingApp\Features\VotingSection\Domain\Entities\VotingOption;
 use Rodri\VotingApp\Features\VotingSection\Domain\Factories\VotingFactory;
@@ -21,6 +22,7 @@ class VotingFactoryTest extends TestCase
     protected function setUp(): void
     {
         self::$voting = VotingFactory::create(
+            'a55f1a8d-ccfd-4a9a-9ab1-714efe85f5bc',
             'Any Subject',
             new DateTime('now'),
             new DateTime('tomorrow'),
