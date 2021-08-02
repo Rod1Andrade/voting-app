@@ -10,7 +10,7 @@ namespace Rodri\VotingApp\Features\VotingSection\Domain\UseCases;
 interface IShowAllVotingSectionsUseCase
 {
     /**
-     * Show all Voting sections with you voting options
+     * Show all Voting sections.
      *
      * @param int $offset
      * @param int $limit

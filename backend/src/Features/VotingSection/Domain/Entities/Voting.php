@@ -22,15 +22,15 @@ class Voting
     private array $votingOptions;
 
     public function __construct(
-        private UserUuid $userUuid,
+        private ?UserUuid   $userUuid = null,
         private ?VotingUuid $votingUuid = null,
-        private ?Subject $subject = null,
-        DateTime $createdDate = null,
-        DateTime $finishDate = null,
-        array $votingOptions = []
+        private ?Subject    $subject = null,
+        DateTime            $startDate = null,
+        DateTime            $finishDate = null,
+        array               $votingOptions = []
     )
     {
-        $this->setStartDate($createdDate);
+        $this->setStartDate($startDate);
         $this->setFinishDate($finishDate);
         $this->addListOfVotingOptions($votingOptions);
     }
@@ -52,17 +52,17 @@ class Voting
     }
 
     /**
-     * @return UserUuid
+     * @return UserUuid|null
      */
-    public function getUserUuid(): UserUuid
+    public function getUserUuid(): ?UserUuid
     {
         return $this->userUuid;
     }
 
     /**
-     * @param UserUuid $userUuid
+     * @param UserUuid|null $userUuid
      */
-    public function setUserUuid(UserUuid $userUuid): void
+    public function setUserUuid(?UserUuid $userUuid): void
     {
         $this->userUuid = $userUuid;
     }
@@ -146,7 +146,7 @@ class Voting
 
     /**
      * @param VotingOption $votingOption
-     * @codeCoverageIgnore 
+     * @codeCoverageIgnore
      */
     public function addVotingOption(VotingOption $votingOption): void
     {
@@ -169,20 +169,20 @@ class Voting
      */
     public function getVotingOption(VotingOptionUuid $votingOptionUuid): ?VotingOption
     {
-        $votingOption = array_filter($this->votingOptions, function (VotingOption $value) use ($votingOptionUuid){
+        $votingOption = array_filter($this->votingOptions, function (VotingOption $value) use ($votingOptionUuid) {
             return $value->getVotingOptionUuid()->compare($votingOptionUuid);
         });
 
         return empty($votingOption) ? null : $votingOption[0];
     }
-    
+
     /**
      * @param array $votingOptions
      */
     private function addListOfVotingOptions(array $votingOptions): void
     {
         foreach ($votingOptions as $option) {
-            if(!($option instanceof VotingOption)) {
+            if (!($option instanceof VotingOption)) {
                 throw new InvalidArgumentException('The array of voting options needs be instance of Voting Option');
             }
 
