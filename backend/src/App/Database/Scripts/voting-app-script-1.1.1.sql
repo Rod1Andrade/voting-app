@@ -1,5 +1,5 @@
 -- Voting app
--- Version: 1.1.1
+-- Version: 1.2.1
 -- Author: Rodrigo Andrade
 -- Since: 2021-20-07
 
@@ -34,7 +34,7 @@ create table if not exists voting.tb_user
 );
 
 -- Alter table
-alter table voting.tb_user add constraint unique_email unique (email);
+alter table voting.tb_user add constraint  unique_email unique (email);
 
 -- triggers
 -- ### Triggers
@@ -73,6 +73,11 @@ create table if not exists voting.tb_voting_option(
     primary key (voting_option_uuid),
     foreign key (voting_uuid) references voting.tb_voting(voting_uuid)
 );
+
+-- alter table
+ALTER table voting.tb_voting_option ADD COLUMN voting_uuid uuid;
+Alter table voting.tb_voting_option add foreign key (voting_uuid)
+    references voting.tb_voting(voting_uuid) on delete cascade ;
 
 -- Triggers
 -- ### Triggers

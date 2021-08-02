@@ -19,7 +19,6 @@ use RuntimeException;
  */
 class CreateVotingSectionRepository implements ICreateVotingSectionRepository
 {
-
     public function __construct(
         private ICreateVotingSectionDataLayer $dataLayer
     )
@@ -30,8 +29,6 @@ class CreateVotingSectionRepository implements ICreateVotingSectionRepository
     {
         try {
             ($this->dataLayer)(VotingDTO::createVotingDTOFromVoting($voting));
-            // TODO: create a voting option repository to deal with Voting Options store with your own data layer...
-
         } catch (RuntimeException) {
             throw new CreateVotingSectionDataLayerException('Is not possible create a voting section');
         }

@@ -24,7 +24,7 @@ create table if not exists tb_user
 
 -- triggers
 -- ### Triggers
-create trigger update_at_current_timestamp
+create trigger if not exists update_at_current_timestamp
     before update
     on tb_user
     for each row
@@ -49,7 +49,7 @@ create table if not exists tb_voting(
 );
 
 -- Triggers
-create trigger update_at_current_timestamp_voting
+create trigger if not exists update_at_current_timestamp_voting
     before update
     on tb_voting
     for each row
@@ -70,11 +70,13 @@ create table if not exists tb_voting_option(
     create_at timestamp default current_timestamp, -- database controlled
     update_at timestamp default null, -- database controlled
     primary key (voting_option_uuid),
-    foreign key (voting_uuid) references tb_voting(voting_uuid)
+    foreign key (voting_uuid) references tb_voting(voting_uuid) on delete cascade
 );
 
+-- alter tables
+
 -- Triggers
-create trigger update_at_current_timestamp_voting_option
+create trigger if not exists update_at_current_timestamp_voting_option
     before update
     on tb_voting_option
     for each row

@@ -35,7 +35,7 @@ class CreateVotingOptionDataLayer implements ICreateVotingOptionDataLayer
 
     }
 
-    public function storeAList(array $votingOptions)
+    public function storeAList(array $votingOptions): void
     {
         try {
             foreach ($votingOptions as $votingOption) {
