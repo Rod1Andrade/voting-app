@@ -8,6 +8,7 @@ use JetBrains\PhpStorm\Pure;
 use Rodri\VotingApp\App\Database\Connection\Connection;
 use Rodri\VotingApp\Features\VotingSection\Domain\UseCases\CreateVotingSectionUseCase;
 use Rodri\VotingApp\Features\VotingSection\Domain\UseCases\ICreateVotingSectionUseCase;
+use Rodri\VotingApp\Features\VotingSection\External\DataLayer\CreateVotingOptionDataLayer;
 use Rodri\VotingApp\Features\VotingSection\External\DataLayer\CreateVotingSectionDataLayer;
 use Rodri\VotingApp\Features\VotingSection\Infra\Repositories\CreateVotingSectionRepository;
 
@@ -26,7 +27,8 @@ class CreateVotingSectionUseCaseFacade
      */
     #[Pure] public function createUseCase(Connection $connection, string $schema = ''): ICreateVotingSectionUseCase
     {
-        $dataLayer = new CreateVotingSectionDataLayer($connection, $schema);
+        $votingOptionDataLayer = new CreateVotingOptionDataLayer($connection, $schema);
+        $dataLayer = new CreateVotingSectionDataLayer($connection, $votingOptionDataLayer, $schema);
         $repository = new CreateVotingSectionRepository($dataLayer);
 
         return new CreateVotingSectionUseCase($repository);

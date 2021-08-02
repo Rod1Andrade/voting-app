@@ -6,9 +6,9 @@ namespace Rodri\VotingApp\Features\VotingSection\External\DataLayer;
 
 use PDOException;
 use Rodri\VotingApp\App\Database\Connection\Connection;
+use Rodri\VotingApp\Features\VotingSection\Infra\Datalayer\ICreateVotingOptionDataLayer;
 use Rodri\VotingApp\Features\VotingSection\Infra\Datalayer\ICreateVotingSectionDataLayer;
 use Rodri\VotingApp\Features\VotingSection\Infra\DataTransferObjects\VotingDTO;
-use Rodri\VotingApp\Features\VotingSection\Infra\DataTransferObjects\VotingOptionDTO;
 
 /**
  * Class CreateVotingSectionDataLayer
@@ -20,6 +20,7 @@ class CreateVotingSectionDataLayer implements ICreateVotingSectionDataLayer
 
     public function __construct(
         private Connection $connection,
+        private ICreateVotingOptionDataLayer $votingOptionDataLayer,
         private string $schema = 'voting.' // TODO: This gonna be replaced by a model with this info (when i use ORM)
     )
     {
@@ -45,15 +46,8 @@ class CreateVotingSectionDataLayer implements ICreateVotingSectionDataLayer
             $votingStatement->execute();
 
             # One to many relation
-            foreach ($votingDTO->getVotingOptions() as $votingOption) {
-                if ($votingOption instanceof VotingOptionDTO) {
-                    $votingOptionStatement->bindValue(':votingOptionUuid', $votingOption->getVotingOptionUuid());
-                    $votingOptionStatement->bindValue(':votingUuid', $votingOption->getVotingUuid());
-                    $votingOptionStatement->bindValue(':title', $votingOption->getTitle());
+            $this->votingOptionDataLayer->storeAList($votingDTO->getVotingOptions());
 
-                    $votingOptionStatement->execute();
-                }
-            }
         } catch (PDOException) {
             $pdo->rollBack();
         }
