@@ -9,6 +9,8 @@ use Rodri\SimpleRouter\Helpers\StatusCode;
 use Rodri\SimpleRouter\Request;
 use Rodri\SimpleRouter\Response;
 use Rodri\VotingApp\App\Database\Connection\PgConnection;
+use Rodri\VotingApp\Features\Auth\Domain\ValueObjects\UserUuid;
+use Rodri\VotingApp\Features\VotingSection\Domain\ValueObjects\VotingUuid;
 use Rodri\VotingApp\Features\VotingSection\External\Factories\VotingSectionUseCaseFactory;
 use Rodri\VotingApp\Features\VotingSection\Infra\DataTransferObjects\VotingDTO;
 use RuntimeException;
@@ -32,7 +34,7 @@ class VotingSectionController
         $body->userUuid = $request->getValue('userUuid');
 
         # Validate the body values
-        if(!$this->validateCreateVotingBodyRequest($body)) {
+        if (!$this->validateCreateVotingBodyRequest($body)) {
             return new Response([
                 'Invalid Request' => 'The body needs have: subject, start date, finish date and voting options.'],
                 StatusCode::BAD_REQUEST
@@ -52,6 +54,37 @@ class VotingSectionController
                 'message' => $e->getMessage()],
                 StatusCode::BAD_REQUEST
             );
+        }
+
+        return new Response();
+    }
+
+    /**
+     * Delete a voting section and all voting options associeted with
+     *
+     * @param Request $request
+     * @return Response
+     */
+    public function deleteVotingSection(Request $request): Response
+    {
+        #use case factory
+        $deleteVotingUseCase = VotingSectionUseCaseFactory::deleteVotingSectionUseCase(PgConnection::getConnection());
+
+        # Validate
+        if (empty($request->param(':votingSectionUuid'))) {
+            return new Response([
+                'Invalid Request' => 'The voting section uuid is required'
+            ], StatusCode::BAD_REQUEST
+            );
+        }
+
+        try {
+            $deleteVotingUseCase(
+                new VotingUuid($request->param(':votingSectionUuid')),
+                new UserUuid($request->getValue('userUuid'))
+            );
+        } catch (RuntimeException | Exception $e) {
+            return new Response(['message' => $e->getMessage()], StatusCode::BAD_REQUEST);
         }
 
         return new Response();

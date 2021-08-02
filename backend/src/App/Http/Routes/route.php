@@ -22,6 +22,7 @@ $router->group(['/auth'], function (Router $router) {
 
 $router->group(['/voting', 'middleware' => 'SecurityMiddleware'], function (Router $router) {
     $router->post(['/section'], 'VotingSectionController#createVotingSection');
+    $router->delete(['/section/:votingSectionUuid'], 'VotingSectionController#deleteVotingSection');
 });
 
 # Dispatcher
