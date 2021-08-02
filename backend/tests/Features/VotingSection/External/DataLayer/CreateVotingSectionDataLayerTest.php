@@ -10,6 +10,7 @@ use Rodri\VotingApp\App\Database\Connection\MemorySqliteConnection;
 use Rodri\VotingApp\Features\VotingSection\Domain\Entities\VotingOption;
 use Rodri\VotingApp\Features\VotingSection\Domain\Factories\VotingFactory;
 use Rodri\VotingApp\Features\VotingSection\Domain\ValueObjects\Title;
+use Rodri\VotingApp\Features\VotingSection\External\DataLayer\CreateVotingOptionDataLayer;
 use Rodri\VotingApp\Features\VotingSection\External\DataLayer\CreateVotingSectionDataLayer;
 use Rodri\VotingApp\Features\VotingSection\Infra\DataTransferObjects\VotingDTO;
 
@@ -17,7 +18,8 @@ class CreateVotingSectionDataLayerTest extends TestCase
 {
     public function testShouldStoreAVotingWithOptions(): void
     {
-        $dataLayer = new CreateVotingSectionDataLayer(MemorySqliteConnection::getConnection(), '');
+        $votingOptionsDataLayer = new CreateVotingOptionDataLayer(MemorySqliteConnection::getConnection(), '');
+        $dataLayer = new CreateVotingSectionDataLayer(MemorySqliteConnection::getConnection(), $votingOptionsDataLayer, '');
 
         $dataLayer(VotingDTO::createVotingDTOFromVoting(
             VotingFactory::create(
