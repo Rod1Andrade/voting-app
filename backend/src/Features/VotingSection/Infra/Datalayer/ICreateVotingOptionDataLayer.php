@@ -15,7 +15,6 @@ interface ICreateVotingOptionDataLayer
     /**
      * Store a list of voting options
      * @param array $votingOptions
-     * @return mixed
      */
-    public function storeAList(array $votingOptions);
+    public function storeAList(array $votingOptions): void;
 }
