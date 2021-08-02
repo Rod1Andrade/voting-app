@@ -29,6 +29,7 @@ class VotingSectionController
     public function createVotingSection(Request $request): Response
     {
         $body = json_decode($request->body());
+        $body->userUuid = $request->getValue('userUuid');
 
         # Validate the body values
         if(!$this->validateCreateVotingBodyRequest($body)) {
@@ -66,6 +67,7 @@ class VotingSectionController
         return isset($body->subject)
             && isset($body->startDate)
             && isset($body->finishDate)
-            && isset($body->votingOptions);
+            && isset($body->votingOptions)
+            && isset($body->userUuid);
     }
 }

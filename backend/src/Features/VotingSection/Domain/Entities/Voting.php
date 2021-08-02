@@ -5,6 +5,7 @@ namespace Rodri\VotingApp\Features\VotingSection\Domain\Entities;
 
 use DateTime;
 use InvalidArgumentException;
+use Rodri\VotingApp\Features\Auth\Domain\ValueObjects\UserUuid;
 use Rodri\VotingApp\Features\VotingSection\Domain\ValueObjects\Subject;
 use Rodri\VotingApp\Features\VotingSection\Domain\ValueObjects\VotingOptionUuid;
 use Rodri\VotingApp\Features\VotingSection\Domain\ValueObjects\VotingUuid;
@@ -21,6 +22,7 @@ class Voting
     private array $votingOptions;
 
     public function __construct(
+        private UserUuid $userUuid,
         private ?VotingUuid $votingUuid = null,
         private ?Subject $subject = null,
         DateTime $createdDate = null,
@@ -31,6 +33,38 @@ class Voting
         $this->setStartDate($createdDate);
         $this->setFinishDate($finishDate);
         $this->addListOfVotingOptions($votingOptions);
+    }
+
+    /**
+     * @return array
+     */
+    public function getVotingOptions(): array
+    {
+        return $this->votingOptions;
+    }
+
+    /**
+     * @param array $votingOptions
+     */
+    public function setVotingOptions(array $votingOptions): void
+    {
+        $this->votingOptions = $votingOptions;
+    }
+
+    /**
+     * @return UserUuid
+     */
+    public function getUserUuid(): UserUuid
+    {
+        return $this->userUuid;
+    }
+
+    /**
+     * @param UserUuid $userUuid
+     */
+    public function setUserUuid(UserUuid $userUuid): void
+    {
+        $this->userUuid = $userUuid;
     }
 
     /**

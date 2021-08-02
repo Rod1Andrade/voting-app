@@ -30,15 +30,14 @@ class CreateVotingSectionDataLayer implements ICreateVotingSectionDataLayer
     {
 
         $pdo = $this->connection->pdo();
-        $votingStatement = $pdo->prepare("INSERT INTO {$this->schema}tb_voting(
-                      voting_uuid, subject, start_date, finish_date) VALUES (:votingUuid, :subject, :startDate, :finishDate)");
+        $votingStatement = $pdo->prepare("INSERT INTO {$this->schema}tb_voting(user_uuid,
+                      voting_uuid, subject, start_date, finish_date) VALUES (:userUuid, :votingUuid, :subject, :startDate, :finishDate)");
+
+        $votingStatement->bindValue(':userUuid', $votingDTO->getUserUuid());
         $votingStatement->bindValue(':votingUuid', $votingDTO->getVotingUuid());
         $votingStatement->bindValue(':subject', $votingDTO->getSubject());
         $votingStatement->bindValue(':startDate', $votingDTO->getStartDate());
         $votingStatement->bindValue(':finishDate', $votingDTO->getFinishDate());
-
-        $votingOptionStatement = $pdo->prepare("INSERT INTO {$this->schema}tb_voting_option ( 
-                      voting_option_uuid, voting_uuid, title) VALUES (:votingOptionUuid, :votingUuid, :title)");
 
         $pdo->beginTransaction();
         try {

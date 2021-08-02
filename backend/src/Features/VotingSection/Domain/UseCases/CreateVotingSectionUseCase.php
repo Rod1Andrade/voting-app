@@ -39,6 +39,10 @@ class CreateVotingSectionUseCase implements ICreateVotingSectionUseCase
      */
     private function validate(Voting $voting): void
     {
+        if(empty($voting->getUserUuid())) {
+            throw new CreateVotingSectionException('The user UUID needs ben defined');
+        }
+
         if (empty($voting->getVotingUuid())) {
             throw new CreateVotingSectionException('The Voting UUID needs ben defined');
         }

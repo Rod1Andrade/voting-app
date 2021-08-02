@@ -1,5 +1,5 @@
 -- Voting app
--- Version: 1.2.1
+-- Version: 2.0.0
 -- Author: Rodrigo Andrade
 -- Since: 2021-20-07
 
@@ -54,6 +54,10 @@ create table if not exists voting.tb_voting(
     update_at timestamp default null, -- database controlled
     primary key (voting_uuid)
 );
+
+-- alter table
+alter table voting.tb_voting add column user_uuid uuid;
+alter table voting.tb_voting add foreign key (user_uuid) references voting.tb_user(user_id);
 
 -- Triggers
 -- ### Triggers

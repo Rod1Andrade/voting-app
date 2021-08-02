@@ -20,7 +20,7 @@ $router->group(['/auth'], function (Router $router) {
     $router->post(['/signIn'], 'AuthController#authenticateUser');
 });
 
-$router->group(['/voting'], function (Router $router) {
+$router->group(['/voting', 'middleware' => 'SecurityMiddleware'], function (Router $router) {
     $router->post(['/section'], 'VotingSectionController#createVotingSection');
 });
 

@@ -21,6 +21,7 @@ class VotingDTO
     private array $votingOptions;
 
     private function __construct(
+        private string  $userUuid,
         private ?string $votingUuid = null,
         private ?string $subject = null,
         private ?string $startDate = null,
@@ -39,6 +40,7 @@ class VotingDTO
     public static function createVotingDTOFromVoting(Voting $voting): VotingDTO
     {
         return new VotingDTO(
+            $voting->getUserUuid()->getValue(),
             $voting->getVotingUuid()->getValue(),
             $voting->getSubject()->getValue(),
             $voting->getStartDate()->format(DateTimeInterface::ISO8601),
@@ -54,6 +56,7 @@ class VotingDTO
     public static function createVotingDTOfromStdClass(stdClass $voting): VotingDTO
     {
         return new VotingDTO(
+            userUuid: $voting->userUuid,
             votingUuid: $voting->votingUuid ?? null,
             subject: $voting->subject ?? null,
             startDate: $voting->startDate ?? null,
@@ -71,6 +74,7 @@ class VotingDTO
     public static function createVotingFromVotingDTO(VotingDTO $votingDTO): Voting
     {
         return VotingFactory::create(
+            userUuid: $votingDTO->getUserUuid(),
             subject: $votingDTO->getSubject(),
             startDate: new DateTime($votingDTO->getStartDate()),
             finishDate: new DateTime($votingDTO->getFinishDate()),
@@ -83,6 +87,22 @@ class VotingDTO
             }, $votingDTO->getVotingOptions()),
             uuid: $votingDTO->getVotingUuid(),
         );
+    }
+
+    /**
+     * @return string
+     */
+    public function getUserUuid(): string
+    {
+        return $this->userUuid;
+    }
+
+    /**
+     * @param string $userUuid
+     */
+    public function setUserUuid(string $userUuid): void
+    {
+        $this->userUuid = $userUuid;
     }
 
     /**
