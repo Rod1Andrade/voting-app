@@ -17,8 +17,8 @@ use Rodri\VotingApp\Features\VotingSection\External\Facades\CreateVotingSectionU
 class VotingSectionUseCaseFactory implements IVotingSectionUseCaseFactory
 {
 
-    #[Pure] public static function createVotingSectionUseCase(Connection $connection, string $schema = ''): ICreateVotingSectionUseCase
+    #[Pure] public static function createVotingSectionUseCase(Connection $connection, string $schema = 'voting.'): ICreateVotingSectionUseCase
     {
-        return (new CreateVotingSectionUseCaseFacade())->createUseCase($connection);
+        return (new CreateVotingSectionUseCaseFacade())->createUseCase($connection, $schema);
     }
 }

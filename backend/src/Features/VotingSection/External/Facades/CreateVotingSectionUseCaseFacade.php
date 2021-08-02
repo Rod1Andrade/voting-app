@@ -21,6 +21,7 @@ class CreateVotingSectionUseCaseFacade
 
     /**
      * @param Connection $connection
+     * @param string $schema
      * @return ICreateVotingSectionUseCase
      */
     #[Pure] public function createUseCase(Connection $connection, string $schema = ''): ICreateVotingSectionUseCase

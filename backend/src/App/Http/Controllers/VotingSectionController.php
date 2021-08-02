@@ -8,7 +8,7 @@ use Exception;
 use Rodri\SimpleRouter\Helpers\StatusCode;
 use Rodri\SimpleRouter\Request;
 use Rodri\SimpleRouter\Response;
-use Rodri\VotingApp\App\Database\Connection\MemorySqliteConnection;
+use Rodri\VotingApp\App\Database\Connection\PgConnection;
 use Rodri\VotingApp\Features\VotingSection\External\Factories\VotingSectionUseCaseFactory;
 use Rodri\VotingApp\Features\VotingSection\Infra\DataTransferObjects\VotingDTO;
 use RuntimeException;
@@ -42,7 +42,7 @@ class VotingSectionController
         $votingDTO = VotingDTO::createVotingDTOfromStdClass($body);
 
         # Use case factory
-        $createVotingUseCase = VotingSectionUseCaseFactory::createVotingSectionUseCase(MemorySqliteConnection::getConnection());
+        $createVotingUseCase = VotingSectionUseCaseFactory::createVotingSectionUseCase(PgConnection::getConnection());
 
         try {
             $createVotingUseCase(VotingDTO::createVotingFromVotingDTO($votingDTO));
