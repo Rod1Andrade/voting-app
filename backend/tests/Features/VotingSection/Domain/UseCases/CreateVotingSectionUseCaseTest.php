@@ -4,7 +4,9 @@
 namespace Features\VotingSection\Domain\UseCases;
 
 
+use DateInterval;
 use DateTime;
+use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use Rodri\VotingApp\Features\Auth\Domain\ValueObjects\UserUuid;
 use Rodri\VotingApp\Features\VotingSection\Domain\Entities\Voting;
@@ -20,6 +22,8 @@ use RuntimeException;
 
 class CreateVotingSectionUseCaseTest extends TestCase
 {
+
+
     public function testShouldThrowARuntimeExceptionWhenIsNotPossibleCreateAVotingSection(): void
     {
         self::expectException(CreateVotingSectionException::class);
@@ -50,4 +54,59 @@ class CreateVotingSectionUseCaseTest extends TestCase
 
         $useCase($dummyVoting);
     }
+
+    public function testShouldThrowAInvalidArgumentExceptionWhenTheCreatedDateIsLessThanToday(): void
+    {
+        self::expectException(InvalidArgumentException::class);
+        $voting = new Voting(
+            new UserUuid('a55f1a8d-ccfd-4a9a-9ab1-714efe85f5bc'),
+            new VotingUuid('uuid'),
+            new Subject('Subject'),
+            new DateTime('yesterday'),
+            new DateTime('tomorrow'),
+        );
+
+        $repository = self::createMock(ICreateVotingSectionRepository::class);
+        $dummyUseCase = new CreateVotingSectionUseCase($repository);
+
+        $dummyUseCase($voting);
+    }
+
+    public function testShouldThrowAInvalidArgumentExceptionWhenTheFinishDateIsLessThanCreatedDate(): void
+    {
+        self::expectExceptionMessage('The date needs be bigger than finish date.');
+        $voting = new Voting(
+            new UserUuid('a55f1a8d-ccfd-4a9a-9ab1-714efe85f5bc'),
+            new VotingUuid('uuid'),
+            new Subject('Subject'),
+            new DateTime('now'),
+            new DateTime('yesterday')
+        );
+
+        $repository = self::createMock(ICreateVotingSectionRepository::class);
+        $dummyUseCase = new CreateVotingSectionUseCase($repository);
+
+        $dummyUseCase($voting);
+    }
+
+    public function testShouldThrowAInvalidArgumentExceptionWhenTheFinishDateIsLessThanCreatedDateInHours(): void
+    {
+        self::expectExceptionMessage('The created date needs be bigger than finish date at least 1 hour.');
+        $startDate = new DateTime('now');
+        $finishDate = (new DateTime('now'))->add(new DateInterval('PT30M'));;
+
+        $voting = new Voting(
+            new UserUuid('a55f1a8d-ccfd-4a9a-9ab1-714efe85f5bc'),
+            new VotingUuid('uuid'),
+            new Subject('Subject'),
+            $startDate,
+            $finishDate,
+        );
+
+        $repository = self::createMock(ICreateVotingSectionRepository::class);
+        $dummyUseCase = new CreateVotingSectionUseCase($repository);
+
+        $dummyUseCase($voting);
+    }
+
 }

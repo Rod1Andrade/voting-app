@@ -35,7 +35,7 @@ class VotingFactory implements IVotingFactory
             if ($votingOption instanceof VotingOption) {
                 $votingOption->setVotingUuid($voting->getVotingUuid());
 
-                if (empty($votingOption->getVotingOptionUuid()))
+                if (empty($votingOption->getVotingOptionUuid()) || empty($votingOption->getVotingOptionUuid()->getValue()))
                     $votingOption->setVotingOptionUuid(new VotingOptionUuid(Uuid::genUUIDv4()));
 
                 $voting->addVotingOption($votingOption);

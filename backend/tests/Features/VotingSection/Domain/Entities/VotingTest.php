@@ -32,45 +32,6 @@ class VotingTest extends TestCase
         self::assertTrue(true);
     }
 
-    public function testShouldThrowAInvalidArgumentExceptionWhenTheCreatedDateIsLessThanToday(): void
-    {
-        self::expectException(InvalidArgumentException::class);
-        new Voting(
-            new UserUuid('a55f1a8d-ccfd-4a9a-9ab1-714efe85f5bc'),
-            new VotingUuid('uuid'),
-            new Subject('Subject'),
-            new DateTime('yesterday'),
-            new DateTime('tomorrow'),
-        );
-    }
-
-    public function testShouldThrowAInvalidArgumentExceptionWhenTheFinishDateIsLessThanCreatedDate(): void
-    {
-        self::expectExceptionMessage('The date needs be bigger than finish date.');
-        new Voting(
-            new UserUuid('a55f1a8d-ccfd-4a9a-9ab1-714efe85f5bc'),
-            new VotingUuid('uuid'),
-            new Subject('Subject'),
-            new DateTime('now'),
-            new DateTime('yesterday')
-        );
-    }
-
-    public function testShouldThrowAInvalidArgumentExceptionWhenTheFinishDateIsLessThanCreatedDateInHours(): void
-    {
-        self::expectExceptionMessage('The created date needs be bigger than finish date at least 1 hour.');
-        $startDate = new DateTime('now');
-        $finishDate = (new DateTime('now'))->add(new DateInterval('PT30M'));;
-
-        new Voting(
-            new UserUuid('a55f1a8d-ccfd-4a9a-9ab1-714efe85f5bc'),
-            new VotingUuid('uuid'),
-            new Subject('Subject'),
-            $startDate,
-            $finishDate,
-        );
-    }
-
     public function testShouldSetTheFinishDateIfIsBiggerCreatedDate(): void
     {
 

@@ -106,7 +106,7 @@ class VotingDTO
             'subject' => $voting->getSubject()->getValue(),
             'startDate' => $voting->getStartDate()->format(DateTimeInterface::ISO8601),
             'finishDate' => $voting->getFinishDate()->format(DateTimeInterface::ISO8601),
-            'options' => array_map(function ($value) {
+            'votingOptions' => array_map(function ($value) {
                 if ($value instanceof VotingOption) {
                     return [
                         'id' => $value->getVotingOptionUuid()->getValue(),

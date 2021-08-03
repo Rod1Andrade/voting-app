@@ -113,9 +113,6 @@ class Voting
      */
     public function setStartDate(DateTime $startDate): void
     {
-        if ($startDate < new DateTime('today'))
-            throw new InvalidArgumentException('The date needs be today forward.');
-
         $this->startDate = $startDate;
     }
 
@@ -132,12 +129,6 @@ class Voting
      */
     public function setFinishDate(DateTime $finishDate): void
     {
-        if ($finishDate <= $this->getStartDate())
-            throw new InvalidArgumentException('The date needs be bigger than finish date.');
-
-        if ($finishDate->diff($this->getStartDate())->days === 0 && $finishDate->diff($this->getStartDate())->h < 1)
-            throw new InvalidArgumentException('The created date needs be bigger than finish date at least 1 hour.');
-
         $this->finishDate = $finishDate;
     }
 
