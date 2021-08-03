@@ -122,6 +122,22 @@ class VotingSectionController
     }
 
     /**
+     * Get a voting section by your uuid
+     * @param Request $request
+     * @return Response
+     */
+    public function showVotingSection(Request $request): Response
+    {
+        $votingSectionUuid = $request->param(':votingSectionUuid');
+
+        #UseCase factory
+        $showVotingSectionUseCase = VotingSectionUseCaseFactory::showVotingSectionUseCase(PgConnection::getConnection());
+//        var_dump(VotingDTO::parserToAssocArray($showVotingSectionUseCase(new VotingUuid($votingSectionUuid))));
+
+        return new Response(VotingDTO::parserToAssocArray($showVotingSectionUseCase(new VotingUuid($votingSectionUuid))));
+    }
+
+    /**
      * @param int $offset
      * @param int $limit
      */

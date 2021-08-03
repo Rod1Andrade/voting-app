@@ -8,6 +8,7 @@ use Rodri\VotingApp\App\Database\Connection\Connection;
 use Rodri\VotingApp\Features\VotingSection\Domain\UseCases\ICreateVotingSectionUseCase;
 use Rodri\VotingApp\Features\VotingSection\Domain\UseCases\IDeleteVotingSectionUseCase;
 use Rodri\VotingApp\Features\VotingSection\Domain\UseCases\IShowAllVotingSectionsUseCase;
+use Rodri\VotingApp\Features\VotingSection\Domain\UseCases\IShowVotingSectionUseCase;
 
 interface IVotingSectionUseCaseFactory
 {
@@ -31,5 +32,12 @@ interface IVotingSectionUseCaseFactory
      * @return IShowAllVotingSectionsUseCase
      */
     public static function showAllVotingSectionUseCase(Connection $connection, string $schema = 'voting.'): IShowAllVotingSectionsUseCase;
-    
+
+    /**
+     * @param Connection $connection
+     * @param string $schema
+     * @return IShowVotingSectionUseCase
+     */
+    public static function showVotingSectionUseCase(Connection $connection, string $schema = 'voting.'): IShowVotingSectionUseCase;
+
 }

@@ -16,5 +16,5 @@ interface IShowAllVotingSectionsUseCase
      * @param int $limit
      * @return array
      */
-    public function __invoke(int $offset = 1, int $limit = 10): array;
+    public function __invoke(int $offset = 1, int $limit = 10): array; //TODO: The use case needs work with entity
 }

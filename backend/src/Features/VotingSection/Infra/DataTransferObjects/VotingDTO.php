@@ -10,6 +10,7 @@ use Rodri\VotingApp\Features\VotingSection\Domain\Entities\Voting;
 use Rodri\VotingApp\Features\VotingSection\Domain\Entities\VotingOption;
 use Rodri\VotingApp\Features\VotingSection\Domain\Factories\VotingFactory;
 use Rodri\VotingApp\Features\VotingSection\Domain\ValueObjects\Title;
+use Rodri\VotingApp\Features\VotingSection\Domain\ValueObjects\VotingOptionUuid;
 use stdClass;
 
 /**
@@ -21,7 +22,7 @@ class VotingDTO
     private array $votingOptions;
 
     private function __construct(
-        private ?string  $userUuid = null,
+        private ?string $userUuid = null,
         private ?string $votingUuid = null,
         private ?string $subject = null,
         private ?string $startDate = null,
@@ -79,14 +80,43 @@ class VotingDTO
             startDate: new DateTime($votingDTO->getStartDate()),
             finishDate: new DateTime($votingDTO->getFinishDate()),
             votingOptions: array_map(function ($value) {
+
                 if ($value instanceof VotingOptionDTO) {
-                    return new VotingOption(title: new Title($value->getTitle()));
-                } else {
-                    return null;
+                    return new VotingOption(
+                        votingOptionUuid: new VotingOptionUuid($value->getVotingOptionUuid()),
+                        title: new Title($value->getTitle())
+                    );
                 }
+
+                return null;
             }, $votingDTO->getVotingOptions()),
             uuid: $votingDTO->getVotingUuid(),
         );
+    }
+
+    /**
+     * Parse to assoc array, normally used with json_encode
+     * @param Voting|null $voting
+     * @return array
+     */
+    public static function parserToAssocArray(?Voting $voting): array
+    {
+        return [
+            'id' => $voting->getVotingUuid()->getValue(),
+            'subject' => $voting->getSubject()->getValue(),
+            'startDate' => $voting->getStartDate()->format(DateTimeInterface::ISO8601),
+            'finishDate' => $voting->getFinishDate()->format(DateTimeInterface::ISO8601),
+            'options' => array_map(function ($value) {
+                if ($value instanceof VotingOption) {
+                    return [
+                        'id' => $value->getVotingOptionUuid()->getValue(),
+                        'title' => $value->getTitle()->getValue()
+                    ];
+                }
+
+                return null;
+            }, $voting->getListOfVotingOptions())
+        ];
     }
 
     /**
@@ -202,7 +232,7 @@ class VotingDTO
                     new VotingOption(title: new Title($votingOption))
                 );
 
-            } else if($votingOption instanceof VotingOptionDTO) {
+            } else if ($votingOption instanceof VotingOptionDTO) {
                 $this->votingOptions[] = $votingOption;
             }
         }

@@ -23,6 +23,7 @@ $router->group(['/auth'], function (Router $router) {
 $router->group(['/voting', 'middleware' => 'SecurityMiddleware'], function (Router $router) {
     $router->get(['/section'], 'VotingSectionController#showAllVotingSections');
     $router->get(['/section/:offset/:limit'], 'VotingSectionController#showAllVotingSections');
+    $router->get(['/section/:votingSectionUuid'], 'VotingSectionController#showVotingSection');
     $router->post(['/section'], 'VotingSectionController#createVotingSection');
     $router->delete(['/section/:votingSectionUuid'], 'VotingSectionController#deleteVotingSection');
 });

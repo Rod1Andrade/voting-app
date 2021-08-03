@@ -17,21 +17,18 @@ use Rodri\VotingApp\Features\VotingSection\Domain\ValueObjects\VotingUuid;
  */
 class Voting
 {
-    private DateTime $startDate;
-    private DateTime $finishDate;
     private array $votingOptions;
 
     public function __construct(
         private ?UserUuid   $userUuid = null,
         private ?VotingUuid $votingUuid = null,
         private ?Subject    $subject = null,
-        DateTime            $startDate = null,
-        DateTime            $finishDate = null,
+        private ?DateTime   $startDate = null,
+        private ?DateTime   $finishDate = null,
         array               $votingOptions = []
     )
     {
-        $this->setStartDate($startDate);
-        $this->setFinishDate($finishDate);
+
         $this->addListOfVotingOptions($votingOptions);
     }
 
