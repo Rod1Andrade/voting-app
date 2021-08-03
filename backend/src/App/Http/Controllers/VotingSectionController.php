@@ -60,7 +60,7 @@ class VotingSectionController
     }
 
     /**
-     * Delete a voting section and all voting options associeted with
+     * Delete a voting section and all voting options associated with
      *
      * @param Request $request
      * @return Response
@@ -132,7 +132,6 @@ class VotingSectionController
 
         #UseCase factory
         $showVotingSectionUseCase = VotingSectionUseCaseFactory::showVotingSectionUseCase(PgConnection::getConnection());
-//        var_dump(VotingDTO::parserToAssocArray($showVotingSectionUseCase(new VotingUuid($votingSectionUuid))));
 
         return new Response(VotingDTO::parserToAssocArray($showVotingSectionUseCase(new VotingUuid($votingSectionUuid))));
     }
