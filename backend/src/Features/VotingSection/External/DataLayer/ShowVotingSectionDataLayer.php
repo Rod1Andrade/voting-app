@@ -2,6 +2,7 @@
 
 namespace Rodri\VotingApp\Features\VotingSection\External\DataLayer;
 
+use Exception;
 use PDOException;
 use Rodri\VotingApp\App\Database\Connection\Connection;
 use Rodri\VotingApp\Features\VotingSection\Domain\ValueObjects\VotingUuid;
@@ -9,6 +10,7 @@ use Rodri\VotingApp\Features\VotingSection\External\Exceptions\ShowVotingSection
 use Rodri\VotingApp\Features\VotingSection\Infra\Datalayer\IShowVotingSectionDataLayer;
 use Rodri\VotingApp\Features\VotingSection\Infra\DataTransferObjects\VotingDTO;
 use Rodri\VotingApp\Features\VotingSection\Infra\DataTransferObjects\VotingOptionDTO;
+use RuntimeException;
 use stdClass;
 
 /**
@@ -33,8 +35,8 @@ class ShowVotingSectionDataLayer implements IShowVotingSectionDataLayer
                 ON tv.voting_uuid = tvo.voting_uuid
                 WHERE tv.voting_uuid = :votingUuid");
 
-        $statement->bindValue(':votingUuid', $votingUuid);
         try {
+            $statement->bindValue(':votingUuid', $votingUuid);
 
             $statement->execute();
             $response = $statement->fetchAll();
@@ -57,7 +59,7 @@ class ShowVotingSectionDataLayer implements IShowVotingSectionDataLayer
             }, $response);
 
             return VotingDTO::createVotingDTOfromStdClass($votingStdClass);
-        } catch (PDOException $e) {
+        } catch (PDOException | RuntimeException | Exception $e) {
             throw new ShowVOtingSectionDataLayerException($e);
         }
     }

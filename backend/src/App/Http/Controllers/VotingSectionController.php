@@ -105,20 +105,24 @@ class VotingSectionController
 
         # Use case factory
         $showAllVotingSectionsUseCase = VotingSectionUseCaseFactory::showAllVotingSectionUseCase(PgConnection::getConnection());
-        $response = $showAllVotingSectionsUseCase($offset, $limit);
 
-        return new Response(array_map(function ($value) {
-            if ($value instanceof VotingDTO) {
-                return [
-                    'votingUuid' => $value->getVotingUuid(),
-                    'subject' => $value->getSubject(),
-                    'startDate' => $value->getStartDate(),
-                    'finishDate' => $value->getFinishDate()
-                ];
-            } else {
-                return null;
-            }
-        }, $response));
+        try {
+            $response = $showAllVotingSectionsUseCase($offset, $limit);
+            return new Response(array_map(function ($value) {
+                if ($value instanceof VotingDTO) {
+                    return [
+                        'votingUuid' => $value->getVotingUuid(),
+                        'subject' => $value->getSubject(),
+                        'startDate' => $value->getStartDate(),
+                        'finishDate' => $value->getFinishDate()
+                    ];
+                } else {
+                    return null;
+                }
+            }, $response));
+        } catch (RuntimeException | Exception $e) {
+            return new Response(['message' => $e->getMessage()], StatusCode::BAD_REQUEST);
+        }
     }
 
     /**
@@ -131,9 +135,13 @@ class VotingSectionController
         $votingSectionUuid = $request->param(':votingSectionUuid');
 
         #UseCase factory
-        $showVotingSectionUseCase = VotingSectionUseCaseFactory::showVotingSectionUseCase(PgConnection::getConnection());
+        try {
+            $showVotingSectionUseCase = VotingSectionUseCaseFactory::showVotingSectionUseCase(PgConnection::getConnection());
+            return new Response(VotingDTO::parserToAssocArray($showVotingSectionUseCase(new VotingUuid($votingSectionUuid))));
+        } catch (RuntimeException | Exception $e) {
+            return new Response(['message' => $e->getMessage()], StatusCode::BAD_REQUEST);
+        }
 
-        return new Response(VotingDTO::parserToAssocArray($showVotingSectionUseCase(new VotingUuid($votingSectionUuid))));
     }
 
     /**
