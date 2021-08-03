@@ -25,7 +25,7 @@ class VotingFactory implements IVotingFactory
 
         $voting = new Voting(
             userUuid: new UserUuid($userUuid),
-            votingUuid: $uuid ?? new VotingUuid(Uuid::genUUIDv4()),
+            votingUuid: !empty($uuid) ? new VotingUuid($uuid) : new VotingUuid(Uuid::genUUIDv4()),
             subject: new Subject($subject),
             startDate: $startDate,
             finishDate: $finishDate

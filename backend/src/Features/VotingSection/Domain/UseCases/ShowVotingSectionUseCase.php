@@ -17,7 +17,7 @@ class ShowVotingSectionUseCase implements IShowVotingSectionUseCase
     {
     }
 
-    public function __invoke(VotingUuid $votingUuid): Voting
+    public function __invoke(VotingUuid $votingUuid): ?Voting
     {
         try {
             return ($this->repository)($votingUuid);

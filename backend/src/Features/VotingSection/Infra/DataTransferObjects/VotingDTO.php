@@ -90,17 +90,17 @@ class VotingDTO
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getUserUuid(): string
+    public function getUserUuid(): ?string
     {
         return $this->userUuid;
     }
 
     /**
-     * @param string $userUuid
+     * @param string|null $userUuid
      */
-    public function setUserUuid(string $userUuid): void
+    public function setUserUuid(?string $userUuid): void
     {
         $this->userUuid = $userUuid;
     }
@@ -202,6 +202,8 @@ class VotingDTO
                     new VotingOption(title: new Title($votingOption))
                 );
 
+            } else if($votingOption instanceof VotingOptionDTO) {
+                $this->votingOptions[] = $votingOption;
             }
         }
     }

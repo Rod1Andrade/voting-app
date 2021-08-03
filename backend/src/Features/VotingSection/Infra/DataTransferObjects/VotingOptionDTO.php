@@ -6,6 +6,7 @@ namespace Rodri\VotingApp\Features\VotingSection\Infra\DataTransferObjects;
 
 use JetBrains\PhpStorm\Pure;
 use Rodri\VotingApp\Features\VotingSection\Domain\Entities\VotingOption;
+use stdClass;
 
 /**
  * Class VotingOptionDTO
@@ -33,6 +34,19 @@ class VotingOptionDTO
             $votingOption->getVotingOptionUuid()?->getValue() ?? null,
             $votingOption->getVotingUuid()?->getValue() ?? null,
             $votingOption->getTitle()?->getValue() ?? null
+        );
+    }
+
+    /**
+     * @param stdClass $votingOption
+     * @return VotingOptionDTO
+     */
+    public static function createVotingOptionDTOFromStdClass(stdClass $votingOption): VotingOptionDTO
+    {
+        return new VotingOptionDTO(
+            votingOptionUuid: $votingOption->votingOptionUuid ?? null,
+            votingUuid: $votingOption->votingUuid ?? null,
+            title: $votingOption->title ?? null
         );
     }
 

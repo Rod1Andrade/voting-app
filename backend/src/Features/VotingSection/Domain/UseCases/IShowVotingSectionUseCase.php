@@ -17,7 +17,7 @@ interface IShowVotingSectionUseCase
      * Get a voting by Voting UUID
      *
      * @param VotingUuid $votingUuid
-     * @return Voting
+     * @return Voting|null
      */
-    public function __invoke(VotingUuid $votingUuid): Voting;
+    public function __invoke(VotingUuid $votingUuid): ?Voting;
 }
