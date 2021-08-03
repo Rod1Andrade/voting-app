@@ -29,7 +29,7 @@
     "ext-http": "*"
   },
   "scripts": {
-    "test": "php -dxdebug.mode=coverage vendor/phpunit/phpunit/phpunit tests/ --coverage-html cover/",
+    "test": "php -dxdebug.mode=coverage vendor/phpunit/phpunit/phpunit tests/ --coverage-html cover/ --colors always",
     "dev": [
       "Composer\\Config::disableProcessTimeout",
       "php -S localhost:8000 -t public"
