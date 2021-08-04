@@ -7,10 +7,12 @@ namespace Rodri\VotingApp\Features\VotingSection\External\Factories;
 use JetBrains\PhpStorm\Pure;
 use Rodri\VotingApp\App\Database\Connection\Connection;
 use Rodri\VotingApp\Features\VotingSection\Domain\UseCases\ICreateVotingSectionUseCase;
+use Rodri\VotingApp\Features\VotingSection\Domain\UseCases\IDeleteVotingOptionUseCase;
 use Rodri\VotingApp\Features\VotingSection\Domain\UseCases\IDeleteVotingSectionUseCase;
 use Rodri\VotingApp\Features\VotingSection\Domain\UseCases\IShowAllVotingSectionsUseCase;
 use Rodri\VotingApp\Features\VotingSection\Domain\UseCases\IShowVotingSectionUseCase;
 use Rodri\VotingApp\Features\VotingSection\External\Facades\CreateVotingSectionUseCaseFacade;
+use Rodri\VotingApp\Features\VotingSection\External\Facades\DeleteVotingOptionUseCaseFacade;
 use Rodri\VotingApp\Features\VotingSection\External\Facades\DeleteVotingSectionUseCaseFacade;
 use Rodri\VotingApp\Features\VotingSection\External\Facades\ShowAllVotingSectionUseCaseFacade;
 use Rodri\VotingApp\Features\VotingSection\External\Facades\ShowVotingSectionUseCaseFacade;
@@ -41,5 +43,10 @@ class VotingSectionUseCaseFactory implements IVotingSectionUseCaseFactory
     public static function showVotingSectionUseCase(Connection $connection, string $schema = 'voting.'): IShowVotingSectionUseCase
     {
         return (new ShowVotingSectionUseCaseFacade())->createUseCase($connection, $schema);
+    }
+
+    public static function DeleteVotingOptionUseCase(Connection $connection, string $schema = 'voting.'): IDeleteVotingOptionUseCase
+    {
+        return (new DeleteVotingOptionUseCaseFacade())->createUseCase($connection, $schema);
     }
 }
