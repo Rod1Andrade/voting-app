@@ -6,6 +6,7 @@ namespace Rodri\VotingApp\Features\VotingSection\External\Factories;
 
 use Rodri\VotingApp\App\Database\Connection\Connection;
 use Rodri\VotingApp\Features\VotingSection\Domain\UseCases\ICreateVotingSectionUseCase;
+use Rodri\VotingApp\Features\VotingSection\Domain\UseCases\IDeleteVotingOptionUseCase;
 use Rodri\VotingApp\Features\VotingSection\Domain\UseCases\IDeleteVotingSectionUseCase;
 use Rodri\VotingApp\Features\VotingSection\Domain\UseCases\IShowAllVotingSectionsUseCase;
 use Rodri\VotingApp\Features\VotingSection\Domain\UseCases\IShowVotingSectionUseCase;
@@ -39,5 +40,12 @@ interface IVotingSectionUseCaseFactory
      * @return IShowVotingSectionUseCase
      */
     public static function showVotingSectionUseCase(Connection $connection, string $schema = 'voting.'): IShowVotingSectionUseCase;
+
+    /**
+     * @param Connection $connection
+     * @param string $schema
+     * @return IDeleteVotingOptionUseCase
+     */
+    public static function DeleteVotingOptionUseCase(Connection $connection, string $schema = 'voting.'): IDeleteVotingOptionUseCase;
 
 }

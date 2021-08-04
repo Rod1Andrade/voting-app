@@ -3,6 +3,7 @@
 namespace Rodri\VotingApp\Features\VotingSection\Domain\UseCases;
 
 use Exception;
+use InvalidArgumentException;
 use Rodri\VotingApp\Features\Auth\Domain\ValueObjects\UserUuid;
 use Rodri\VotingApp\Features\VotingSection\Domain\Exceptions\DeleteVotingOptionException;
 use Rodri\VotingApp\Features\VotingSection\Domain\Repositories\IDeleteVotingOptionRepository;
@@ -16,7 +17,8 @@ class DeleteVotingOptionUseCase implements IDeleteVotingOptionUseCase
 {
 
     public function __construct(
-        private IDeleteVotingOptionRepository $repository
+        private IVotingOptionCheckOwnerUseCase $checkOwnerUseCase,
+        private IDeleteVotingOptionRepository  $repository,
     )
     {
     }
@@ -24,7 +26,10 @@ class DeleteVotingOptionUseCase implements IDeleteVotingOptionUseCase
     public function __invoke(VotingOptionUuid $votingOptionUuid, UserUuid $userUuid): void
     {
         try {
-            ($this->repository)($votingOptionUuid, $userUuid);
+            if(($this->checkOwnerUseCase)($votingOptionUuid, $userUuid))
+                ($this->repository)($votingOptionUuid, $userUuid);
+            else
+                throw new InvalidArgumentException('To delete a voting option you need be the owner.');
         } catch (Exception $e) {
             throw new DeleteVotingOptionException($e);
         }

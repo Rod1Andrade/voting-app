@@ -7,6 +7,7 @@ use Rodri\VotingApp\Features\VotingSection\Domain\Exceptions\DeleteVotingOptionE
 use Rodri\VotingApp\Features\VotingSection\Domain\Repositories\IDeleteVotingOptionRepository;
 use Rodri\VotingApp\Features\VotingSection\Domain\UseCases\DeleteVotingOptionUseCase;
 use PHPUnit\Framework\TestCase;
+use Rodri\VotingApp\Features\VotingSection\Domain\UseCases\IVotingOptionCheckOwnerUseCase;
 use Rodri\VotingApp\Features\VotingSection\Domain\ValueObjects\VotingOptionUuid;
 
 class DeleteVotingOptionUseCaseTest extends TestCase
@@ -15,12 +16,15 @@ class DeleteVotingOptionUseCaseTest extends TestCase
     {
         self::expectException(DeleteVotingOptionException::class);
 
+        $checkOwnerUseCase = self::createMock(IVotingOptionCheckOwnerUseCase::class);
+        $checkOwnerUseCase->method('__invoke')
+            ->willReturn(true);
+
         $repository = self::createMock(IDeleteVotingOptionRepository::class);
         $repository->method('__invoke')
-            ->willThrowException(new \Exception());
+          ->willThrowException(new \Exception());
 
-        $useCase = new DeleteVotingOptionUseCase($repository);
-
+        $useCase = new DeleteVotingOptionUseCase($checkOwnerUseCase, $repository);
         $useCase(new VotingOptionUuid('any'), new UserUuid('any'));
     }
 }
