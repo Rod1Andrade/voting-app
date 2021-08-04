@@ -14,12 +14,19 @@ $router->headerConfigs([
 $router->setControllerNamespace('Rodri\VotingApp\App\Http\Controllers');
 $router->setMiddlewareNamespace('Rodri\VotingApp\App\Http\Middlewares');
 
-# Routes
+#### Routes ####
+
+/** ***************************************************
+ *  Authentication
+ ****************************************************/
 $router->group(['/auth'], function (Router $router) {
     $router->post(['/signUp'], 'AuthController#registerUser');
     $router->post(['/signIn'], 'AuthController#authenticateUser');
 });
 
+/** ***************************************************
+ *  Voting Section
+ ****************************************************/
 $router->group(['/voting', 'middleware' => 'SecurityMiddleware'], function (Router $router) {
     $router->get(['/section'], 'VotingSectionController#showAllVotingSections');
     $router->get(['/section/:offset/:limit'], 'VotingSectionController#showAllVotingSections');

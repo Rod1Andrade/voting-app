@@ -26,10 +26,12 @@ class DeleteVotingOptionUseCase implements IDeleteVotingOptionUseCase
     public function __invoke(VotingOptionUuid $votingOptionUuid, UserUuid $userUuid): void
     {
         try {
-            if(($this->checkOwnerUseCase)($votingOptionUuid, $userUuid))
+            if (($this->checkOwnerUseCase)($votingOptionUuid, $userUuid))
                 ($this->repository)($votingOptionUuid, $userUuid);
             else
                 throw new InvalidArgumentException('To delete a voting option you need be the owner.');
+        } catch (InvalidArgumentException $e) {
+            throw new DeleteVotingOptionException($e->getMessage());
         } catch (Exception $e) {
             throw new DeleteVotingOptionException($e);
         }

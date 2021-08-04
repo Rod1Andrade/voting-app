@@ -3,6 +3,7 @@
 namespace Rodri\VotingApp\App\Http\Controllers;
 
 use Exception;
+use InvalidArgumentException;
 use Rodri\SimpleRouter\Helpers\StatusCode;
 use Rodri\SimpleRouter\Request;
 use Rodri\SimpleRouter\Response;
@@ -25,7 +26,7 @@ class VotingOptionController
      */
     public function deleteVotingOption(Request $request): Response
     {
-        if(empty($request->param(':votingOptionUuid'))) {
+        if (empty($request->param(':votingOptionUuid'))) {
             return new Response(['message' => 'the voting option uuid is necessary'], StatusCode::BAD_REQUEST);
         }
 
@@ -38,7 +39,7 @@ class VotingOptionController
                 new UserUuid($request->getValue('userUuid'))
             );
             return new Response();
-        } catch (Exception $e) {
+        } catch (InvalidArgumentException | Exception $e) {
             return new Response(['message' => $e->getMessage()], StatusCode::BAD_REQUEST);
         }
     }
