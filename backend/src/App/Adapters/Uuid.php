@@ -22,4 +22,14 @@ class Uuid implements IUuid
     {
         return RUuid::uuid4()->toString();
     }
+
+    /**
+     * @param string $uuid
+     * @return bool
+     * @codeCoverageIgnore
+     */
+    public static function validate(string $uuid): bool
+    {
+        return RUuid::isValid($uuid);
+    }
 }

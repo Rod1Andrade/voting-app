@@ -21,7 +21,7 @@ class ShowVotingSectionUseCase implements IShowVotingSectionUseCase
     {
         try {
             return ($this->repository)($votingUuid);
-        } catch (Exception $e) {
+        } catch (Exception) {
             throw new ShowVotingSectionException('It\'s not possible to return a voting section: Check uuid');
         }
     }

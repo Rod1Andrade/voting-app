@@ -14,4 +14,11 @@ interface IUuid
      * @return string
      */
     public static function  genUUIDv4(): string;
+
+    /**
+     * Validate a UUID
+     * @param string $uuid
+     * @return bool
+     */
+    public static function validate(string $uuid): bool;
 }

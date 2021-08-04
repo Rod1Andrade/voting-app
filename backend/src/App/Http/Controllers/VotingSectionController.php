@@ -137,7 +137,9 @@ class VotingSectionController
         #UseCase factory
         try {
             $showVotingSectionUseCase = VotingSectionUseCaseFactory::showVotingSectionUseCase(PgConnection::getConnection());
-            return new Response(VotingDTO::parserToAssocArray($showVotingSectionUseCase(new VotingUuid($votingSectionUuid))));
+            $response = $showVotingSectionUseCase(new VotingUuid($votingSectionUuid));
+
+            return new Response(VotingDTO::parserToAssocArray($response));
         } catch (RuntimeException | Exception $e) {
             return new Response(['message' => $e->getMessage()], StatusCode::BAD_REQUEST);
         }

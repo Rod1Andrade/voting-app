@@ -68,12 +68,14 @@ class VotingDTO
 
     /**
      * Create instance of Voting Entity mas by voting DTO
-     * @param VotingDTO $votingDTO
-     * @return Voting
+     * @param VotingDTO|null $votingDTO
+     * @return Voting|null
      * @throws Exception
      */
-    public static function createVotingFromVotingDTO(VotingDTO $votingDTO): Voting
+    public static function createVotingFromVotingDTO(?VotingDTO $votingDTO): ?Voting
     {
+        if(empty($votingDTO)) return null;
+
         return VotingFactory::create(
             userUuid: $votingDTO->getUserUuid(),
             subject: $votingDTO->getSubject(),
@@ -101,6 +103,9 @@ class VotingDTO
      */
     public static function parserToAssocArray(?Voting $voting): array
     {
+        if(empty($voting))
+            return [];
+
         return [
             'id' => $voting->getVotingUuid()->getValue(),
             'subject' => $voting->getSubject()->getValue(),

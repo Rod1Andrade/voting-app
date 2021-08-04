@@ -4,6 +4,7 @@
 namespace Rodri\VotingApp\Features\VotingSection\Domain\UseCases;
 
 use DateTime;
+use Exception;
 use InvalidArgumentException;
 use Rodri\VotingApp\Features\VotingSection\Domain\Entities\Voting;
 use Rodri\VotingApp\Features\VotingSection\Domain\Exceptions\CreateVotingSectionException;
@@ -28,9 +29,12 @@ class CreateVotingSectionUseCase implements ICreateVotingSectionUseCase
     {
         try {
             $this->validate($voting);
+
             ($this->repository)($voting);
-        } catch (RuntimeException $e) {
-            throw new CreateVotingSectionException($e);
+        } catch (CreateVotingSectionException $e) {
+            throw new CreateVotingSectionException($e->getMessage());
+        } catch (Exception) {
+            throw new CreateVotingSectionException('Unknown error');
         }
     }
 
@@ -41,7 +45,7 @@ class CreateVotingSectionUseCase implements ICreateVotingSectionUseCase
      */
     private function validate(Voting $voting): void
     {
-        if(empty($voting->getUserUuid())) {
+        if (empty($voting->getUserUuid())) {
             throw new CreateVotingSectionException('The user UUID needs be defined');
         }
 

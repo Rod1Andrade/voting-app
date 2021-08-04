@@ -24,7 +24,7 @@ class ShowAllVotingSectionsUseCase implements IShowAllVotingSectionsUseCase
     {
         try {
             return ($this->repository)($offset, $limit);
-        } catch (Exception $e) {
+        } catch (Exception) {
             throw new ShowAllVotingSectionsException('It\'s not Possible take all voting section use cases.');
         }
     }

@@ -3,6 +3,7 @@
 namespace Rodri\VotingApp\Features\VotingSection\Domain\UseCases;
 
 use Exception;
+use Rodri\VotingApp\App\Adapters\Uuid;
 use Rodri\VotingApp\Features\Auth\Domain\ValueObjects\UserUuid;
 use Rodri\VotingApp\Features\VotingSection\Domain\Exceptions\DeleteVotingSectionException;
 use Rodri\VotingApp\Features\VotingSection\Domain\Repositories\IDeleteVotingSectionRepository;
@@ -25,14 +26,28 @@ class DeleteVotingSectionUseCase implements IDeleteVotingSectionUseCase
     public function __invoke(VotingUuid $votingUuid, UserUuid $userUuid): void
     {
         try {
-            if (empty($votingUuid) || empty($votingUuid->getValue())) {
-                throw new DeleteVotingSectionException('The voting uuid its necessary.');
-            }
+            $this->validate($votingUuid);
 
             ($this->repository)($votingUuid, $userUuid);
-
-        } catch (Exception $e) {
-            throw  new DeleteVotingSectionException($e);
+        } catch (DeleteVotingSectionException $e) {
+            throw  new DeleteVotingSectionException($e->getMessage());
+        } catch (Exception) {
+            throw  new DeleteVotingSectionException('Unknown error');
         }
     }
+
+    /**
+     * @param VotingUuid $votingUUid
+     */
+    private function validate(VotingUUid $votingUUid)
+    {
+        if (empty($votingUUid) || empty($votingUUid->getValue())) {
+            throw new DeleteVotingSectionException('The voting uuid its necessary.');
+        }
+
+        if(!Uuid::validate($votingUUid->getValue())) {
+            throw new DeleteVotingSectionException('Invalid UUID format.');
+        }
+    }
+
 }

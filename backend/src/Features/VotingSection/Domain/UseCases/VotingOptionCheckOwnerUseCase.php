@@ -25,8 +25,8 @@ class VotingOptionCheckOwnerUseCase implements IVotingOptionCheckOwnerUseCase
     {
         try {
             return ($this->repository)($votingOptionUuid, $userUuid);
-        } catch (Exception $e) {
-            throw new VotingOptionCheckOwnerException($e);
+        } catch (Exception) {
+            throw new VotingOptionCheckOwnerException('Its not possible check if you are the owner.');
         }
     }
 }
