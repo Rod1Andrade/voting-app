@@ -9,7 +9,6 @@ use InvalidArgumentException;
 use Rodri\VotingApp\Features\VotingSection\Domain\Entities\Voting;
 use Rodri\VotingApp\Features\VotingSection\Domain\Exceptions\CreateVotingSectionException;
 use Rodri\VotingApp\Features\VotingSection\Domain\Repositories\ICreateVotingSectionRepository;
-use RuntimeException;
 
 /**
  * Use Case CreatedVotingSection
@@ -31,7 +30,7 @@ class CreateVotingSectionUseCase implements ICreateVotingSectionUseCase
             $this->validate($voting);
 
             ($this->repository)($voting);
-        } catch (CreateVotingSectionException $e) {
+        } catch (CreateVotingSectionException | InvalidArgumentException $e) {
             throw new CreateVotingSectionException($e->getMessage());
         } catch (Exception) {
             throw new CreateVotingSectionException('Unknown error');

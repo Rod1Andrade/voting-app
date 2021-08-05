@@ -55,9 +55,9 @@ class CreateVotingSectionUseCaseTest extends TestCase
         $useCase($dummyVoting);
     }
 
-    public function testShouldThrowAInvalidArgumentExceptionWhenTheCreatedDateIsLessThanToday(): void
+    public function testShouldThrowACreateVotingSectionExceptionWhenTheCreatedDateIsLessThanToday(): void
     {
-        self::expectException(InvalidArgumentException::class);
+        self::expectException(CreateVotingSectionException::class);
         $voting = new Voting(
             new UserUuid('a55f1a8d-ccfd-4a9a-9ab1-714efe85f5bc'),
             new VotingUuid('uuid'),
@@ -72,7 +72,7 @@ class CreateVotingSectionUseCaseTest extends TestCase
         $dummyUseCase($voting);
     }
 
-    public function testShouldThrowAInvalidArgumentExceptionWhenTheFinishDateIsLessThanCreatedDate(): void
+    public function testShouldThrowACreateVotingSectionExceptionWhenTheFinishDateIsLessThanCreatedDate(): void
     {
         self::expectExceptionMessage('The date needs be bigger than finish date.');
         $voting = new Voting(
@@ -89,7 +89,7 @@ class CreateVotingSectionUseCaseTest extends TestCase
         $dummyUseCase($voting);
     }
 
-    public function testShouldThrowAInvalidArgumentExceptionWhenTheFinishDateIsLessThanCreatedDateInHours(): void
+    public function testShouldThrowACreateVotingSectionExceptionWhenTheFinishDateIsLessThanCreatedDateInHours(): void
     {
         self::expectExceptionMessage('The created date needs be bigger than finish date at least 1 hour.');
         $startDate = new DateTime('now');
