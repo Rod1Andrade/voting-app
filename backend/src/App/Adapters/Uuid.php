@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Rodri\VotingApp\Features\Auth\External\Adapters;
+namespace Rodri\VotingApp\App\Adapters;
 
 use Ramsey\Uuid\Uuid as RUuid;
 use Rodri\VotingApp\Features\Auth\Domain\Adapters\IUuid;
@@ -21,5 +21,15 @@ class Uuid implements IUuid
     public static function genUUIDv4(): string
     {
         return RUuid::uuid4()->toString();
+    }
+
+    /**
+     * @param string $uuid
+     * @return bool
+     * @codeCoverageIgnore
+     */
+    public static function validate(string $uuid): bool
+    {
+        return RUuid::isValid($uuid);
     }
 }
