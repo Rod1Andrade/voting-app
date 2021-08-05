@@ -11,11 +11,13 @@ use Rodri\VotingApp\Features\VotingSection\Domain\UseCases\IDeleteVotingOptionUs
 use Rodri\VotingApp\Features\VotingSection\Domain\UseCases\IDeleteVotingSectionUseCase;
 use Rodri\VotingApp\Features\VotingSection\Domain\UseCases\IShowAllVotingSectionsUseCase;
 use Rodri\VotingApp\Features\VotingSection\Domain\UseCases\IShowVotingSectionUseCase;
+use Rodri\VotingApp\Features\VotingSection\Domain\UseCases\IUpdateVotingOptionTitleUseCase;
 use Rodri\VotingApp\Features\VotingSection\External\Facades\CreateVotingSectionUseCaseFacade;
 use Rodri\VotingApp\Features\VotingSection\External\Facades\DeleteVotingOptionUseCaseFacade;
 use Rodri\VotingApp\Features\VotingSection\External\Facades\DeleteVotingSectionUseCaseFacade;
 use Rodri\VotingApp\Features\VotingSection\External\Facades\ShowAllVotingSectionUseCaseFacade;
 use Rodri\VotingApp\Features\VotingSection\External\Facades\ShowVotingSectionUseCaseFacade;
+use Rodri\VotingApp\Features\VotingSection\External\Facades\UpdateVotingOptionTitleUseCaseFacade;
 
 /**
  * Class VotingSectionUseCaseFactory0
@@ -48,5 +50,10 @@ class VotingSectionUseCaseFactory implements IVotingSectionUseCaseFactory
     public static function DeleteVotingOptionUseCase(Connection $connection, string $schema = 'voting.'): IDeleteVotingOptionUseCase
     {
         return (new DeleteVotingOptionUseCaseFacade())->createUseCase($connection, $schema);
+    }
+
+    public static function updateVotingOptionTitleUseCase(Connection $connection, string $schema = 'voting.'): IUpdateVotingOptionTitleUseCase
+    {
+        return (new UpdateVotingOptionTitleUseCaseFacade())->createUseCase($connection, $schema);
     }
 }

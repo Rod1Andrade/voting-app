@@ -10,6 +10,7 @@ use Rodri\VotingApp\Features\VotingSection\Domain\UseCases\IDeleteVotingOptionUs
 use Rodri\VotingApp\Features\VotingSection\Domain\UseCases\IDeleteVotingSectionUseCase;
 use Rodri\VotingApp\Features\VotingSection\Domain\UseCases\IShowAllVotingSectionsUseCase;
 use Rodri\VotingApp\Features\VotingSection\Domain\UseCases\IShowVotingSectionUseCase;
+use Rodri\VotingApp\Features\VotingSection\Domain\UseCases\IUpdateVotingOptionTitleUseCase;
 
 interface IVotingSectionUseCaseFactory
 {
@@ -47,5 +48,12 @@ interface IVotingSectionUseCaseFactory
      * @return IDeleteVotingOptionUseCase
      */
     public static function DeleteVotingOptionUseCase(Connection $connection, string $schema = 'voting.'): IDeleteVotingOptionUseCase;
+
+    /**
+     * @param Connection $connection
+     * @param string $schema
+     * @return IUpdateVotingOptionTitleUseCase
+     */
+    public static function updateVotingOptionTitleUseCase(Connection $connection, string $schema = 'voting.'): IUpdateVotingOptionTitleUseCase;
 
 }
