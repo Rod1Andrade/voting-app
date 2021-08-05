@@ -35,6 +35,7 @@ $router->group(['/voting', 'middleware' => 'SecurityMiddleware'], function (Rout
     $router->post(['/section'], 'VotingSectionController#createVotingSection');
     $router->delete(['/section/:votingSectionUuid'], 'VotingSectionController#deleteVotingSection');
 
+    $router->patch(['/option/:votingOptionUuid'], 'VotingOptionController#updateVotingOptionTitle');
     $router->delete(['/option/:votingOptionUuid'], 'VotingOptionController#deleteVotingOption');
 });
 
