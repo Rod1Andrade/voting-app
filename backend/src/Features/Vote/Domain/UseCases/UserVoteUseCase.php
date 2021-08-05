@@ -43,11 +43,11 @@ class UserVoteUseCase implements IUserVoteUseCase
      */
     private function validate(VotingOptionUuid $votingOptionUuid, VotingUuid $votingUuid): void
     {
-        if(Uuid::validate($votingOptionUuid)) {
+        if(!Uuid::validate($votingOptionUuid)) {
             throw new UserVoteException('Voting option uuid is invalid');
         }
 
-        if(Uuid::validate($votingUuid)) {
+        if(!Uuid::validate($votingUuid)) {
             throw new UserVoteException('Voting uuid is invalid');
         }
     }

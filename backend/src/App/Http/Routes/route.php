@@ -39,5 +39,12 @@ $router->group(['/voting', 'middleware' => 'SecurityMiddleware'], function (Rout
     $router->delete(['/option/:votingOptionUuid'], 'VotingOptionController#deleteVotingOption');
 });
 
+/** ***************************************************
+ *  Vote
+ ****************************************************/
+$router->group(['/vote', 'middleware' => 'SecurityMiddleware'], function (Router $router) {
+    $router->post(['/'], 'VoteController#userVote');
+});
+
 # Dispatcher
 $router->dispatch();
