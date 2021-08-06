@@ -32,8 +32,8 @@ class VoteController
         try {
             $userVoteUseCase(
                 new UserUuid($request->getValue('userUuid')),
+                new VotingUuid($request->param(':votingUuid')),
                 new VotingOptionUuid($request->input('votingOptionUuid')),
-                new VotingUuid($request->input('votingSectionUuid'))
             );
 
             return new Response(["message" => "Vote registered with success."]);

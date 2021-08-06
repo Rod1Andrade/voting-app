@@ -26,8 +26,7 @@ class UserVoteDataLayer implements IUserVoteDataLayer
         $pdo = $this->connection->pdo();
 
         $statement = $pdo->prepare(
-            "insert into {$this->schema}tb_vote(user_uuid,voting_option_uuid,voting_uuid
-            ) values (:userUuid,:votingOptionUuid,:votingUuid)");
+            "insert into {$this->schema}tb_vote(user_uuid,voting_option_uuid, voting_uuid) values (:userUuid,:votingOptionUuid, :votingUuid)");
 
         try {
             $statement->bindValue(':userUuid', $voteDTO->getUserUuid());

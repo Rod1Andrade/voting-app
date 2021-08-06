@@ -43,7 +43,7 @@ $router->group(['/voting', 'middleware' => 'SecurityMiddleware'], function (Rout
  *  Vote
  ****************************************************/
 $router->group(['/vote', 'middleware' => 'SecurityMiddleware'], function (Router $router) {
-    $router->post(['/'], 'VoteController#userVote');
+    $router->post(['/:votingUuid'], 'VoteController#userVote');
 });
 
 # Dispatcher

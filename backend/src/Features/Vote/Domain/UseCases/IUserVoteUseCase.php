@@ -13,7 +13,10 @@ use Rodri\VotingApp\Features\VotingSection\Domain\ValueObjects\VotingUuid;
 interface IUserVoteUseCase
 {
     /**
+     * @param UserUuid $userUuid
+     * @param VotingUuid $votingUuid
+     * @param VotingOptionUuid $votingOptionUuid
      */
-    public function __invoke(UserUuid $userUuid, VotingOptionUuid $votingOptionUuid, VotingUuid $votingUuid): void;
+    public function __invoke(UserUuid $userUuid, VotingUuid $votingUuid, VotingOptionUuid $votingOptionUuid): void;
 
 }

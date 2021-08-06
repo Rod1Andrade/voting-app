@@ -34,7 +34,7 @@ create table if not exists voting.tb_user
 );
 
 -- Alter table
-alter table voting.tb_user add constraint  unique_email unique (email);
+-- alter table voting.tb_user add constraint  unique_email unique (email);
 
 -- triggers
 -- ### Triggers
@@ -69,12 +69,12 @@ create trigger update_at_current_timestamp_tb_voting
 -- Relation
 -- ## Voting Option ##
 create table if not exists voting.tb_voting_option(
-     voting_option_uuid uuid, -- vendor by application
-     voting_uuid uuid, -- foreign key
-     title varchar not null,
+    voting_option_uuid uuid, -- vendor by application
+    voting_uuid uuid, -- foreign key
+    title varchar not null,
     create_at timestamp default current_timestamp, -- database controlled
     update_at timestamp default null, -- database controlled
-    primary key (voting_option_uuid),
+    primary key (voting_option_uuid, voting_uuid),
     foreign key (voting_uuid) references voting.tb_voting(voting_uuid)
 );
 
@@ -96,11 +96,10 @@ create table if not exists voting.tb_vote
 (
     user_uuid          uuid,
     voting_option_uuid uuid,
-    voting_uuid        uuid,
+    voting_uuid uuid not null,
     voting_at          timestamp default current_timestamp,
 
     primary key (user_uuid, voting_uuid),
     foreign key (user_uuid) references voting.tb_user (user_id),
-    foreign key (voting_option_uuid) references voting.tb_voting_option (voting_option_uuid),
-    foreign key (voting_uuid) references voting.tb_voting (voting_uuid)
+    foreign key (voting_option_uuid, voting_uuid) references voting.tb_voting_option (voting_option_uuid, voting_uuid)
 );

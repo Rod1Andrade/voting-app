@@ -24,12 +24,12 @@ class UserVoteUseCase implements IUserVoteUseCase
     {
     }
 
-    public function __invoke(UserUuid $userUuid, VotingOptionUuid $votingOptionUuid, VotingUuid $votingUuid): void
+    public function __invoke(UserUuid $userUuid, VotingUuid $votingUuid, VotingOptionUuid $votingOptionUuid): void
     {
         try {
-            $this->validate($votingOptionUuid, $votingUuid);
+            $this->validate($votingUuid, $votingOptionUuid);
 
-            ($this->repository)(new Vote($userUuid, $votingOptionUuid, $votingUuid));
+            ($this->repository)(new Vote($userUuid, $votingUuid, $votingOptionUuid));
         } catch (UserVoteException $e) {
             throw new UserVoteException($e->getMessage());
         } catch (Exception) {
@@ -38,17 +38,17 @@ class UserVoteUseCase implements IUserVoteUseCase
     }
 
     /**
-     * @param VotingOptionUuid $votingOptionUuid
      * @param VotingUuid $votingUuid
+     * @param VotingOptionUuid $votingOptionUuid
      */
-    private function validate(VotingOptionUuid $votingOptionUuid, VotingUuid $votingUuid): void
+    private function validate(VotingUuid $votingUuid, VotingOptionUuid $votingOptionUuid): void
     {
-        if(!Uuid::validate($votingOptionUuid)) {
-            throw new UserVoteException('Voting option uuid is invalid');
-        }
-
         if(!Uuid::validate($votingUuid)) {
             throw new UserVoteException('Voting uuid is invalid');
+        }
+
+        if(!Uuid::validate($votingOptionUuid)) {
+            throw new UserVoteException('Voting option uuid is invalid');
         }
     }
 }

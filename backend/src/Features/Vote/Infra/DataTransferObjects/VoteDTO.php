@@ -25,8 +25,8 @@ class VoteDTO
 
         return new VoteDTO(
             userUuid: $vote->getUserUuid()->getValue() ?? null,
-            votingOptionUuid:$vote->getVotingOptionUuid()->getValue() ?? null,
-            votingUuid: $vote->getVotingUuid()->getValue() ?? null,
+            votingOptionUuid:$vote->getVotingOptionUuid()?->getValue() ?? null,
+            votingUuid: $vote->getVotingUuid()?->getValue() ?? null,
             voteAt: $vote->getVoteAt()?->format(\DateTimeInterface::ISO8601) ?? null
         );
     }

@@ -21,8 +21,8 @@ class Vote
      */
     public function __construct(
         private ?UserUuid         $userUuid = null,
-        private ?VotingOptionUuid $votingOptionUuid = null,
         private ?VotingUuid       $votingUuid = null,
+        private ?VotingOptionUuid $votingOptionUuid = null,
         private ?DateTime         $voteAt = null
     )
     {
