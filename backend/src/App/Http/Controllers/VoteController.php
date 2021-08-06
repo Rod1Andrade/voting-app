@@ -26,8 +26,6 @@ class VoteController
      */
     public function userVote(Request $request): Response
     {
-        $body = json_decode($request->body());
-
         # Factory User Vote Use Case
         $userVoteUseCase = VoteUseCaseFactory::userVoteUseCase(PgConnection::getConnection());
 
@@ -38,7 +36,7 @@ class VoteController
                 new VotingUuid($request->input('votingSectionUuid'))
             );
 
-            return new Response();
+            return new Response(["message" => "Vote registered with success."]);
         } catch (Exception $e) {
             return new Response(['message' => $e->getMessage()], StatusCode::BAD_REQUEST);
         }
