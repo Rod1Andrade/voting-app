@@ -19,6 +19,7 @@ class UserVoteUseCase implements IUserVoteUseCase
 {
 
     public function __construct(
+        private ICheckUserAlreadyVoteUseCase $alreadyVoteUseCase,
         private IUserVoteRepository $repository
     )
     {
@@ -27,7 +28,7 @@ class UserVoteUseCase implements IUserVoteUseCase
     public function __invoke(UserUuid $userUuid, VotingUuid $votingUuid, VotingOptionUuid $votingOptionUuid): void
     {
         try {
-            $this->validate($votingUuid, $votingOptionUuid);
+            $this->validate($userUuid, $votingUuid, $votingOptionUuid);
 
             ($this->repository)(new Vote($userUuid, $votingUuid, $votingOptionUuid));
         } catch (UserVoteException $e) {
@@ -38,10 +39,11 @@ class UserVoteUseCase implements IUserVoteUseCase
     }
 
     /**
+     * @param UserUuid $userUuid
      * @param VotingUuid $votingUuid
      * @param VotingOptionUuid $votingOptionUuid
      */
-    private function validate(VotingUuid $votingUuid, VotingOptionUuid $votingOptionUuid): void
+    private function validate(UserUuid $userUuid, VotingUuid $votingUuid, VotingOptionUuid $votingOptionUuid): void
     {
         if(!Uuid::validate($votingUuid)) {
             throw new UserVoteException('Voting uuid is invalid');
@@ -49,6 +51,10 @@ class UserVoteUseCase implements IUserVoteUseCase
 
         if(!Uuid::validate($votingOptionUuid)) {
             throw new UserVoteException('Voting option uuid is invalid');
+        }
+
+        if(($this->alreadyVoteUseCase)($userUuid, $votingUuid)) {
+            throw new UserVoteException('Not allowed, because do you already vote in this voting section. Thank you.');
         }
     }
 }

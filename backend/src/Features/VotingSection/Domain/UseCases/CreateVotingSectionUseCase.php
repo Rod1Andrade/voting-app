@@ -33,8 +33,6 @@ class CreateVotingSectionUseCase implements ICreateVotingSectionUseCase
         } catch (CreateVotingSectionException | InvalidArgumentException $e) {
             throw new CreateVotingSectionException($e->getMessage());
         } catch (Exception $e) {
-            var_dump($e);
-            die();
             throw new CreateVotingSectionException('Unknown error');
         }
     }

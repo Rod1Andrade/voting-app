@@ -24,7 +24,7 @@ class UserVoteRepositoryTest extends TestCase
 
         $repository = new UserVoteRepository($dataLayer);
 
-        $repository(new Vote(new UserUuid('any'), new VotingOptionUuid('any'), new VotingUuid('any')));
+        $repository(new Vote(new UserUuid('any'), new VotingUuid('any'), new VotingOptionUuid('any')));
     }
 
 }
