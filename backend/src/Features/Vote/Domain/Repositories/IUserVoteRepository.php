@@ -2,7 +2,10 @@
 
 namespace Rodri\VotingApp\Features\Vote\Domain\Repositories;
 
+use Rodri\VotingApp\Features\Auth\Domain\ValueObjects\UserUuid;
 use Rodri\VotingApp\Features\Vote\Domain\Entities\Vote;
+use Rodri\VotingApp\Features\VotingSection\Domain\ValueObjects\VotingOptionUuid;
+use Rodri\VotingApp\Features\VotingSection\Domain\ValueObjects\VotingUuid;
 
 /**
  * Repository - IUserVoteRepository
@@ -12,7 +15,9 @@ interface IUserVoteRepository
 {
     /**
      * Store the vote of a user.
-     * @param Vote $vote
+     * @param UserUuid $userUuid
+     * @param VotingUuid $votingUuid
+     * @param VotingOptionUuid $votingOptionUuid
      */
-    public function __invoke(Vote $vote): void;
+    public function __invoke(UserUuid $userUuid, VotingUuid $votingUuid, VotingOptionUuid $votingOptionUuid): void;
 }

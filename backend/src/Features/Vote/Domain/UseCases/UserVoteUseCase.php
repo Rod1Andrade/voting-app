@@ -5,7 +5,6 @@ namespace Rodri\VotingApp\Features\Vote\Domain\UseCases;
 use Exception;
 use Rodri\VotingApp\App\Adapters\Uuid;
 use Rodri\VotingApp\Features\Auth\Domain\ValueObjects\UserUuid;
-use Rodri\VotingApp\Features\Vote\Domain\Entities\Vote;
 use Rodri\VotingApp\Features\Vote\Domain\Exceptions\UserVoteException;
 use Rodri\VotingApp\Features\Vote\Domain\Repositories\IUserVoteRepository;
 use Rodri\VotingApp\Features\VotingSection\Domain\ValueObjects\VotingOptionUuid;
@@ -30,7 +29,7 @@ class UserVoteUseCase implements IUserVoteUseCase
         try {
             $this->validate($userUuid, $votingUuid, $votingOptionUuid);
 
-            ($this->repository)(new Vote($userUuid, $votingUuid, $votingOptionUuid));
+            ($this->repository)($userUuid, $votingUuid, $votingOptionUuid);
         } catch (UserVoteException $e) {
             throw new UserVoteException($e->getMessage());
         } catch (Exception) {

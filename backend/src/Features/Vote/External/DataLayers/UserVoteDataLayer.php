@@ -21,21 +21,25 @@ class UserVoteDataLayer implements IUserVoteDataLayer
     {
     }
 
-    public function __invoke(VoteDTO $voteDTO): void
+    public function __invoke(string $userUuid, string $votingUuid, string $votingOptionUuid): void
     {
         $pdo = $this->connection->pdo();
 
         $statement = $pdo->prepare(
-            "insert into {$this->schema}tb_vote(user_uuid,voting_option_uuid, voting_uuid) values (:userUuid,:votingOptionUuid, :votingUuid)");
+            "insert into {$this->schema}tb_vote(user_uuid,voting_uuid, voting_option_uuid) 
+            values (:userUuid, :votingUuid, :votingOptionUuid)"
+        );
 
         try {
-            $statement->bindValue(':userUuid', $voteDTO->getUserUuid());
-            $statement->bindValue(':votingOptionUuid', $voteDTO->getVotingOptionUuid());
-            $statement->bindValue(':votingUuid', $voteDTO->getVotingUuid());
+            $statement->bindValue(':userUuid', $userUuid);
+            $statement->bindValue(':votingUuid', $votingUuid);
+            $statement->bindValue(':votingOptionUuid', $votingOptionUuid);
 
             $statement->execute();
         } catch (PDOException $e) {
             throw new UserVoteDataLayerException($e);
         }
     }
+
+
 }

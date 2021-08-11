@@ -3,11 +3,12 @@
 namespace Rodri\VotingApp\Features\Vote\Infra\Repositories;
 
 use Exception;
-use Rodri\VotingApp\Features\Vote\Domain\Entities\Vote;
+use Rodri\VotingApp\Features\Auth\Domain\ValueObjects\UserUuid;
 use Rodri\VotingApp\Features\Vote\Domain\Repositories\IUserVoteRepository;
 use Rodri\VotingApp\Features\Vote\Infra\DataLayers\IUserVoteDataLayer;
-use Rodri\VotingApp\Features\Vote\Infra\DataTransferObjects\VoteDTO;
 use Rodri\VotingApp\Features\Vote\Infra\Exceptions\UserVoteRepositoryException;
+use Rodri\VotingApp\Features\VotingSection\Domain\ValueObjects\VotingOptionUuid;
+use Rodri\VotingApp\Features\VotingSection\Domain\ValueObjects\VotingUuid;
 
 /**
  * Repository - UserVoteRepository
@@ -22,10 +23,10 @@ class UserVoteRepository implements IUserVoteRepository
     {
     }
 
-    public function __invoke(Vote $vote): void
+    public function __invoke(UserUuid $userUuid, VotingUuid $votingUuid, VotingOptionUuid $votingOptionUuid): void
     {
         try {
-            ($this->dataLayer)(VoteDTO::createVoteDTOFromVote($vote));
+            ($this->dataLayer)($userUuid, $votingUuid, $votingOptionUuid);
         } catch (Exception $e) {
             throw new UserVoteRepositoryException($e);
         }

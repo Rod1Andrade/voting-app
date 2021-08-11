@@ -14,23 +14,25 @@ class VoteDTO
         private ?string $userUuid = null,
         private ?string $votingOptionUuid = null,
         private ?string $votingUuid = null,
-        private ?string $voteAt = null
+        private ?string $voteAt = null,
+        private ?string $subject = null,
     )
     {
     }
 
     public static function createVoteDTOFromVote(?Vote $vote): ?VoteDTO
     {
-        if(empty($vote)) return null;
+        if (empty($vote)) return null;
 
         return new VoteDTO(
             userUuid: $vote->getUserUuid()->getValue() ?? null,
-            votingOptionUuid:$vote->getVotingOptionUuid()?->getValue() ?? null,
+            votingOptionUuid: $vote->getVotingOptionUuid()?->getValue() ?? null,
             votingUuid: $vote->getVotingUuid()?->getValue() ?? null,
-            voteAt: $vote->getVoteAt()?->format(\DateTimeInterface::ISO8601) ?? null
+            voteAt: $vote->getVoteAt()?->format(\DateTimeInterface::ISO8601) ?? null,
+            subject: $vote->getSubject() ?? null
         );
     }
-    
+
     /**
      * @return string|null
      */
@@ -93,5 +95,21 @@ class VoteDTO
     public function setVoteAt(?string $voteAt): void
     {
         $this->voteAt = $voteAt;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getSubject(): ?string
+    {
+        return $this->subject;
+    }
+
+    /**
+     * @param string|null $subject
+     */
+    public function setSubject(?string $subject): void
+    {
+        $this->subject = $subject;
     }
 }

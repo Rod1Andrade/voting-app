@@ -2,8 +2,6 @@
 
 namespace Rodri\VotingApp\Features\Vote\Infra\DataLayers;
 
-use Rodri\VotingApp\Features\Vote\Infra\DataTransferObjects\VoteDTO;
-
 /**
  * Data Layer - IUserVoteDataLayer
  * @author Rodrigo Andrade
@@ -11,7 +9,9 @@ use Rodri\VotingApp\Features\Vote\Infra\DataTransferObjects\VoteDTO;
 interface IUserVoteDataLayer
 {
     /**
-     * @param VoteDTO $voteDTO
+     * @param string $userUuid
+     * @param string $votingUuid
+     * @param string $votingOptionUuid
      */
-    public function __invoke(VoteDTO $voteDTO): void;
+    public function __invoke(string $userUuid, string $votingUuid, string $votingOptionUuid): void;
 }

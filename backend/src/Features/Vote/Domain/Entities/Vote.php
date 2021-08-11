@@ -2,9 +2,8 @@
 
 namespace Rodri\VotingApp\Features\Vote\Domain\Entities;
 
-use DateTime;
 use Rodri\VotingApp\Features\Auth\Domain\ValueObjects\UserUuid;
-use Rodri\VotingApp\Features\VotingSection\Domain\ValueObjects\VotingOptionUuid;
+use Rodri\VotingApp\Features\VotingSection\Domain\ValueObjects\Subject;
 use Rodri\VotingApp\Features\VotingSection\Domain\ValueObjects\VotingUuid;
 
 /**
@@ -15,15 +14,15 @@ class Vote
 {
     /**
      * @param UserUuid|null $userUuid
-     * @param VotingOptionUuid|null $votingOptionUuid
      * @param VotingUuid|null $votingUuid
-     * @param DateTime|null $voteAt
+     * @param Subject|null $subject
+     * @param array|null $voteResults
      */
     public function __construct(
-        private ?UserUuid         $userUuid = null,
-        private ?VotingUuid       $votingUuid = null,
-        private ?VotingOptionUuid $votingOptionUuid = null,
-        private ?DateTime         $voteAt = null
+        private ?UserUuid   $userUuid = null,
+        private ?VotingUuid $votingUuid = null,
+        private ?Subject    $subject = null,
+        private ?array      $voteResults = null
     )
     {
     }
@@ -45,22 +44,6 @@ class Vote
     }
 
     /**
-     * @return VotingOptionUuid|null
-     */
-    public function getVotingOptionUuid(): ?VotingOptionUuid
-    {
-        return $this->votingOptionUuid;
-    }
-
-    /**
-     * @param VotingOptionUuid|null $votingOptionUuid
-     */
-    public function setVotingOptionUuid(?VotingOptionUuid $votingOptionUuid): void
-    {
-        $this->votingOptionUuid = $votingOptionUuid;
-    }
-
-    /**
      * @return VotingUuid|null
      */
     public function getVotingUuid(): ?VotingUuid
@@ -77,18 +60,34 @@ class Vote
     }
 
     /**
-     * @return DateTime|null
+     * @return Subject|null
      */
-    public function getVoteAt(): ?DateTime
+    public function getSubject(): ?Subject
     {
-        return $this->voteAt;
+        return $this->subject;
     }
 
     /**
-     * @param DateTime|null $voteAt
+     * @param Subject|null $subject
      */
-    public function setVoteAt(?DateTime $voteAt): void
+    public function setSubject(?Subject $subject): void
     {
-        $this->voteAt = $voteAt;
+        $this->subject = $subject;
+    }
+
+    /**
+     * @return array|null
+     */
+    public function getVoteResults(): ?array
+    {
+        return $this->voteResults;
+    }
+
+    /**
+     * @param array|null $voteResults
+     */
+    public function setVoteResults(?array $voteResults): void
+    {
+        $this->voteResults = $voteResults;
     }
 }
