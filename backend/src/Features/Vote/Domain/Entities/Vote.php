@@ -2,6 +2,7 @@
 
 namespace Rodri\VotingApp\Features\Vote\Domain\Entities;
 
+use InvalidArgumentException;
 use Rodri\VotingApp\Features\Auth\Domain\ValueObjects\UserUuid;
 use Rodri\VotingApp\Features\VotingSection\Domain\ValueObjects\Subject;
 use Rodri\VotingApp\Features\VotingSection\Domain\ValueObjects\VotingUuid;
@@ -12,6 +13,9 @@ use Rodri\VotingApp\Features\VotingSection\Domain\ValueObjects\VotingUuid;
  */
 class Vote
 {
+    private ?array $voteResults;
+
+
     /**
      * @param UserUuid|null $userUuid
      * @param VotingUuid|null $votingUuid
@@ -22,9 +26,10 @@ class Vote
         private ?UserUuid   $userUuid = null,
         private ?VotingUuid $votingUuid = null,
         private ?Subject    $subject = null,
-        private ?array      $voteResults = null
+        ?array              $voteResults = null
     )
     {
+        $this->addListOfVoteResult($voteResults);
     }
 
     /**
@@ -84,10 +89,17 @@ class Vote
     }
 
     /**
+     * Add a list of vote results checking if is really an instance of
      * @param array|null $voteResults
      */
-    public function setVoteResults(?array $voteResults): void
+    private function addListOfVoteResult(?array $voteResults): void
     {
-        $this->voteResults = $voteResults;
+        foreach ($voteResults as $voteResult) {
+            if (!($voteResult instanceof VoteResult)) {
+                throw new InvalidArgumentException('The array of voting results needs be instance of Vote Result');
+            }
+
+            $this->voteResults[] = $voteResult;
+        }
     }
 }

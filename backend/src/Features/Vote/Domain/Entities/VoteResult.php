@@ -6,6 +6,7 @@ use Rodri\VotingApp\Features\VotingSection\Domain\ValueObjects\Title;
 use Rodri\VotingApp\Features\VotingSection\Domain\ValueObjects\VotingOptionUuid;
 
 /**
+ * Entity - Vote Result
  * @author Rodrigo Andrade
  */
 class VoteResult
@@ -65,5 +66,4 @@ class VoteResult
     {
         $this->quantity = $quantity;
     }
-
 }
