@@ -5,7 +5,6 @@ namespace Features\Vote\Infra\Repositories;
 use Exception;
 use PHPUnit\Framework\TestCase;
 use Rodri\VotingApp\Features\Auth\Domain\ValueObjects\UserUuid;
-use Rodri\VotingApp\Features\Vote\Domain\Entities\Vote;
 use Rodri\VotingApp\Features\Vote\Infra\DataLayers\IUserVoteDataLayer;
 use Rodri\VotingApp\Features\Vote\Infra\Exceptions\UserVoteRepositoryException;
 use Rodri\VotingApp\Features\Vote\Infra\Repositories\UserVoteRepository;
@@ -24,7 +23,7 @@ class UserVoteRepositoryTest extends TestCase
 
         $repository = new UserVoteRepository($dataLayer);
 
-        $repository(new Vote(new UserUuid('any'), new VotingUuid('any'), new VotingOptionUuid('any')));
+        $repository(new UserUuid('any'), new VotingUuid('any'), new VotingOptionUuid('any'));
     }
 
 }
