@@ -3,12 +3,12 @@
 namespace Features\Vote\Domain\UseCases;
 
 use Rodri\VotingApp\App\Adapters\Uuid;
-use Rodri\VotingApp\Features\Auth\Domain\ValueObjects\UserUuid;
+use Rodri\VotingApp\Features\Vote\Domain\ValueObjects\UserUuid;
 use Rodri\VotingApp\Features\Vote\Domain\Exceptions\CheckUserAlreadyVoteException;
 use Rodri\VotingApp\Features\Vote\Domain\Repositories\ICheckUserAlreadyVoteRepository;
 use Rodri\VotingApp\Features\Vote\Domain\UseCases\CheckUserAlreadyVoteUseCase;
+use Rodri\VotingApp\Features\Vote\Domain\ValueObjects\VotingUuid;
 use PHPUnit\Framework\TestCase;
-use Rodri\VotingApp\Features\VotingSection\Domain\ValueObjects\VotingUuid;
 
 class CheckUserAlreadyVoteUseCaseTest extends TestCase
 {

@@ -4,9 +4,9 @@ namespace Features\Vote\External\DataLayers;
 
 use PHPUnit\Framework\TestCase;
 use Rodri\VotingApp\App\Database\Connection\MemorySqliteConnection;
-use Rodri\VotingApp\Features\Auth\Domain\ValueObjects\UserUuid;
+use Rodri\VotingApp\Features\Vote\Domain\ValueObjects\UserUuid;
 use Rodri\VotingApp\Features\Vote\External\DataLayers\CheckUserAlreadyVoteDataLayer;
-use Rodri\VotingApp\Features\VotingSection\Domain\ValueObjects\VotingUuid;
+use Rodri\VotingApp\Features\Vote\Domain\ValueObjects\VotingUuid;
 
 class CheckUserAlreadyVoteDataLayerTest extends TestCase
 {

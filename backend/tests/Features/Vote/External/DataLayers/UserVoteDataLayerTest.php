@@ -4,11 +4,11 @@ namespace Features\Vote\External\DataLayers;
 
 use PHPUnit\Framework\TestCase;
 use Rodri\VotingApp\App\Database\Connection\MemorySqliteConnection;
-use Rodri\VotingApp\Features\Auth\Domain\ValueObjects\UserUuid;
+use Rodri\VotingApp\Features\Vote\Domain\ValueObjects\UserUuid;
 use Rodri\VotingApp\Features\Vote\External\DataLayers\UserVoteDataLayer;
 use Rodri\VotingApp\Features\Vote\External\Exceptions\UserVoteDataLayerException;
-use Rodri\VotingApp\Features\VotingSection\Domain\ValueObjects\VotingOptionUuid;
-use Rodri\VotingApp\Features\VotingSection\Domain\ValueObjects\VotingUuid;
+use Rodri\VotingApp\Features\Vote\Domain\ValueObjects\VotingOptionUuid;
+use Rodri\VotingApp\Features\Vote\Domain\ValueObjects\VotingUuid;
 
 class UserVoteDataLayerTest extends TestCase
 {
