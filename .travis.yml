@@ -2,12 +2,11 @@ language: php
 
 php:
   - 8.0.0
-  - hhvm # on Trusty only
   - nightly
 
 before_script:
   - cd backend
-  - composer self-update
+  - travis_retry composer self-update
   - composer install --no-interaction --prefer-source --dev
 
 script:
