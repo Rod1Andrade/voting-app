@@ -1,4 +1,5 @@
 language: php
 php:
-  - '8.0'
+  - 8.0.0
 install: php vendor/vendors.php
+before_script: phpenv -add App/Config/config/php-dev.ini
