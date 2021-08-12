@@ -3,7 +3,7 @@ language: php
 php:
   - 8.0
 
-before install:
+before_install:
   - cd backend
 
 before_script:
