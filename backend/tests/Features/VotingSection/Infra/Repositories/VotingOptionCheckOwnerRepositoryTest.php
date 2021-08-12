@@ -2,7 +2,7 @@
 
 namespace Features\VotingSection\Infra\Repositories;
 
-use Rodri\VotingApp\Features\Auth\Domain\ValueObjects\UserUuid;
+use Rodri\VotingApp\Features\VotingSection\Domain\ValueObjects\UserUuid;
 use Rodri\VotingApp\Features\VotingSection\Domain\ValueObjects\VotingOptionUuid;
 use Rodri\VotingApp\Features\VotingSection\Infra\Datalayer\IVotingOptionCheckOwnerDatalayer;
 use Rodri\VotingApp\Features\VotingSection\Infra\Repositories\VotingOptionCheckOwnerRepository;

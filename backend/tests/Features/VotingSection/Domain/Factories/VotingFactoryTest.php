@@ -6,7 +6,6 @@ namespace Features\VotingSection\Domain\Factories;
 
 use DateTime;
 use PHPUnit\Framework\TestCase;
-use Rodri\VotingApp\Features\Auth\Domain\ValueObjects\UserUuid;
 use Rodri\VotingApp\Features\VotingSection\Domain\Entities\Voting;
 use Rodri\VotingApp\Features\VotingSection\Domain\Entities\VotingOption;
 use Rodri\VotingApp\Features\VotingSection\Domain\Factories\VotingFactory;

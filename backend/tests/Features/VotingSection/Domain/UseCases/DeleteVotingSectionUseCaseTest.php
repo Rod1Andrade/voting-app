@@ -4,7 +4,7 @@ namespace Features\VotingSection\Domain\UseCases;
 
 use PHPUnit\Framework\TestCase;
 use PHPUnit\Util\Exception;
-use Rodri\VotingApp\Features\Auth\Domain\ValueObjects\UserUuid;
+use Rodri\VotingApp\Features\VotingSection\Domain\ValueObjects\UserUuid;
 use Rodri\VotingApp\Features\VotingSection\Domain\Exceptions\DeleteVotingSectionException;
 use Rodri\VotingApp\Features\VotingSection\Domain\Repositories\IDeleteVotingSectionRepository;
 use Rodri\VotingApp\Features\VotingSection\Domain\UseCases\DeleteVotingSectionUseCase;

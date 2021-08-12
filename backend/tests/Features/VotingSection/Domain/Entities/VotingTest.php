@@ -4,11 +4,9 @@
 namespace Features\VotingSection\Domain\Entities;
 
 
-use DateInterval;
 use DateTime;
-use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
-use Rodri\VotingApp\Features\Auth\Domain\ValueObjects\UserUuid;
+use Rodri\VotingApp\Features\VotingSection\Domain\ValueObjects\UserUuid;
 use Rodri\VotingApp\Features\VotingSection\Domain\Entities\Voting;
 use Rodri\VotingApp\Features\VotingSection\Domain\Entities\VotingOption;
 use Rodri\VotingApp\Features\VotingSection\Domain\ValueObjects\Subject;

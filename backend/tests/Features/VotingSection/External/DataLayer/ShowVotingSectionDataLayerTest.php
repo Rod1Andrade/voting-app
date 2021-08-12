@@ -2,10 +2,10 @@
 
 namespace Features\VotingSection\External\DataLayer;
 
+use PHPUnit\Framework\TestCase;
 use Rodri\VotingApp\App\Database\Connection\MemorySqliteConnection;
 use Rodri\VotingApp\Features\VotingSection\Domain\ValueObjects\VotingUuid;
 use Rodri\VotingApp\Features\VotingSection\External\DataLayer\ShowVotingSectionDataLayer;
-use PHPUnit\Framework\TestCase;
 use Rodri\VotingApp\Features\VotingSection\Infra\DataTransferObjects\VotingDTO;
 
 class ShowVotingSectionDataLayerTest extends TestCase
