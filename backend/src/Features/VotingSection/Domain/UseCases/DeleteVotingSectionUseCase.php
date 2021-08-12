@@ -4,7 +4,7 @@ namespace Rodri\VotingApp\Features\VotingSection\Domain\UseCases;
 
 use Exception;
 use Rodri\VotingApp\App\Adapters\Uuid;
-use Rodri\VotingApp\VotingSection\Auth\Domain\ValueObjects\UserUuid;
+use Rodri\VotingApp\Features\VotingSection\Domain\ValueObjects\UserUuid;
 use Rodri\VotingApp\Features\VotingSection\Domain\Exceptions\DeleteVotingSectionException;
 use Rodri\VotingApp\Features\VotingSection\Domain\Repositories\IDeleteVotingSectionRepository;
 use Rodri\VotingApp\Features\VotingSection\Domain\ValueObjects\VotingUuid;
@@ -45,7 +45,7 @@ class DeleteVotingSectionUseCase implements IDeleteVotingSectionUseCase
             throw new DeleteVotingSectionException('The voting uuid its necessary.');
         }
 
-        if(!Uuid::validate($votingUUid->getValue())) {
+        if (!Uuid::validate($votingUUid->getValue())) {
             throw new DeleteVotingSectionException('Invalid UUID format.');
         }
     }
