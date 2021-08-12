@@ -7,4 +7,4 @@
 .phpunit.result.cache
 
 # Ignore sqlite db
-/storage/db/
+# /storage/db/
