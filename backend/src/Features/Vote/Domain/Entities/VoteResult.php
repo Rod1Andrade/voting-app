@@ -2,8 +2,8 @@
 
 namespace Rodri\VotingApp\Features\Vote\Domain\Entities;
 
-use Rodri\VotingApp\Features\VotingSection\Domain\ValueObjects\Title;
-use Rodri\VotingApp\Features\VotingSection\Domain\ValueObjects\VotingOptionUuid;
+use Rodri\VotingApp\Features\Vote\Domain\ValueObjects\Title;
+use Rodri\VotingApp\Features\Vote\Domain\ValueObjects\VotingOptionUuid;
 
 /**
  * Entity - Vote Result

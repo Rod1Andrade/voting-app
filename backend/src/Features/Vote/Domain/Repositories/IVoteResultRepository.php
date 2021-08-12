@@ -3,7 +3,7 @@
 namespace Rodri\VotingApp\Features\Vote\Domain\Repositories;
 
 use Rodri\VotingApp\Features\Vote\Domain\Entities\Vote;
-use Rodri\VotingApp\Features\VotingSection\Domain\ValueObjects\VotingUuid;
+use Rodri\VotingApp\Features\Vote\Domain\ValueObjects\VotingUuid;
 
 /**
  * Repository - IVoteResultRepository

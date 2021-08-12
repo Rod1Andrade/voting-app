@@ -4,8 +4,8 @@ namespace Rodri\VotingApp\Features\Vote\Domain\Entities;
 
 use DateTime;
 use InvalidArgumentException;
-use Rodri\VotingApp\Features\VotingSection\Domain\ValueObjects\Subject;
-use Rodri\VotingApp\Features\VotingSection\Domain\ValueObjects\VotingUuid;
+use Rodri\VotingApp\Features\Vote\Domain\ValueObjects\Subject;
+use Rodri\VotingApp\Features\Vote\Domain\ValueObjects\VotingUuid;
 
 /**
  * Entity - Vote
@@ -111,6 +111,7 @@ class Vote
      */
     private function addListOfVoteResult(?array $voteResults): void
     {
+        if(empty($voteResult)) return;
         foreach ($voteResults as $voteResult) {
             if (!($voteResult instanceof VoteResult)) {
                 throw new InvalidArgumentException('The array of voting results needs be instance of Vote Result');

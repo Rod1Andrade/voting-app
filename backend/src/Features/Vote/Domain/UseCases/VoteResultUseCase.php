@@ -6,7 +6,7 @@ use Exception;
 use Rodri\VotingApp\Features\Vote\Domain\Entities\Vote;
 use Rodri\VotingApp\Features\Vote\Domain\Exceptions\VoteResultException;
 use Rodri\VotingApp\Features\Vote\Domain\Repositories\IVoteResultRepository;
-use Rodri\VotingApp\Features\VotingSection\Domain\ValueObjects\VotingUuid;
+use Rodri\VotingApp\Features\Vote\Domain\ValueObjects\VotingUuid;
 
 /**
  * Use case implementation - VoteResultUseCase
