@@ -2,9 +2,9 @@
 
 namespace Features\VotingSection\External\DataLayer;
 
+use PHPUnit\Framework\TestCase;
 use Rodri\VotingApp\App\Database\Connection\MemorySqliteConnection;
 use Rodri\VotingApp\Features\VotingSection\External\DataLayer\VotingOptionCheckOwnerDatalayer;
-use PHPUnit\Framework\TestCase;
 
 class VotingOptionCheckOwnerDatalayerTest extends TestCase
 {

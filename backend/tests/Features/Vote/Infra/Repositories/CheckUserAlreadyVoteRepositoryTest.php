@@ -2,12 +2,12 @@
 
 namespace Features\Vote\Infra\Repositories;
 
-use Rodri\VotingApp\Features\Auth\Domain\ValueObjects\UserUuid;
+use Rodri\VotingApp\Features\Vote\Domain\ValueObjects\UserUuid;
 use Rodri\VotingApp\Features\Vote\Infra\DataLayers\ICheckUserAlreadyVoteDataLayer;
 use Rodri\VotingApp\Features\Vote\Infra\Exceptions\CheckUserAlreadyVoteRepositoryException;
 use Rodri\VotingApp\Features\Vote\Infra\Repositories\CheckUserAlreadyVoteRepository;
+use Rodri\VotingApp\Features\Vote\Domain\ValueObjects\VotingUuid;
 use PHPUnit\Framework\TestCase;
-use Rodri\VotingApp\Features\VotingSection\Domain\ValueObjects\VotingUuid;
 
 class CheckUserAlreadyVoteRepositoryTest extends TestCase
 {

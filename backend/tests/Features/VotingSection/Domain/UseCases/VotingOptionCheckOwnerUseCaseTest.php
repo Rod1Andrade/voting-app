@@ -4,7 +4,7 @@ namespace Features\VotingSection\Domain\UseCases;
 
 use Exception;
 use PHPUnit\Framework\TestCase;
-use Rodri\VotingApp\Features\Auth\Domain\ValueObjects\UserUuid;
+use Rodri\VotingApp\Features\VotingSection\Domain\ValueObjects\UserUuid;
 use Rodri\VotingApp\Features\VotingSection\Domain\Exceptions\VotingOptionCheckOwnerException;
 use Rodri\VotingApp\Features\VotingSection\Domain\Repositories\IVotingOptionCheckOwnerRepository;
 use Rodri\VotingApp\Features\VotingSection\Domain\UseCases\VotingOptionCheckOwnerUseCase;

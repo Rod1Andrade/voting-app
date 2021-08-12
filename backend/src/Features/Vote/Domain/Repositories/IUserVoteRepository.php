@@ -2,10 +2,9 @@
 
 namespace Rodri\VotingApp\Features\Vote\Domain\Repositories;
 
-use Rodri\VotingApp\Features\Auth\Domain\ValueObjects\UserUuid;
-use Rodri\VotingApp\Features\Vote\Domain\Entities\Vote;
-use Rodri\VotingApp\Features\VotingSection\Domain\ValueObjects\VotingOptionUuid;
-use Rodri\VotingApp\Features\VotingSection\Domain\ValueObjects\VotingUuid;
+use Rodri\VotingApp\Features\Vote\Domain\ValueObjects\UserUuid;
+use Rodri\VotingApp\Features\Vote\Domain\ValueObjects\VotingOptionUuid;
+use Rodri\VotingApp\Features\Vote\Domain\ValueObjects\VotingUuid;
 
 /**
  * Repository - IUserVoteRepository

@@ -6,7 +6,6 @@ use PDOException;
 use Rodri\VotingApp\App\Database\Connection\Connection;
 use Rodri\VotingApp\Features\Vote\External\Exceptions\UserVoteDataLayerException;
 use Rodri\VotingApp\Features\Vote\Infra\DataLayers\IUserVoteDataLayer;
-use Rodri\VotingApp\Features\Vote\Infra\DataTransferObjects\VoteDTO;
 
 /**
  * Data Layer - UserVoteDataLayer

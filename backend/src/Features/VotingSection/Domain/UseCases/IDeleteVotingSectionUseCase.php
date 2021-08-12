@@ -2,7 +2,7 @@
 
 namespace Rodri\VotingApp\Features\VotingSection\Domain\UseCases;
 
-use Rodri\VotingApp\Features\Auth\Domain\ValueObjects\UserUuid;
+use Rodri\VotingApp\Features\VotingSection\Domain\ValueObjects\UserUuid;
 use Rodri\VotingApp\Features\VotingSection\Domain\ValueObjects\VotingUuid;
 
 

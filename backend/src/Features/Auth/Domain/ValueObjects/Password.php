@@ -14,7 +14,7 @@ use Rodri\VotingApp\Features\Auth\External\Adapters\PasswordEncrypt;
 class Password
 {
     /**
-     * Email constructor.
+     * Password constructor.
      * @param string $value
      */
     public function __construct(

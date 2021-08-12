@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Rodri\VotingApp\Features\Auth\Domain\ValueObjects;
+namespace Rodri\VotingApp\Features\VotingSection\Domain\ValueObjects;
 
 
 use JetBrains\PhpStorm\Pure;

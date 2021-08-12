@@ -2,6 +2,7 @@
 
 namespace Features\VotingSection\Infra\Repositories;
 
+use stdClass;
 use Exception;
 use PHPUnit\Framework\TestCase;
 use Rodri\VotingApp\Features\VotingSection\Domain\Entities\Voting;
@@ -10,7 +11,6 @@ use Rodri\VotingApp\Features\VotingSection\Infra\Datalayer\IShowVotingSectionDat
 use Rodri\VotingApp\Features\VotingSection\Infra\DataTransferObjects\VotingDTO;
 use Rodri\VotingApp\Features\VotingSection\Infra\Exceptions\ShowVotingSectionRepositoryException;
 use Rodri\VotingApp\Features\VotingSection\Infra\Repositories\ShowVotingSectionRepository;
-use stdClass;
 
 class ShowVotingSectionRepositoryTest extends TestCase
 {
