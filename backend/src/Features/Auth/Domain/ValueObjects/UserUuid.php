@@ -15,7 +15,7 @@ class UserUuid
 {
 
     /**
-     * Email constructor.
+     * User UUID constructor.
      * @param string $value
      */
     public function __construct(

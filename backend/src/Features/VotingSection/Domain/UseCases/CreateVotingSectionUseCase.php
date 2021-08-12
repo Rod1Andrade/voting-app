@@ -32,7 +32,7 @@ class CreateVotingSectionUseCase implements ICreateVotingSectionUseCase
             ($this->repository)($voting);
         } catch (CreateVotingSectionException | InvalidArgumentException $e) {
             throw new CreateVotingSectionException($e->getMessage());
-        } catch (Exception) {
+        } catch (Exception $e) {
             throw new CreateVotingSectionException('Unknown error');
         }
     }

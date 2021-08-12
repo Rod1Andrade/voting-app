@@ -46,11 +46,12 @@ class CreateVotingSectionDataLayer implements ICreateVotingSectionDataLayer
 
             # One to many relation
             $this->votingOptionDataLayer->storeAList($votingDTO->getVotingOptions());
-
-        } catch (PDOException) {
+            $pdo->commit();
+        } catch (PDOException $e) {
+            var_dump($e);
+            die();
             $pdo->rollBack();
         }
 
-        $pdo->commit();
     }
 }

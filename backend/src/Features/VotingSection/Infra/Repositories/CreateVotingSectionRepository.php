@@ -29,7 +29,7 @@ class CreateVotingSectionRepository implements ICreateVotingSectionRepository
     {
         try {
             ($this->dataLayer)(VotingDTO::createVotingDTOFromVoting($voting));
-        } catch (RuntimeException) {
+        } catch (RuntimeException $e) {
             throw new CreateVotingSectionDataLayerException('Is not possible create a voting section');
         }
     }

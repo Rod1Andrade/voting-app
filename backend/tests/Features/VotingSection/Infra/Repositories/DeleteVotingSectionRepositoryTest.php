@@ -4,7 +4,7 @@ namespace Features\VotingSection\Infra\Repositories;
 
 use Exception;
 use PHPUnit\Framework\TestCase;
-use Rodri\VotingApp\Features\Auth\Domain\ValueObjects\UserUuid;
+use Rodri\VotingApp\Features\VotingSection\Domain\ValueObjects\UserUuid;
 use Rodri\VotingApp\Features\VotingSection\Domain\ValueObjects\VotingUuid;
 use Rodri\VotingApp\Features\VotingSection\Infra\Datalayer\IDeleteVotingSectionDataLayer;
 use Rodri\VotingApp\Features\VotingSection\Infra\Exceptions\DeleteVotingSectionRepositoryException;

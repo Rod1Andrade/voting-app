@@ -5,7 +5,7 @@ namespace Rodri\VotingApp\Features\VotingSection\Domain\Factories;
 
 use DateTime;
 use Rodri\VotingApp\App\Adapters\Uuid;
-use Rodri\VotingApp\Features\Auth\Domain\ValueObjects\UserUuid;
+use Rodri\VotingApp\Features\VotingSection\Domain\ValueObjects\UserUuid;
 use Rodri\VotingApp\Features\VotingSection\Domain\Entities\Voting;
 use Rodri\VotingApp\Features\VotingSection\Domain\Entities\VotingOption;
 use Rodri\VotingApp\Features\VotingSection\Domain\ValueObjects\Subject;
