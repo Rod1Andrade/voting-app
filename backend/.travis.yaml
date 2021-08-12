@@ -1,5 +1,10 @@
 language: php
 php:
   - 8.0.0
+
+before_install: phpenv config-add src/App/Config/config/php-dev.ini
+before_script:
+  - phpenv -add src/App/Config/config/php-dev.ini
+  - phpenv config-rm xdebug.ini
+
 install: php vendor/vendors.php
-before_script: phpenv -add App/Config/config/php-dev.ini
