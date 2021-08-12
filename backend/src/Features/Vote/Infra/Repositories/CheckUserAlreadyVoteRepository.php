@@ -3,11 +3,11 @@
 namespace Rodri\VotingApp\Features\Vote\Infra\Repositories;
 
 use Exception;
-use Rodri\VotingApp\Features\Auth\Domain\ValueObjects\UserUuid;
+use Rodri\VotingApp\Features\Vote\Domain\ValueObjects\UserUuid;
 use Rodri\VotingApp\Features\Vote\Domain\Repositories\ICheckUserAlreadyVoteRepository;
 use Rodri\VotingApp\Features\Vote\Infra\DataLayers\ICheckUserAlreadyVoteDataLayer;
 use Rodri\VotingApp\Features\Vote\Infra\Exceptions\CheckUserAlreadyVoteRepositoryException;
-use Rodri\VotingApp\Features\VotingSection\Domain\ValueObjects\VotingUuid;
+use Rodri\VotingApp\Features\Vote\Domain\ValueObjects\VotingUuid;
 
 /**
  * Repository implementation - CheckUserAlreadyVoteRepository
