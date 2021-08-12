@@ -1,25 +1,19 @@
 <?php
 
 
-namespace Rodri\VotingApp\Features\Auth\Domain\ValueObjects;
-
+namespace Rodri\VotingApp\Features\Vote\Domain\ValueObjects;
 
 use JetBrains\PhpStorm\Pure;
 
 /**
- * Value Object UserUuid
- * @package Rodri\VotingApp\Features\Auth\Domain\ValueObjects
+ * Value Object VotingUuid
+ * @package Rodri\VotingApp\Features\VotingSection\Domain\ValueObjects
  * @author Rodrigo Andrade
  */
-class UserUuid
+class VotingUuid
 {
-
-    /**
-     * User UUID constructor.
-     * @param string $value
-     */
     public function __construct(
-        private string $value,
+        private string $value
     )
     {
     }
@@ -40,6 +34,16 @@ class UserUuid
     public function setValue(string $value): void
     {
         $this->value = $value;
+    }
+
+    /**
+     * Compare to voting uuid
+     * @param VotingUuid $votingUuid
+     * @return bool
+     */
+    #[Pure] public function compare(VotingUuid $votingUuid): bool
+    {
+        return $this->getValue() === $votingUuid->getValue();
     }
 
     /**

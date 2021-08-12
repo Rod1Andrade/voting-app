@@ -1,25 +1,20 @@
 <?php
 
 
-namespace Rodri\VotingApp\Features\Auth\Domain\ValueObjects;
+namespace Rodri\VotingApp\Features\Vote\Domain\ValueObjects;
 
 
 use JetBrains\PhpStorm\Pure;
 
 /**
- * Value Object UserUuid
- * @package Rodri\VotingApp\Features\Auth\Domain\ValueObjects
- * @author Rodrigo Andrade
+ * Value Object Subject
+ * @package Rodri\VotingApp\Features\VotingSection\Domain\ValueObjects
+ * @author Rodrigo Andrade1
  */
-class UserUuid
+class Subject
 {
-
-    /**
-     * User UUID constructor.
-     * @param string $value
-     */
     public function __construct(
-        private string $value,
+        private string $value
     )
     {
     }
@@ -50,4 +45,5 @@ class UserUuid
     {
         return $this->getValue();
     }
+
 }

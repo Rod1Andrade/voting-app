@@ -4,11 +4,11 @@ namespace Rodri\VotingApp\Features\Vote\Domain\UseCases;
 
 use Exception;
 use Rodri\VotingApp\App\Adapters\Uuid;
-use Rodri\VotingApp\Features\Auth\Domain\ValueObjects\UserUuid;
+use Rodri\VotingApp\Features\Vote\Domain\ValueObjects\UserUuid;
 use Rodri\VotingApp\Features\Vote\Domain\Exceptions\UserVoteException;
 use Rodri\VotingApp\Features\Vote\Domain\Repositories\IUserVoteRepository;
-use Rodri\VotingApp\Features\VotingSection\Domain\ValueObjects\VotingOptionUuid;
-use Rodri\VotingApp\Features\VotingSection\Domain\ValueObjects\VotingUuid;
+use Rodri\VotingApp\Features\Vote\Domain\ValueObjects\VotingOptionUuid;
+use Rodri\VotingApp\Features\Vote\Domain\ValueObjects\VotingUuid;
 
 /**
  * UseCase - VoteUseCase

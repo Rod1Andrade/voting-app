@@ -15,7 +15,7 @@ use DateTimeInterface;
 class BirthDate
 {
     /**
-     * Email constructor.
+     * BirthDate constructor.
      * @param DateTime $value
      */
     public function __construct(

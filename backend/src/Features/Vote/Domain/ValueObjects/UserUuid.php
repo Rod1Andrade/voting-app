@@ -1,14 +1,13 @@
 <?php
 
 
-namespace Rodri\VotingApp\Features\Auth\Domain\ValueObjects;
+namespace Rodri\VotingApp\Features\Vote\Domain\ValueObjects;
 
 
 use JetBrains\PhpStorm\Pure;
 
 /**
  * Value Object UserUuid
- * @package Rodri\VotingApp\Features\Auth\Domain\ValueObjects
  * @author Rodrigo Andrade
  */
 class UserUuid
