@@ -4,7 +4,7 @@ namespace Rodri\VotingApp\Features\VotingSection\Domain\UseCases;
 
 use Exception;
 use Rodri\VotingApp\App\Adapters\Uuid;
-use Rodri\VotingApp\Features\Auth\Domain\ValueObjects\UserUuid;
+use Rodri\VotingApp\VotingSection\Auth\Domain\ValueObjects\UserUuid;
 use Rodri\VotingApp\Features\VotingSection\Domain\Exceptions\DeleteVotingSectionException;
 use Rodri\VotingApp\Features\VotingSection\Domain\Repositories\IDeleteVotingSectionRepository;
 use Rodri\VotingApp\Features\VotingSection\Domain\ValueObjects\VotingUuid;
