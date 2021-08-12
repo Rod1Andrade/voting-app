@@ -1,5 +1,7 @@
 # Voting App
 
+<img src="https://app.travis-ci.com/Rod1Andrade/voting-app.svg?branch=main" alt="Travis CI status">
+
 The voting application is a full stack application based on the [AppIdeas](https://github.com/florinpop17/app-ideas/blob/master/Projects/2-Intermediate/Voting-App.md) Repository.
 
 ## Backend
