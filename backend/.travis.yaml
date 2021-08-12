@@ -7,4 +7,4 @@ before_script:
   - phpenv -add src/App/Config/config/php-dev.ini
   - phpenv config-rm xdebug.ini
 
-install: php vendor/vendors.php
+install: composer install
