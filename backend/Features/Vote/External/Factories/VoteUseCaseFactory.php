@@ -2,7 +2,7 @@
 
 namespace Rodri\VotingApp\Features\Vote\External\Factories;
 
-use Rodri\VotingApp\App\Database\Connection\Connection;
+use Rodri\VotingApp\Features\Vote\Domain\UseCases\IUserVoteUseCase;
 use Rodri\VotingApp\Features\Vote\External\Facades\UserVoteUseCaseFacade;
 
 /**
@@ -11,8 +11,8 @@ use Rodri\VotingApp\Features\Vote\External\Facades\UserVoteUseCaseFacade;
  */
 class VoteUseCaseFactory implements IVoteUseCaseFactory
 {
-    public static function userVoteUseCase(Connection $connection, string $schema = 'voting.')
+    public static function userVoteUseCase(string $schema = 'voting.'): IUserVoteUseCase
     {
-        return (new UserVoteUseCaseFacade())->createUseCase($connection, $schema);
+        return (new UserVoteUseCaseFacade())->createUseCase($schema);
     }
 }

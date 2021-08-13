@@ -26,10 +26,10 @@ $router->group([
     'namespace' => 'VotingSection',
     'middleware' => 'auth'
 ], function() use($router) {
-    $router->get('', 'ShowAllVotingSectionsController@invoke');
-    $router->get('{votingUuid}', 'ShowVotingSectionController@invoke');
-    $router->post('', 'CreateVotingSectionController@invoke');
-    $router->delete('{votingUuid}', 'DeleteVotingSectionController@invoke');
+    $router->get('/', 'ShowAllVotingSectionsController@invoke');
+    $router->get('/{votingUuid}', 'ShowVotingSectionController@invoke');
+    $router->post('/', 'CreateVotingSectionController@invoke');
+    $router->delete('/{votingUuid}', 'DeleteVotingSectionController@invoke');
 
 });
 
@@ -41,7 +41,17 @@ $router->group([
     'namespace' => 'VotingSection',
     'middleware' => 'auth'
 ], function() use($router) {
-    $router->patch('{votingOptionUuid}', 'UpdateVotingOptionTitleController@invoke');
-    $router->delete('{votingOptionUuid}', 'DeleteVotingOptionController@invoke');
+    $router->patch('/{votingOptionUuid}', 'UpdateVotingOptionTitleController@invoke');
+    $router->delete('/{votingOptionUuid}', 'DeleteVotingOptionController@invoke');
 });
 
+/** ***************************************************
+ *  Vote
+ ****************************************************/
+$router->group([
+    'prefix' => 'vote',
+    'namespace' => 'Vote',
+    'middleware' => 'auth'
+], function() use($router) {
+    $router->post('/{votingUuid}/voting-option/{votingOptionUuid}', 'UserVoteController@invoke');
+});

@@ -5,13 +5,13 @@ namespace Rodri\VotingApp\App\Http\Controllers\VotingSection;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
-use Rodri\VotingApp\Features\VotingSection\Domain\Exceptions\UpdateVotingTitleException;
+use Symfony\Component\HttpFoundation\Response;
+use Rodri\VotingApp\App\Http\Controllers\Controller;
 use Rodri\VotingApp\Features\VotingSection\Domain\ValueObjects\Title;
 use Rodri\VotingApp\Features\VotingSection\Domain\ValueObjects\UserUuid;
 use Rodri\VotingApp\Features\VotingSection\Domain\ValueObjects\VotingOptionUuid;
+use Rodri\VotingApp\Features\VotingSection\Domain\Exceptions\UpdateVotingTitleException;
 use Rodri\VotingApp\Features\VotingSection\External\Factories\VotingSectionUseCaseFactory;
-use Symfony\Component\HttpFoundation\Response;
-use Rodri\VotingApp\App\Http\Controllers\Controller;
 
 /**
  * Controller - UpdateVotingOptionTitleController
