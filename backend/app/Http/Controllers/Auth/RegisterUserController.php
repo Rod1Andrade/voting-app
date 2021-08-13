@@ -36,7 +36,7 @@ class RegisterUserController extends Controller
         } catch (RegisterUserException $e) {
             return response()->json(['message' => $e->getMessage()], ResponseAlias::HTTP_BAD_REQUEST);
         } catch (Exception) {
-            return response()->json('Unknown Error: Contact TI responsible', ResponseAlias::HTTP_INTERNAL_SERVER_ERROR);
+            return response()->json(['message' => 'Unknown Error: Contact TI responsible'], ResponseAlias::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 }

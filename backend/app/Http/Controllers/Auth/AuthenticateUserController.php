@@ -34,7 +34,7 @@ class AuthenticateUserController extends Controller
         } catch (AuthenticateUserException $e) {
             return response()->json(['message' => $e->getMessage()], Response::HTTP_BAD_REQUEST);
         } catch (Exception) {
-            return response()->json('Unknown Error: Contact TI responsible', Response::HTTP_INTERNAL_SERVER_ERROR);
+            return response()->json(['message' => 'Unknown Error: Contact TI responsible'], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 }
