@@ -4,6 +4,7 @@
 namespace Rodri\VotingApp\Features\Auth\Domain\UseCases;
 
 
+use Exception;
 use Rodri\VotingApp\Features\Auth\Domain\Exceptions\AuthenticateUserException;
 use Rodri\VotingApp\Features\Auth\Domain\Exceptions\InvalidCredentialsException;
 use Rodri\VotingApp\Features\Auth\Domain\Repositories\IAuthenticateUserRepository;
@@ -42,6 +43,8 @@ class AuthenticateUserUseCase implements IAuthenticateUserUseCase
 
         } catch (InvalidCredentialsException $e) {
             throw new AuthenticateUserException($e->getMessage());
+        } catch (Exception) {
+            throw new AuthenticateUserException('Its not possible authenticate a user.');
         }
     }
 }
