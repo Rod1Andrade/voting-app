@@ -55,17 +55,17 @@ class JwToken
     {
         try {
             return JWT::decode(
-                str_replace(JwToken::DEFAULT_TOKEN, '', $jwt),
+                str_replace(' ', '', $jwt),
                 getenv('JWT_KEY'),
                 [JwToken::DEFAULT_ALGORITHM]
             );
         } catch (
-            InvalidArgumentException |
-            UnexpectedValueException |
-            BeforeValidException |
-            SignatureInvalidException |
-            ExpiredException |
-            RuntimeException |
+        InvalidArgumentException |
+        UnexpectedValueException |
+        BeforeValidException |
+        SignatureInvalidException |
+        ExpiredException |
+        RuntimeException |
         Exception $e
         ) {
             throw new InvalidTokenException($e);

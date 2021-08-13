@@ -2,8 +2,12 @@
 
 namespace Rodri\VotingApp\App\Providers;
 
+use Exception;
 use Illuminate\Auth\GenericUser;
 use Illuminate\Support\ServiceProvider;
+use Rodri\VotingApp\App\Http\Security\JwToken;
+use Rodri\VotingApp\Features\Auth\Domain\ValueObjects\UserUuid;
+use Rodri\VotingApp\Features\Auth\External\Factories\AuthUseCaseFactory;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -24,15 +28,29 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        // Here you may define how you wish users to be authenticated for your Lumen
-        // application. The callback which receives the incoming request instance
-        // should return either a User instance or null. You're free to obtain
-        // the User instance via an API token or any other method necessary.
-
         $this->app['auth']->viaRequest('api', function ($request) {
-            if ($request->input('api_token')) {
-                return new GenericUser([]);
+            try {
+                $token = $request->bearerToken();
+                if (!empty($token)) {
+                    $decodedToken = JwToken::decode($token);
+                    if ($this->validateUser($decodedToken->sub))
+                        return new GenericUser(['id' => $decodedToken->sub]);
+                }
+            } catch (Exception) {
+                return null;
             }
+            return null;
         });
+    }
+
+    /**
+     * Validate if user exists.
+     * @param string $userUuid
+     * @return bool
+     */
+    private function validateUser(string $userUuid): bool
+    {
+        $checkUserExistsUseCase = AuthUseCaseFactory::checkUserExistsUseCase();
+        return $checkUserExistsUseCase(new UserUuid($userUuid));
     }
 }
