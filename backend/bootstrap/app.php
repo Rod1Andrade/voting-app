@@ -106,6 +106,7 @@ $app->register(Rodri\VotingApp\App\Providers\AuthServiceProvider::class);
 */
 
 $app->router->group([
+    'prefix' => 'v1',
     'namespace' => 'Rodri\VotingApp\App\Http\Controllers',
 ], function ($router) {
     require __DIR__ . '/../routes/web.php';

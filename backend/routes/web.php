@@ -18,5 +18,6 @@ $router->group(['prefix' => 'auth','namespace' => 'Auth'], function () use ($rou
 /** ***************************************************
  *  Voting Section
  ****************************************************/
-$router->group(['prefix' => 'voting', 'namespace' => 'VotingSection', 'middleware' => 'auth'], function() use($router) {
+$router->group(['prefix' => 'voting-section', 'namespace' => 'VotingSection', 'middleware' => 'auth'], function() use($router) {
+    $router->post('', 'CreateVotingSectionController@invoke');
 });

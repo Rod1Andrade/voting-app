@@ -3,15 +3,15 @@
 namespace Rodri\VotingApp\App\Http\Controllers\Auth;
 
 use Exception;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Rodri\VotingApp\App\Http\Controllers\Controller;
+use Illuminate\Http\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 use Rodri\VotingApp\App\Http\Security\JwToken;
-use Rodri\VotingApp\Features\Auth\Domain\Exceptions\AuthenticateUserException;
+use Rodri\VotingApp\App\Http\Controllers\Controller;
 use Rodri\VotingApp\Features\Auth\Domain\ValueObjects\Email;
 use Rodri\VotingApp\Features\Auth\Domain\ValueObjects\Password;
 use Rodri\VotingApp\Features\Auth\External\Factories\AuthUseCaseFactory;
-use Symfony\Component\HttpFoundation\Response as ResponseAlias;
+use Rodri\VotingApp\Features\Auth\Domain\Exceptions\AuthenticateUserException;
 
 /**
  * Controller - AuthenticateUserController
@@ -32,9 +32,9 @@ class AuthenticateUserController extends Controller
             ]);
 
         } catch (AuthenticateUserException $e) {
-            return response()->json(['message' => $e->getMessage()], ResponseAlias::HTTP_BAD_REQUEST);
+            return response()->json(['message' => $e->getMessage()], Response::HTTP_BAD_REQUEST);
         } catch (Exception) {
-            return response()->json('Unknown Error: Contact TI responsible', ResponseAlias::HTTP_INTERNAL_SERVER_ERROR);
+            return response()->json('Unknown Error: Contact TI responsible', Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 }
