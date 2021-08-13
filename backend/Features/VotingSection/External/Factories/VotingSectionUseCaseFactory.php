@@ -20,8 +20,7 @@ use Rodri\VotingApp\Features\VotingSection\External\Facades\ShowAllVotingSection
 use Rodri\VotingApp\Features\VotingSection\External\Facades\UpdateVotingOptionTitleUseCaseFacade;
 
 /**
- * Class VotingSectionUseCaseFactory0
- * @package Rodri\VotingApp\Features\VotingSection\External\Factories
+ * Class VotingSectionUseCaseFactory
  * @author Rodrigo Andrade
  */
 class VotingSectionUseCaseFactory implements IVotingSectionUseCaseFactory
@@ -47,13 +46,13 @@ class VotingSectionUseCaseFactory implements IVotingSectionUseCaseFactory
         return (new ShowVotingSectionUseCaseFacade())->createUseCase($schema);
     }
 
-    public static function DeleteVotingOptionUseCase(string $schema = 'voting.'): IDeleteVotingOptionUseCase
+    public static function deleteVotingOptionUseCase(string $schema = 'voting.'): IDeleteVotingOptionUseCase
     {
-        return (new DeleteVotingOptionUseCaseFacade())->createUseCase(null, $schema);
+        return (new DeleteVotingOptionUseCaseFacade())->createUseCase($schema);
     }
 
     public static function updateVotingOptionTitleUseCase(string $schema = 'voting.'): IUpdateVotingOptionTitleUseCase
     {
-        return (new UpdateVotingOptionTitleUseCaseFacade())->createUseCase(null, $schema);
+        return (new UpdateVotingOptionTitleUseCaseFacade())->createUseCase($schema);
     }
 }

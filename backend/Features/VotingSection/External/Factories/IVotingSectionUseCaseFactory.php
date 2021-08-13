@@ -45,7 +45,7 @@ interface IVotingSectionUseCaseFactory
      * @param string $schema
      * @return IDeleteVotingOptionUseCase
      */
-    public static function DeleteVotingOptionUseCase(string $schema = 'voting.'): IDeleteVotingOptionUseCase;
+    public static function deleteVotingOptionUseCase(string $schema = 'voting.'): IDeleteVotingOptionUseCase;
 
     /**
      * @param string $schema

@@ -11,7 +11,6 @@ interface IDeleteVotingOptionDataLayer
     /**
      * Delete a voting option in data source.
      * @param string $votingOptionUuid
-     * @param string $userUuid
      */
-    public function __invoke(string $votingOptionUuid, string $userUuid): void;
+    public function __invoke(string $votingOptionUuid): void;
 }

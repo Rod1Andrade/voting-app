@@ -3,7 +3,6 @@
 namespace Rodri\VotingApp\Features\VotingSection\Infra\Repositories;
 
 use Exception;
-use Rodri\VotingApp\Features\VotingSection\Domain\ValueObjects\UserUuid;
 use Rodri\VotingApp\Features\VotingSection\Domain\Repositories\IDeleteVotingOptionRepository;
 use Rodri\VotingApp\Features\VotingSection\Domain\ValueObjects\VotingOptionUuid;
 use Rodri\VotingApp\Features\VotingSection\Infra\Datalayer\IDeleteVotingOptionDataLayer;
@@ -22,10 +21,10 @@ class DeleteVotingOptionRepository implements IDeleteVotingOptionRepository
     {
     }
 
-    public function __invoke(VotingOptionUuid $votingOptionUuid, UserUuid $userUuid): void
+    public function __invoke(VotingOptionUuid $votingOptionUuid): void
     {
         try {
-            ($this->dataLayer)($votingOptionUuid, $userUuid);
+            ($this->dataLayer)($votingOptionUuid);
         } catch (Exception $e) {
             throw new DeleteVotingOptionRepositoryException($e);
         }

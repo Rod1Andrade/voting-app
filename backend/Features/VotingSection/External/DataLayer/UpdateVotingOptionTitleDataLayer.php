@@ -4,9 +4,9 @@ namespace Rodri\VotingApp\Features\VotingSection\External\DataLayer;
 
 use Exception;
 use PDOException;
-use Rodri\VotingApp\App\Database\Connection\Connection;
-use Rodri\VotingApp\Features\VotingSection\External\Exceptions\UpdateVotingOptionTitleDataLayerException;
+use Illuminate\Support\Facades\DB;
 use Rodri\VotingApp\Features\VotingSection\Infra\Datalayer\IUpdateVotingOptionTitleDataLayer;
+use Rodri\VotingApp\Features\VotingSection\External\Exceptions\UpdateVotingOptionTitleDataLayerException;
 
 /**
  * DataLayer - UpdateVotingOptionTitleDataLayer
@@ -16,27 +16,23 @@ class UpdateVotingOptionTitleDataLayer implements IUpdateVotingOptionTitleDataLa
 {
 
     public function __construct(
-        private Connection $connection,
-        private string     $schema = 'voting.'
+        private string $schema = 'voting.'
     )
     {
     }
 
     public function __invoke(string $title, string $votingOptionUuid): void
     {
-        $pdo = $this->connection->pdo();
-
-        $statement = $pdo->prepare(
-            "UPDATE {$this->schema}tb_voting_option
-                SET title = :title
-                WHERE voting_option_uuid = :votingOptionUuid"
-        );
-
         try {
-            $statement->bindValue(':title', $title);
-            $statement->bindValue(':votingOptionUuid', $votingOptionUuid);
-
-            $statement->execute();
+            DB::update(
+                "UPDATE {$this->schema}tb_voting_option
+                SET title = :title
+                WHERE voting_option_uuid = :votingOptionUuid",
+                [
+                    ':title' => $title,
+                    ':votingOptionUuid' => $votingOptionUuid
+                ]
+            );
         } catch (PDOException | Exception $e) {
             var_dump($e);
             throw new UpdateVotingOptionTitleDataLayerException($e);

@@ -6,9 +6,9 @@ use Exception;
 use InvalidArgumentException;
 use Rodri\VotingApp\App\Adapters\Uuid;
 use Rodri\VotingApp\Features\VotingSection\Domain\ValueObjects\UserUuid;
-use Rodri\VotingApp\Features\VotingSection\Domain\Exceptions\DeleteVotingOptionException;
-use Rodri\VotingApp\Features\VotingSection\Domain\Repositories\IDeleteVotingOptionRepository;
 use Rodri\VotingApp\Features\VotingSection\Domain\ValueObjects\VotingOptionUuid;
+use Rodri\VotingApp\Features\VotingSection\Domain\Repositories\IDeleteVotingOptionRepository;
+use Rodri\VotingApp\Features\VotingSection\Domain\Exceptions\DeleteVotingOptionException;
 
 /**
  * Use case implementation - DeleteVotingOptionUseCase
@@ -29,8 +29,7 @@ class DeleteVotingOptionUseCase implements IDeleteVotingOptionUseCase
         try {
             $this->validate($votingOptionUuid, $userUuid);
 
-            ($this->repository)($votingOptionUuid, $userUuid);
-
+            ($this->repository)($votingOptionUuid);
         } catch (InvalidArgumentException | DeleteVotingOptionException $e) {
             throw new DeleteVotingOptionException($e->getMessage());
         } catch (Exception) {
@@ -40,7 +39,7 @@ class DeleteVotingOptionUseCase implements IDeleteVotingOptionUseCase
 
     /**
      * @param VotingOptionUuid $votingOptionUuid
-     * @param UserUuid $userUuid
+     * @param UserUuid         $userUuid
      */
     private function validate(VotingOptionUuid $votingOptionUuid, UserUuid $userUuid): void
     {
