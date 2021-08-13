@@ -17,7 +17,7 @@ use stdClass;
  * Data Transfer Object - VotingSectionDTO
  * @package Rodri\VotingApp\Features\VotingSection\Infra\DataTransferObjects
  */
-class VotingDTO
+class VotingSectionDTO
 {
     private array $votingOptions;
 
@@ -36,11 +36,11 @@ class VotingDTO
     /**
      * Create a voting DTO from Voting Entity.
      * @param Voting $voting
-     * @return VotingDTO
+     * @return VotingSectionDTO
      */
-    public static function createVotingDTOFromVoting(Voting $voting): VotingDTO
+    public static function createVotingDTOFromVoting(Voting $voting): VotingSectionDTO
     {
-        return new VotingDTO(
+        return new VotingSectionDTO(
             $voting->getUserUuid()->getValue(),
             $voting->getVotingUuid()->getValue(),
             $voting->getSubject()->getValue(),
@@ -52,11 +52,11 @@ class VotingDTO
 
     /**
      * @param stdClass $voting
-     * @return VotingDTO
+     * @return VotingSectionDTO
      */
-    public static function createVotingDTOfromStdClass(stdClass $voting): VotingDTO
+    public static function createVotingDTOfromStdClass(stdClass $voting): VotingSectionDTO
     {
-        return new VotingDTO(
+        return new VotingSectionDTO(
             userUuid: $voting->userUuid ?? null,
             votingUuid: $voting->votingUuid ?? null,
             subject: $voting->subject ?? null,
@@ -68,11 +68,11 @@ class VotingDTO
 
     /**
      * Create instance of Voting Entity mas by voting DTO
-     * @param VotingDTO|null $votingDTO
+     * @param VotingSectionDTO|null $votingDTO
      * @return Voting|null
      * @throws Exception
      */
-    public static function createVotingFromVotingDTO(?VotingDTO $votingDTO): ?Voting
+    public static function createVotingFromVotingDTO(?VotingSectionDTO $votingDTO): ?Voting
     {
         if(empty($votingDTO)) return null;
 
