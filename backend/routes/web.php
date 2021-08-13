@@ -19,7 +19,7 @@ $router->group([
 });
 
 /** ***************************************************
- *  Voting Section
+ *  Voting Section - Voting
  ****************************************************/
 $router->group([
     'prefix' => 'voting-section',
@@ -28,8 +28,19 @@ $router->group([
 ], function() use($router) {
     $router->get('', 'ShowAllVotingSectionsController@invoke');
     $router->get('{votingUuid}', 'ShowVotingSectionController@invoke');
-
     $router->post('', 'CreateVotingSectionController@invoke');
-
     $router->delete('{votingUuid}', 'DeleteVotingSectionController@invoke');
+
 });
+
+/** ***************************************************
+ *  Voting Section - Voting Option
+ ****************************************************/
+$router->group([
+    'prefix' => 'voting-option',
+    'namespace' => 'VotingSection',
+    'middleware' => 'auth'
+], function() use($router) {
+    $router->delete('{votingOptionUuid}', 'DeleteVotingOptionController@invoke');
+});
+
