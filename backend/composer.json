@@ -37,7 +37,7 @@
     "prefer-stable": true,
     "scripts": {
         "post-root-package-install": [
-            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
+            "php -r \"file_exists('.env') || copy('.env.example', '.env');\""
         ],
         "test": "php -dxdebug.mode=coverage vendor/bin/phpunit tests/ --coverage-html cover/ --colors=always"
     }
