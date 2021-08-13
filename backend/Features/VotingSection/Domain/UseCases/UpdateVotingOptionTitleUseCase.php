@@ -28,8 +28,8 @@ class UpdateVotingOptionTitleUseCase implements IUpdateVotingOptionTitleUseCase
     public function __invoke(Title $title, VotingOptionUuid $votingOptionUuid, UserUuid $userUuid): void
     {
         try {
-            $this->validate($votingOptionUuid, $userUuid);
-            
+            $this->validate($title, $votingOptionUuid, $userUuid);
+
             ($this->repository)($title, $votingOptionUuid, $userUuid);
         } catch (UpdateVotingTitleException | InvalidArgumentException $e) {
             throw new UpdateVotingTitleException($e->getMessage());
@@ -39,17 +39,22 @@ class UpdateVotingOptionTitleUseCase implements IUpdateVotingOptionTitleUseCase
     }
 
     /**
+     * @param Title            $title
      * @param VotingOptionUuid $votingOptionUuid
-     * @param UserUuid $userUuid
+     * @param UserUuid         $userUuid
      */
-    private function validate(VotingOptionUuid $votingOptionUuid, UserUuid $userUuid): void
+    private function validate(Title $title, VotingOptionUuid $votingOptionUuid, UserUuid $userUuid): void
     {
+        if(empty($title->getValue())) {
+            throw new InvalidArgumentException('The title can\'t be empty.');
+        }
+
         if (!Uuid::validate($votingOptionUuid->getValue())) {
             throw new UpdateVotingTitleException('Invalid UUID.');
         }
 
         if (!($this->checkOwnerUseCase)($votingOptionUuid, $userUuid)) {
-            throw new InvalidArgumentException('To delete a voting option you need be the owner.');
+            throw new InvalidArgumentException('To update a voting option title you need be the owner.');
         }
     }
 }

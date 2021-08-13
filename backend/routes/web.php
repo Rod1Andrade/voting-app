@@ -41,6 +41,7 @@ $router->group([
     'namespace' => 'VotingSection',
     'middleware' => 'auth'
 ], function() use($router) {
+    $router->patch('{votingOptionUuid}', 'UpdateVotingOptionTitleController@invoke');
     $router->delete('{votingOptionUuid}', 'DeleteVotingOptionController@invoke');
 });
 
