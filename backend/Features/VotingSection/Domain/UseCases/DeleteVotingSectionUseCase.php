@@ -18,7 +18,8 @@ class DeleteVotingSectionUseCase implements IDeleteVotingSectionUseCase
 {
 
     public function __construct(
-        private IDeleteVotingSectionRepository $repository
+        private IVotingSectionCheckOwnerUseCase $votingSectionCheckOwnerUseCase,
+        private IDeleteVotingSectionRepository  $repository
     )
     {
     }
@@ -26,20 +27,21 @@ class DeleteVotingSectionUseCase implements IDeleteVotingSectionUseCase
     public function __invoke(VotingUuid $votingUuid, UserUuid $userUuid): void
     {
         try {
-            $this->validate($votingUuid);
+            $this->validate($votingUuid, $userUuid);
 
             ($this->repository)($votingUuid, $userUuid);
         } catch (DeleteVotingSectionException $e) {
             throw  new DeleteVotingSectionException($e->getMessage());
-        } catch (Exception) {
+        } catch (Exception $e) {
             throw  new DeleteVotingSectionException('Unknown error');
         }
     }
 
     /**
      * @param VotingUuid $votingUUid
+     * @param UserUuid   $userUuid
      */
-    private function validate(VotingUUid $votingUUid)
+    private function validate(VotingUUid $votingUUid, UserUuid $userUuid)
     {
         if (empty($votingUUid) || empty($votingUUid->getValue())) {
             throw new DeleteVotingSectionException('The voting uuid its necessary.');
@@ -47,6 +49,10 @@ class DeleteVotingSectionUseCase implements IDeleteVotingSectionUseCase
 
         if (!Uuid::validate($votingUUid->getValue())) {
             throw new DeleteVotingSectionException('Invalid UUID format.');
+        }
+
+        if (!($this->votingSectionCheckOwnerUseCase)($votingUUid, $userUuid)) {
+            throw new DeleteVotingSectionException('You need be the owner to delete this voting section.');
         }
     }
 

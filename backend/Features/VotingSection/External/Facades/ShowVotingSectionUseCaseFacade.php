@@ -2,7 +2,7 @@
 
 namespace Rodri\VotingApp\Features\VotingSection\External\Facades;
 
-use Rodri\VotingApp\App\Database\Connection\Connection;
+use JetBrains\PhpStorm\Pure;
 use Rodri\VotingApp\Features\VotingSection\Domain\UseCases\IShowVotingSectionUseCase;
 use Rodri\VotingApp\Features\VotingSection\Domain\UseCases\ShowVotingSectionUseCase;
 use Rodri\VotingApp\Features\VotingSection\External\DataLayer\ShowVotingSectionDataLayer;
@@ -10,9 +10,9 @@ use Rodri\VotingApp\Features\VotingSection\Infra\Repositories\ShowVotingSectionR
 
 class ShowVotingSectionUseCaseFacade
 {
-    public function createUseCase(Connection $connection, string $schema = ''): IShowVotingSectionUseCase
+    #[Pure] public function createUseCase(string $schema = ''): IShowVotingSectionUseCase
     {
-        $dataLayer = new ShowVotingSectionDataLayer($connection);
+        $dataLayer = new ShowVotingSectionDataLayer($schema);
         $repository = new ShowVotingSectionRepository($dataLayer);
 
         return new ShowVotingSectionUseCase($repository);

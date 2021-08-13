@@ -3,11 +3,11 @@
 namespace Rodri\VotingApp\Features\VotingSection\External\DataLayer;
 
 use Exception;
-use Illuminate\Support\Facades\DB;
 use PDOException;
-use Rodri\VotingApp\Features\VotingSection\External\Exceptions\ShowAllVotingSectionsDataLayerException;
-use Rodri\VotingApp\Features\VotingSection\Infra\Datalayer\IShowAllVotingSectionsDataLayer;
+use Illuminate\Support\Facades\DB;
 use Rodri\VotingApp\Features\VotingSection\Infra\DataTransferObjects\VotingSectionDTO;
+use Rodri\VotingApp\Features\VotingSection\Infra\Datalayer\IShowAllVotingSectionsDataLayer;
+use Rodri\VotingApp\Features\VotingSection\External\Exceptions\ShowAllVotingSectionsDataLayerException;
 
 /**
  * Class ShowAllVotingSectionsDataLayer

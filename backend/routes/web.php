@@ -27,5 +27,9 @@ $router->group([
     'middleware' => 'auth'
 ], function() use($router) {
     $router->get('', 'ShowAllVotingSectionsController@invoke');
+    $router->get('{votingUuid}', 'ShowVotingSectionController@invoke');
+
     $router->post('', 'CreateVotingSectionController@invoke');
+
+    $router->delete('{votingUuid}', 'DeleteVotingSectionController@invoke');
 });

@@ -2,7 +2,7 @@
 
 namespace Rodri\VotingApp\Features\VotingSection\External\DataLayer;
 
-use Rodri\VotingApp\App\Database\Connection\Connection;
+use Illuminate\Support\Facades\DB;
 use Rodri\VotingApp\Features\VotingSection\External\Exceptions\DeleteVotingSectionDataLayerException;
 use Rodri\VotingApp\Features\VotingSection\Infra\Datalayer\IDeleteVotingSectionDataLayer;
 
@@ -15,7 +15,6 @@ class DeleteVotingSectionDataLayer implements IDeleteVotingSectionDataLayer
 {
 
     public function __construct(
-        private Connection $connection,
         private string $schema = 'voting.'
     )
     {
@@ -23,15 +22,15 @@ class DeleteVotingSectionDataLayer implements IDeleteVotingSectionDataLayer
 
     public function __invoke(string $votingUuid, string $userUuid): void
     {
-        $pdo = $this->connection->pdo();
-
-        $statement = $pdo->prepare("DELETE FROM {$this->schema}tb_voting
-            WHERE voting_uuid = :votingUuid AND user_uuid = :userUuid");
-
         try {
-            $statement->bindValue(':votingUuid', $votingUuid);
-            $statement->bindValue(':userUuid', $userUuid);
-            $statement->execute();
+            DB::delete(
+                "DELETE FROM {$this->schema}tb_voting
+                WHERE voting_uuid = :votingUuid AND user_uuid = :userUuid",
+                [
+                    ':votingUuid' => $votingUuid,
+                    ':userUuid' => $userUuid
+                ]
+            );
         } catch (\PDOException $e) {
             throw new DeleteVotingSectionDataLayerException($e);
         }

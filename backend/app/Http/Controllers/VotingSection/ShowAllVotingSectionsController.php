@@ -16,6 +16,10 @@ use Rodri\VotingApp\Features\VotingSection\Domain\Exceptions\ShowAllVotingSectio
  */
 class ShowAllVotingSectionsController extends Controller
 {
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
     public function invoke(Request $request): JsonResponse
     {
         try {

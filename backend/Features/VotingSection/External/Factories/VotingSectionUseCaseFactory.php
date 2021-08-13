@@ -34,7 +34,7 @@ class VotingSectionUseCaseFactory implements IVotingSectionUseCaseFactory
 
     public static function deleteVotingSectionUseCase(string $schema = 'voting.'): IDeleteVotingSectionUseCase
     {
-        return (new DeleteVotingSectionUseCaseFacade())->createUseCase(null, $schema);
+        return (new DeleteVotingSectionUseCaseFacade())->createUseCase($schema);
     }
 
     #[Pure] public static function showAllVotingSectionUseCase(string $schema = 'voting.'): IShowAllVotingSectionsUseCase
@@ -42,9 +42,9 @@ class VotingSectionUseCaseFactory implements IVotingSectionUseCaseFactory
         return (new ShowAllVotingSectionUseCaseFacade())->createUseCase($schema);
     }
 
-    public static function showVotingSectionUseCase(string $schema = 'voting.'): IShowVotingSectionUseCase
+    #[Pure] public static function showVotingSectionUseCase(string $schema = 'voting.'): IShowVotingSectionUseCase
     {
-        return (new ShowVotingSectionUseCaseFacade())->createUseCase(null, $schema);
+        return (new ShowVotingSectionUseCaseFacade())->createUseCase($schema);
     }
 
     public static function DeleteVotingOptionUseCase(string $schema = 'voting.'): IDeleteVotingOptionUseCase

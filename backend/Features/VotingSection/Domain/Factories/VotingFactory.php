@@ -20,7 +20,14 @@ use Rodri\VotingApp\Features\VotingSection\Domain\ValueObjects\VotingUuid;
 class VotingFactory implements IVotingFactory
 {
 
-    public static function create(string $userUuid, string $subject, DateTime $startDate, DateTime $finishDate, array $votingOptions, ?string $uuid = null): Voting
+    public static function create(
+        ?string $userUuid,
+        ?string $subject,
+        ?DateTime $startDate,
+        ?DateTime $finishDate,
+        array $votingOptions,
+        ?string $uuid = null
+    ): Voting
     {
 
         $voting = new Voting(

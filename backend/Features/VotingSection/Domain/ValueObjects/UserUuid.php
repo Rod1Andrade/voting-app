@@ -16,28 +16,28 @@ class UserUuid
 
     /**
      * User UUID constructor.
-     * @param string $value
+     * @param string|null $value
      */
     public function __construct(
-        private string $value,
+        private ?string $value,
     )
     {
     }
 
     /**
-     * @return string
+     * @return string|null
      * @codeCoverageIgnore
      */
-    public function getValue(): string
+    public function getValue(): ?string
     {
         return $this->value;
     }
 
     /**
-     * @param string $value
+     * @param string|null $value
      * @codeCoverageIgnore
      */
-    public function setValue(string $value): void
+    public function setValue(?string $value): void
     {
         $this->value = $value;
     }

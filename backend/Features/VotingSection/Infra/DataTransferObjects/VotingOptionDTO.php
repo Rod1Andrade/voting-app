@@ -41,11 +41,11 @@ class VotingOptionDTO
      * @param stdClass $votingOption
      * @return VotingOptionDTO
      */
-    public static function createVotingOptionDTOFromStdClass(stdClass $votingOption): VotingOptionDTO
+    #[Pure] public static function createVotingOptionDTOFromStdClass(stdClass $votingOption): VotingOptionDTO
     {
         return new VotingOptionDTO(
-            votingOptionUuid: $votingOption->votingOptionUuid ?? null,
-            votingUuid: $votingOption->votingUuid ?? null,
+            votingOptionUuid: $votingOption->votingOptionUuid ?? $votingOption->voting_option_uuid ?? null,
+            votingUuid: $votingOption->votingUuid ?? $votingOption->voting_uuid ?? null,
             title: $votingOption->title ?? null
         );
     }
