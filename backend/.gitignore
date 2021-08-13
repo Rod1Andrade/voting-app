@@ -1,10 +1,6 @@
-/vendor/
-/.idea/
-
-# Unit Tests Ignore cover
-/cover/
-/.phpunit.cache/
+/vendor
+/.idea
+Homestead.json
+Homestead.yaml
+.env
 .phpunit.result.cache
-
-# Ignore sqlite db
-# /storage/db/

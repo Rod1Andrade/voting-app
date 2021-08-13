@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 use Rodri\VotingApp\Features\VotingSection\Domain\Entities\Voting;
 use Rodri\VotingApp\Features\VotingSection\Domain\ValueObjects\VotingUuid;
 use Rodri\VotingApp\Features\VotingSection\Infra\Datalayer\IShowVotingSectionDataLayer;
-use Rodri\VotingApp\Features\VotingSection\Infra\DataTransferObjects\VotingDTO;
+use Rodri\VotingApp\Features\VotingSection\Infra\DataTransferObjects\VotingSectionDTO;
 use Rodri\VotingApp\Features\VotingSection\Infra\Exceptions\ShowVotingSectionRepositoryException;
 use Rodri\VotingApp\Features\VotingSection\Infra\Repositories\ShowVotingSectionRepository;
 
@@ -32,7 +32,7 @@ class ShowVotingSectionRepositoryTest extends TestCase
 
         $dataLayer = self::createMock(IShowVotingSectionDataLayer::class);
         $dataLayer->method('__invoke')
-            ->willReturn(VotingDTO::createVotingDTOfromStdClass($dummyData));
+            ->willReturn(VotingSectionDTO::createVotingDTOfromStdClass($dummyData));
 
         $repository = new ShowVotingSectionRepository($dataLayer);
 
