@@ -4,11 +4,12 @@
 namespace Rodri\VotingApp\Features\VotingSection\External\DataLayer;
 
 
+use Exception;
 use PDOException;
-use Rodri\VotingApp\App\Database\Connection\Connection;
+use Illuminate\Support\Facades\DB;
+use Rodri\VotingApp\Features\VotingSection\Infra\DataTransferObjects\VotingSectionDTO;
 use Rodri\VotingApp\Features\VotingSection\Infra\Datalayer\ICreateVotingOptionDataLayer;
 use Rodri\VotingApp\Features\VotingSection\Infra\Datalayer\ICreateVotingSectionDataLayer;
-use Rodri\VotingApp\Features\VotingSection\Infra\DataTransferObjects\VotingDTO;
 
 /**
  * Class CreateVotingSectionDataLayer
@@ -19,39 +20,37 @@ class CreateVotingSectionDataLayer implements ICreateVotingSectionDataLayer
 {
 
     public function __construct(
-        private Connection $connection,
-        private ICreateVotingOptionDataLayer $votingOptionDataLayer,
-        private string $schema = 'voting.' // TODO: This gonna be replaced by a model with this info (when i use ORM)
+        private ICreateVotingOptionDataLayer $createVotingOptionDataLayer,
+        private string                       $schema = 'voting.'
     )
     {
     }
 
-    public function __invoke(VotingDTO $votingDTO): void
+    public function __invoke(VotingSectionDTO $votingDTO): void
     {
-
-        $pdo = $this->connection->pdo();
-        $votingStatement = $pdo->prepare("INSERT INTO {$this->schema}tb_voting(user_uuid,
-                      voting_uuid, subject, start_date, finish_date) VALUES (:userUuid, :votingUuid, :subject, :startDate, :finishDate)");
-
-        $votingStatement->bindValue(':userUuid', $votingDTO->getUserUuid());
-        $votingStatement->bindValue(':votingUuid', $votingDTO->getVotingUuid());
-        $votingStatement->bindValue(':subject', $votingDTO->getSubject());
-        $votingStatement->bindValue(':startDate', $votingDTO->getStartDate());
-        $votingStatement->bindValue(':finishDate', $votingDTO->getFinishDate());
-
-        $pdo->beginTransaction();
         try {
+            DB::beginTransaction();
+
             # Aggregate
-            $votingStatement->execute();
+            DB::insert(
+                "INSERT INTO {$this->schema}tb_voting(user_uuid, voting_uuid, subject, start_date, finish_date)
+                VALUES (:userUuid, :votingUuid, :subject, :startDate, :finishDate)",
+                [
+                    ':userUuid' => $votingDTO->getUserUuid(),
+                    ':votingUuid' => $votingDTO->getVotingUuid(),
+                    ':subject' => $votingDTO->getSubject(),
+                    ':startDate' => $votingDTO->getStartDate(),
+                    ':finishDate' => $votingDTO->getFinishDate(),
+
+                ]
+            );
 
             # One to many relation
-            $this->votingOptionDataLayer->storeAList($votingDTO->getVotingOptions());
-            $pdo->commit();
-        } catch (PDOException $e) {
-            var_dump($e);
-            die();
-            $pdo->rollBack();
-        }
+            $this->createVotingOptionDataLayer->storeAList($votingDTO->getVotingOptions());
 
+            DB::commit();
+        } catch (PDOException | Exception) {
+            DB::rollBack();
+        }
     }
 }

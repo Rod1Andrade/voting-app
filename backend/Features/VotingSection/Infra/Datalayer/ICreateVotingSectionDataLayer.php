@@ -3,7 +3,7 @@
 
 namespace Rodri\VotingApp\Features\VotingSection\Infra\Datalayer;
 
-use Rodri\VotingApp\Features\VotingSection\Infra\DataTransferObjects\VotingDTO;
+use Rodri\VotingApp\Features\VotingSection\Infra\DataTransferObjects\VotingSectionDTO;
 use RuntimeException;
 
 /**
@@ -14,8 +14,8 @@ use RuntimeException;
 interface ICreateVotingSectionDataLayer
 {
     /**
-     * @param VotingDTO $votingDTO
+     * @param VotingSectionDTO $votingDTO
      * @throws RuntimeException
      */
-    public function __invoke(VotingDTO $votingDTO): void;
+    public function __invoke(VotingSectionDTO $votingDTO): void;
 }

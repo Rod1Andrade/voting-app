@@ -8,7 +8,7 @@ use Rodri\VotingApp\Features\VotingSection\Domain\Entities\Voting;
 
 use Rodri\VotingApp\Features\VotingSection\Domain\Repositories\ICreateVotingSectionRepository;
 use Rodri\VotingApp\Features\VotingSection\Infra\Datalayer\ICreateVotingSectionDataLayer;
-use Rodri\VotingApp\Features\VotingSection\Infra\DataTransferObjects\VotingDTO;
+use Rodri\VotingApp\Features\VotingSection\Infra\DataTransferObjects\VotingSectionDTO;
 use Rodri\VotingApp\Features\VotingSection\Infra\Exceptions\CreateVotingSectionDataLayerException;
 use RuntimeException;
 
@@ -28,7 +28,7 @@ class CreateVotingSectionRepository implements ICreateVotingSectionRepository
     public function __invoke(Voting $voting): void
     {
         try {
-            ($this->dataLayer)(VotingDTO::createVotingDTOFromVoting($voting));
+            ($this->dataLayer)(VotingSectionDTO::createVotingDTOFromVoting($voting));
         } catch (RuntimeException $e) {
             throw new CreateVotingSectionDataLayerException('Is not possible create a voting section');
         }
