@@ -26,5 +26,6 @@ $router->group([
     'namespace' => 'VotingSection',
     'middleware' => 'auth'
 ], function() use($router) {
+    $router->get('', 'ShowAllVotingSectionsController@invoke');
     $router->post('', 'CreateVotingSectionController@invoke');
 });

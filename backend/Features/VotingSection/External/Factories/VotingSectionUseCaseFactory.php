@@ -39,7 +39,7 @@ class VotingSectionUseCaseFactory implements IVotingSectionUseCaseFactory
 
     #[Pure] public static function showAllVotingSectionUseCase(string $schema = 'voting.'): IShowAllVotingSectionsUseCase
     {
-        return (new ShowAllVotingSectionUseCaseFacade())->createUseCase(null, $schema);
+        return (new ShowAllVotingSectionUseCaseFacade())->createUseCase($schema);
     }
 
     public static function showVotingSectionUseCase(string $schema = 'voting.'): IShowVotingSectionUseCase

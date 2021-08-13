@@ -3,7 +3,7 @@
 namespace Rodri\VotingApp\Features\VotingSection\Infra\Datalayer;
 
 use Rodri\VotingApp\Features\VotingSection\Domain\ValueObjects\VotingUuid;
-use Rodri\VotingApp\Features\VotingSection\Infra\DataTransferObjects\VotingDTO;
+use Rodri\VotingApp\Features\VotingSection\Infra\DataTransferObjects\VotingSectionDTO;
 
 /**
  * Data Layer IShowVotingSectionDataLayer
@@ -14,7 +14,7 @@ interface IShowVotingSectionDataLayer
 
     /**
      * @param string $votingUuid
-     * @return VotingDTO|null
+     * @return VotingSectionDTO|null
      */
-    public function __invoke(string $votingUuid): ?VotingDTO;
+    public function __invoke(string $votingUuid): ?VotingSectionDTO;
 }

@@ -6,6 +6,7 @@ namespace Rodri\VotingApp\Features\VotingSection\Infra\DataTransferObjects;
 use DateTime;
 use DateTimeInterface;
 use Exception;
+use JetBrains\PhpStorm\Pure;
 use Rodri\VotingApp\Features\VotingSection\Domain\Entities\Voting;
 use Rodri\VotingApp\Features\VotingSection\Domain\Entities\VotingOption;
 use Rodri\VotingApp\Features\VotingSection\Domain\Factories\VotingFactory;
@@ -57,11 +58,11 @@ class VotingSectionDTO
     public static function createVotingDTOfromStdClass(stdClass $voting): VotingSectionDTO
     {
         return new VotingSectionDTO(
-            userUuid: $voting->userUuid ?? null,
-            votingUuid: $voting->votingUuid ?? null,
+            userUuid: $voting->userUuid ?? $voting->user_id ?? null,
+            votingUuid: $voting->votingUuid ?? $voting->voting_uuid ?? null,
             subject: $voting->subject ?? null,
-            startDate: $voting->startDate ?? null,
-            finishDate: $voting->finishDate ?? null,
+            startDate: $voting->startDate ?? $voting->start_date ?? null,
+            finishDate: $voting->finishDate ?? $voting->finish_date ?? null,
             votingOptions: $voting->votingOptions ?? []
         );
     }
@@ -74,7 +75,7 @@ class VotingSectionDTO
      */
     public static function createVotingFromVotingDTO(?VotingSectionDTO $votingDTO): ?Voting
     {
-        if(empty($votingDTO)) return null;
+        if (empty($votingDTO)) return null;
 
         return VotingFactory::create(
             userUuid: $votingDTO->getUserUuid(),
@@ -101,9 +102,9 @@ class VotingSectionDTO
      * @param Voting|null $voting
      * @return array
      */
-    public static function parserToAssocArray(?Voting $voting): array
+    public static function parserVotingToAssocArray(?Voting $voting): array
     {
-        if(empty($voting))
+        if (empty($voting))
             return [];
 
         return [
@@ -122,6 +123,36 @@ class VotingSectionDTO
                 return null;
             }, $voting->getListOfVotingOptions())
         ];
+    }
+
+    /**
+     * Parse to assoc array, normally used with json_encode
+     * @param VotingSectionDTO|null $votingSectionDTO
+     * @return array
+     */
+    #[Pure] public static function parserVotingSectionDTOToAssocArray(?VotingSectionDTO $votingSectionDTO): array
+    {
+        if (empty($votingSectionDTO))
+            return [];
+
+        return [
+            'id' => $votingSectionDTO->getVotingUuid(),
+            'subject' => $votingSectionDTO->getSubject(),
+            'startDate' => $votingSectionDTO->getStartDate(),
+            'finishDate' => $votingSectionDTO->getFinishDate(),
+        ];
+    }
+
+    /**
+     * Parse a list of Voting Sections DTO to assoc array, normally used with json_encode
+     * @param array $votingSectionsDTO
+     * @return mixed
+     */
+    public static function transformAListOfVotingSectionDTOToAssocArray(array $votingSectionsDTO): array
+    {
+        return array_map(function ($value) {
+            return self::parserVotingSectionDTOToAssocArray($value);
+        }, $votingSectionsDTO);
     }
 
     /**
