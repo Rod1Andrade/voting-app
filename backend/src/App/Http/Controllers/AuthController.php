@@ -34,6 +34,7 @@ class AuthController
      */
     public function registerUser(Request $request): Response
     {
+        
         # Request data
         $userDTO = UserDTO::factoryUserDTOFromStdClass(json_decode($request->body()));
 

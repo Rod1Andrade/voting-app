@@ -48,5 +48,3 @@ $router->group(['/vote', 'middleware' => 'SecurityMiddleware'], function (Router
 
 # Dispatcher
 $router->dispatch();
-
-echo 'hello';
