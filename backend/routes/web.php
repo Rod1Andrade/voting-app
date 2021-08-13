@@ -10,7 +10,10 @@ $router->get('/', function () use ($router) {
 /** ***************************************************
 *  Authentication
 ****************************************************/
-$router->group(['prefix' => 'auth','namespace' => 'Auth'], function () use ($router) {
+$router->group([
+    'prefix' => 'auth',
+    'namespace' => 'Auth'
+], function () use ($router) {
     $router->post('signUp', ['uses' => 'RegisterUserController@invoke']);
     $router->post('signIn', ['uses' => 'AuthenticateUserController@invoke']);
 });
@@ -18,6 +21,10 @@ $router->group(['prefix' => 'auth','namespace' => 'Auth'], function () use ($rou
 /** ***************************************************
  *  Voting Section
  ****************************************************/
-$router->group(['prefix' => 'voting-section', 'namespace' => 'VotingSection', 'middleware' => 'auth'], function() use($router) {
+$router->group([
+    'prefix' => 'voting-section',
+    'namespace' => 'VotingSection',
+    'middleware' => 'auth'
+], function() use($router) {
     $router->post('', 'CreateVotingSectionController@invoke');
 });

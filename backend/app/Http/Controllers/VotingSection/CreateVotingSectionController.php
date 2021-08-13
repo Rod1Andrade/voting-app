@@ -39,7 +39,7 @@ class CreateVotingSectionController extends Controller
 
         try {
             $useCase(VotingSectionDTO::createVotingFromVotingDTO($votingSectionDTO));
-            return response()->json()->setStatusCode(Response::HTTP_ACCEPTED);
+            return response()->json()->setStatusCode(Response::HTTP_CREATED);
         } catch (CreateVotingSectionException $e) {
             return response()
                 ->json(['message' => $e->getMessage()])
