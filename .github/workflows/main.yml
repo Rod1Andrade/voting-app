@@ -15,7 +15,7 @@ jobs:
         php-version: '8.0'
     - uses: actions/checkout@v2
     - name: Set Envoriment config
-      run: php -r "file_exists('backend/.env') || copy('backend/.env.example', '.env');"
+      run: php -r "file_exists('backend/.env') || copy('backend/.env.example', 'backend/.env');"
       env:
           DB_CONNECTION: ${{ secrets.DB_CONNECTION }}
           DB_HOST: ${{ secrets.DB_HOST }}
