@@ -20,7 +20,7 @@ The voting application is a full stack application based on the [AppIdeas](https
 
 Inicialmente o backend foi construído sem a utilização de nenhum framework, somente adicionando funcionalides e utilizado o [``simple-router``](https://github.com/Rod1Andrade/simple-router) um projeto no qual eu estou trabalhando.
 
-Porém surgiu a necessidade de fazer deploy da aplicação, que no caso foi escolhida a plataforma Heroku. E por medidas de segurança, tanto de chave, quanto da geração de token, e credências de banco de dados, foi escolhido o micro-framework laravel/lumen para dar suporte as necessidades do projeto. De agora em diante do o projeto sera segmentado a partir deste framework.
+Porém surgiu a necessidade de fazer deploy da aplicação, que no caso foi escolhida a plataforma Heroku. E por medidas de segurança, tanto de chave, quanto da geração de token e credências de banco de dados, foi escolhido o micro-framework laravel/lumen para dar suporte as necessidades do projeto. De agora em diante do o projeto sera segmentado a partir deste framework.
 
 Vale ressaltar que a transição de todo o ``core`` foi bem simples devido a arquitetura escolhida, basicamente foi necessário mudar ``external`` e os ``controllers``, o domínio e a infra estrutura foram códigos que se mantiveram inalterados.
 
