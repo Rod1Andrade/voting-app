@@ -11,5 +11,9 @@ use Rodri\VotingApp\Features\Vote\Domain\ValueObjects\VotingUuid;
  */
 interface IVoteResultRepository
 {
-    public function __invoke(VotingUuid $votingUuid): Vote;
+    /**
+     * @param VotingUuid $votingUuid
+     * @return Vote|null
+     */
+    public function __invoke(VotingUuid $votingUuid): ?Vote;
 }

@@ -19,8 +19,8 @@ class VoteResultUseCaseTest extends TestCase
             ->willReturn(new Vote());
 
         $useCase = new VoteResultUseCase($repository);
-        
-        self::assertInstanceOf(Vote::class, $useCase(new VotingUuid('any')));
+
+        self::assertInstanceOf(Vote::class, $useCase(new VotingUuid('98de28ef-b312-49b9-9071-3d6d145a2edb')));
     }
 
     public function testShouldThrowAVoteResultExceptionWhenIsNotPossibleReturnTheResults(): void
@@ -31,7 +31,7 @@ class VoteResultUseCaseTest extends TestCase
             ->willThrowException(new Exception());
 
         $useCase = new VoteResultUseCase($repository);
-        $useCase(new VotingUuid('any'));
+        $useCase(new VotingUuid('98de28ef-b312-49b9-9071-3d6d145a2edb'));
 
     }
 }

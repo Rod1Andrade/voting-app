@@ -53,5 +53,6 @@ $router->group([
     'namespace' => 'Vote',
     'middleware' => 'auth'
 ], function() use($router) {
+    $router->get('/{votingUuid}', 'VoteResultController@invoke');
     $router->post('/{votingUuid}/voting-option/{votingOptionUuid}', 'UserVoteController@invoke');
 });
