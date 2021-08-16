@@ -2,7 +2,9 @@
 
 namespace Rodri\VotingApp\Features\Vote\Infra\DataTransferObjects;
 
+use Exception;
 use Rodri\VotingApp\Features\Vote\Domain\Entities\Vote;
+use Rodri\VotingApp\Features\Vote\Domain\Factories\VoteFactory;
 
 /**
  * DTO - Vote DTO
@@ -36,17 +38,30 @@ class VoteDTO
             startDate: $vote->getStartDate()?->format(\DateTimeInterface::ISO8601) ?? null,
             finishDate: $vote->getFinishDate()?->format(\DateTimeInterface::ISO8601) ?? null,
             subject: $vote->getSubject() ?? null,
-            voteResults: array_map(function($value) {
+            voteResults: array_map(function ($value) {
                 return VoteResultDTO::createVoteResultDTOFromVoteResult($value);
             }, $vote->getVoteResults())
         );
     }
 
     /**
-     * @param VoteDTO $param
+     * @param VoteDTO|null $voteDTO
+     * @return Vote|null
+     * @throws Exception
      */
-    public static function createVoteFromVoteDTO(VoteDTO $param)
+    public static function createVoteFromVoteDTO(?VoteDTO $voteDTO): ?Vote
     {
+        if(empty($voteDTO)) return null;
+
+        return VoteFactory::create(
+            votingUuid: $voteDTO->getVotingUuid(),
+            startDate: $voteDTO->getStartDate(),
+            finishDate: $voteDTO->getFinishDate(),
+            subject: $voteDTO->getSubject(),
+            voteResults: array_map(function ($value) {
+                return VoteResultDTO::createVoteResultFromVoteResultDTO($value);
+            }, $voteDTO->getVoteResults())
+        );
     }
 
     /**
@@ -56,10 +71,10 @@ class VoteDTO
      */
     private function addListOfVoteResultDTO(?array $voteResults)
     {
-        if(!empty($voteResults)) return;
+        if (!empty($voteResults)) return;
 
         foreach ($voteResults as $voteResult) {
-            if($voteResult instanceof VoteResultDTO) {
+            if ($voteResult instanceof VoteResultDTO) {
                 $this->voteResults[] = $voteResult;
             }
         }
@@ -70,7 +85,7 @@ class VoteDTO
      */
     public function getVoteResults(): ?array
     {
-        return $this->voteResults;
+        return $this->voteResults ?? [];
     }
 
     /**

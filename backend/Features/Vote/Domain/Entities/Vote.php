@@ -102,7 +102,7 @@ class Vote
      */
     public function getVoteResults(): ?array
     {
-        return $this->voteResults;
+        return $this->voteResults ?? [];
     }
 
     /**
