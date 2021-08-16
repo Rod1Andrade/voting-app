@@ -10,59 +10,67 @@ use Rodri\VotingApp\Features\Vote\Domain\Entities\Vote;
  */
 class VoteDTO
 {
+    private ?array $voteResults;
+
     private function __construct(
-        private ?string $userUuid = null,
-        private ?string $votingOptionUuid = null,
         private ?string $votingUuid = null,
-        private ?string $voteAt = null,
+        private ?string $startDate = null,
+        private ?string $finishDate = null,
         private ?string $subject = null,
+        ?array          $voteResults = null
     )
     {
+        $this->addListOfVoteResultDTO($voteResults);
     }
 
+    /**
+     * @param Vote|null $vote
+     * @return VoteDTO|null
+     */
     public static function createVoteDTOFromVote(?Vote $vote): ?VoteDTO
     {
         if (empty($vote)) return null;
 
         return new VoteDTO(
-            userUuid: $vote->getUserUuid()->getValue() ?? null,
-            votingOptionUuid: $vote->getVotingOptionUuid()?->getValue() ?? null,
             votingUuid: $vote->getVotingUuid()?->getValue() ?? null,
-            voteAt: $vote->getVoteAt()?->format(\DateTimeInterface::ISO8601) ?? null,
-            subject: $vote->getSubject() ?? null
+            startDate: $vote->getStartDate()?->format(\DateTimeInterface::ISO8601) ?? null,
+            finishDate: $vote->getFinishDate()?->format(\DateTimeInterface::ISO8601) ?? null,
+            subject: $vote->getSubject() ?? null,
+            voteResults: array_map(function($value) {
+                return VoteResultDTO::createVoteResultDTOFromVoteResult($value);
+            }, $vote->getVoteResults())
         );
     }
 
     /**
-     * @return string|null
+     * @param VoteDTO $param
      */
-    public function getUserUuid(): ?string
+    public static function createVoteFromVoteDTO(VoteDTO $param)
     {
-        return $this->userUuid;
     }
 
     /**
-     * @param string|null $userUuid
+     * Add a list of vote result DTO from $voteResults reference.
+     *
+     * @param array|null $voteResults
      */
-    public function setUserUuid(?string $userUuid): void
+    private function addListOfVoteResultDTO(?array $voteResults)
     {
-        $this->userUuid = $userUuid;
+        if(!empty($voteResults)) return;
+
+        foreach ($voteResults as $voteResult) {
+            if($voteResult instanceof VoteResultDTO) {
+                $this->voteResults[] = $voteResult;
+            }
+        }
     }
 
     /**
-     * @return string|null
+     * @return array|null
      */
-    public function getVotingOptionUuid(): ?string
+    public function getVoteResults(): ?array
     {
-        return $this->votingOptionUuid;
-    }
-
-    /**
-     * @param string|null $votingOptionUuid
-     */
-    public function setVotingOptionUuid(?string $votingOptionUuid): void
-    {
-        $this->votingOptionUuid = $votingOptionUuid;
+        return $this->voteResults;
     }
 
     /**
@@ -84,17 +92,33 @@ class VoteDTO
     /**
      * @return string|null
      */
-    public function getVoteAt(): ?string
+    public function getStartDate(): ?string
     {
-        return $this->voteAt;
+        return $this->startDate;
     }
 
     /**
-     * @param string|null $voteAt
+     * @param string|null $startDate
      */
-    public function setVoteAt(?string $voteAt): void
+    public function setStartDate(?string $startDate): void
     {
-        $this->voteAt = $voteAt;
+        $this->startDate = $startDate;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getFinishDate(): ?string
+    {
+        return $this->finishDate;
+    }
+
+    /**
+     * @param string|null $finishDate
+     */
+    public function setFinishDate(?string $finishDate): void
+    {
+        $this->finishDate = $finishDate;
     }
 
     /**
