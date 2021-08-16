@@ -5,6 +5,7 @@ namespace Rodri\VotingApp\Features\Vote\Infra\DataTransferObjects;
 use JetBrains\PhpStorm\Pure;
 use Rodri\VotingApp\Features\Vote\Domain\Entities\VoteResult;
 use Rodri\VotingApp\Features\Vote\Domain\Factories\VoteResultFactory;
+use stdClass;
 
 /**
  * DTO - VoteResult
@@ -49,6 +50,22 @@ class VoteResultDTO
             quantity: $voteResultDTO->getQuantity()
         );
     }
+
+    /**
+     * @param stdClass|null $voteResultStdClass
+     * @return VoteResultDTO|null
+     */
+    public static function createVoteResultDTOFromStdClass(?stdClass $voteResultStdClass): ?VoteResultDTO
+    {
+        if(empty($voteResultStdClass)) return null;
+
+        return new VoteResultDTO(
+            votingOptionUuid: $voteResultStdClass->votingOptionUuid ?? $voteResultStdClass->voting_option_uuid ?? null,
+            title: $voteResultStdClass->title ?? null,
+            quantity: $voteResultStdClass->quantity ?? null,
+        );
+    }
+
 
     /**
      * @return string|null

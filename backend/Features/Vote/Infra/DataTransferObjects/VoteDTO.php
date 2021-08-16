@@ -51,7 +51,7 @@ class VoteDTO
      */
     public static function createVoteFromVoteDTO(?VoteDTO $voteDTO): ?Vote
     {
-        if(empty($voteDTO)) return null;
+        if (empty($voteDTO)) return null;
 
         return VoteFactory::create(
             votingUuid: $voteDTO->getVotingUuid(),
@@ -64,6 +64,48 @@ class VoteDTO
         );
     }
 
+
+    /**
+     * @param \stdClass|null $voteStdClass
+     * @return VoteDTO|null
+     */
+    public static function createVoteDTOFromStdClass(?\stdClass $voteStdClass): ?VoteDTO
+    {
+        if (empty($voteStdClass)) return null;
+
+        return new VoteDTO(
+            votingUuid: $voteStdClass->votingUuid ?? $voteStdClass->voting_uuid ?? null,
+            startDate: $voteStdClass->startDate ?? $voteStdClass->start_date ?? null,
+            finishDate: $voteStdClass->finishDate ?? $voteStdClass->finish_date ?? null,
+            subject: $voteStdClass->subject ?? null,
+            voteResults: $voteStdClass->voteResults ?? null,
+        );
+    }
+
+    /**
+     * Parse to assoc array, normally used with json_encode
+     * @param Vote|null $vote
+     * @return array
+     */
+    public static function parserVoteToAssocArray(?Vote $vote): array
+    {
+        if (empty($vote)) return [];
+
+        return [
+            'votingUuid' => $vote->getVotingUuid()?->getValue(),
+            'startDate' => $vote->getStartDate()?->format(\DateTimeInterface::ISO8601),
+            'finishDate' => $vote->getFinishDate()?->format(\DateTimeInterface::ISO8601),
+            'subject' => $vote->getSubject()->getValue(),
+            'votingOptions' => array_map(function ($value) {
+                return [
+                    'votingOptionUuid' => $value->getVotingOptionUuid()->getValue(),
+                    'title' => $value->getTitle()->getValue(),
+                    'quantity' => $value->getQuantity()
+                ];
+            }, $vote->getVoteResults())
+        ];
+    }
+
     /**
      * Add a list of vote result DTO from $voteResults reference.
      *
@@ -71,7 +113,7 @@ class VoteDTO
      */
     private function addListOfVoteResultDTO(?array $voteResults)
     {
-        if (!empty($voteResults)) return;
+        if (empty($voteResults)) return;
 
         foreach ($voteResults as $voteResult) {
             if ($voteResult instanceof VoteResultDTO) {
@@ -95,6 +137,7 @@ class VoteDTO
     {
         return $this->votingUuid;
     }
+
 
     /**
      * @param string|null $votingUuid

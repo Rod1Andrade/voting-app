@@ -15,7 +15,7 @@ interface IVoteResultUseCase
      * Get the vote result
      *
      * @param VotingUuid $votingUuid
-     * @return Vote
+     * @return Vote|null
      */
-    public function __invoke(VotingUuid $votingUuid): Vote;
+    public function __invoke(VotingUuid $votingUuid): ?Vote;
 }

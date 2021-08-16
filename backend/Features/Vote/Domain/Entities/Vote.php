@@ -111,7 +111,8 @@ class Vote
      */
     private function addListOfVoteResult(?array $voteResults): void
     {
-        if(empty($voteResult)) return;
+        if(empty($voteResults)) return;
+
         foreach ($voteResults as $voteResult) {
             if (!($voteResult instanceof VoteResult)) {
                 throw new InvalidArgumentException(

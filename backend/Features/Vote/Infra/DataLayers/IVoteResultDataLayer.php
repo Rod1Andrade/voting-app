@@ -14,7 +14,7 @@ interface IVoteResultDataLayer
      * Get a result from a voting section.
      *
      * @param string $votingUuid
-     * @return VoteDTO
+     * @return VoteDTO|null
      */
-    public function __invoke(string $votingUuid): VoteDTO;
+    public function __invoke(string $votingUuid): ?VoteDTO;
 }
