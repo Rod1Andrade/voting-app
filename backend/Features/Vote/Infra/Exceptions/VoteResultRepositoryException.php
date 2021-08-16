@@ -2,13 +2,7 @@
 
 namespace Rodri\VotingApp\Features\Vote\Infra\Exceptions;
 
-class VoteResultRepositoryException
+class VoteResultRepositoryException extends \RuntimeException
 {
 
-    /**
-     * @param \Exception|Exception $e
-     */
-    public function __construct($e)
-    {
-    }
 }

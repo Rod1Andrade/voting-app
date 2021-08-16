@@ -4,6 +4,10 @@ namespace Rodri\VotingApp\Features\Vote\Infra\DataLayers;
 
 use Rodri\VotingApp\Features\Vote\Infra\DataTransferObjects\VoteDTO;
 
+/**
+ * Data layer - IVoteResultDataLayer
+ * @author Rodrigo Andrade
+ */
 interface IVoteResultDataLayer
 {
     /**
