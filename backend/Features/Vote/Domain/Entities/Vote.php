@@ -102,7 +102,7 @@ class Vote
      */
     public function getVoteResults(): ?array
     {
-        return $this->voteResults;
+        return $this->voteResults ?? [];
     }
 
     /**
@@ -111,10 +111,13 @@ class Vote
      */
     private function addListOfVoteResult(?array $voteResults): void
     {
-        if(empty($voteResult)) return;
+        if(empty($voteResults)) return;
+
         foreach ($voteResults as $voteResult) {
             if (!($voteResult instanceof VoteResult)) {
-                throw new InvalidArgumentException('The array of voting results needs be instance of Vote Result');
+                throw new InvalidArgumentException(
+                    'The array of voting results needs be instance of Vote Result'
+                );
             }
 
             $this->voteResults[] = $voteResult;
