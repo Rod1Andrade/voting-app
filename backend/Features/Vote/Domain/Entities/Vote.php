@@ -114,7 +114,9 @@ class Vote
         if(empty($voteResult)) return;
         foreach ($voteResults as $voteResult) {
             if (!($voteResult instanceof VoteResult)) {
-                throw new InvalidArgumentException('The array of voting results needs be instance of Vote Result');
+                throw new InvalidArgumentException(
+                    'The array of voting results needs be instance of Vote Result'
+                );
             }
 
             $this->voteResults[] = $voteResult;
