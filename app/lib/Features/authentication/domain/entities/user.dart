@@ -1,5 +1,5 @@
-/// Entidade Usuario
 ///
+/// Entidade Usuario
 ///author: Rodrigo Andrade
 class User {
   String? userUuid;
