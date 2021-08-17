@@ -8,9 +8,11 @@ The voting application is a full stack application based on the [AppIdeas](https
 - [ ] User can see a list of items he can vote on
 - [ ] These items must have a button that the user can click on to vote
 - [ ] After the user clicked a button, the user should see all the votes
+- [ ] The user cant vote in vote item if the finish date has been passed.
 
 ## Bonus features
 
+- [x] User can create the vote items
 - [x] Store items and votes in a database
 - [x] Only allow authenticated users to vote
 
@@ -24,6 +26,7 @@ Porém surgiu a necessidade de fazer deploy da aplicação, que no caso foi esco
 
 Vale ressaltar que a transição de todo o ``core`` foi bem simples devido a arquitetura escolhida, basicamente foi necessário mudar ``external`` e os ``controllers``, o domínio e a infra estrutura foram códigos que se mantiveram inalterados.
 
-## Frontend
+## App
 
-Hasn't started yet
+Aplicativo mobile feito em flutter, que consome o backend feito em **php**.
+Em breve mais atualizações visuais.
