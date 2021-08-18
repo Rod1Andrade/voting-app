@@ -1,8 +1,9 @@
+import 'package:dartz/dartz.dart';
 import 'package:app/Features/authentication/domain/entities/user.dart';
 import 'package:app/Features/authentication/domain/exceptions/authentication_exception.dart';
 import 'package:app/Features/authentication/domain/repositories/abstract_user_repository.dart';
 
-/// Caso de uso: registra um usuario.
+/// Caso de uso: registra um usuário.
 ///
 /// author: Rodrigo Andrade
 class RegisterUserUseCase {
@@ -10,11 +11,14 @@ class RegisterUserUseCase {
 
   RegisterUserUseCase(this._repository);
 
-  void call(User? user) {
+  /// Registra uma usuário passado como argumento.
+  /// @param user User
+  /// @throws AuthenticationException
+  Future<Either<AuthenticationException, void>> call(User? user) async {
     try {
-      _repository(user);
+      return Right(_repository(user));
     } catch (error) {
-      throw AuthenticationException(error.toString());
+      return Left(AuthenticationException(error.toString()));
     }
   }
 }
