@@ -14,6 +14,8 @@ class CreateAccountBloc extends Bloc<CreateAccountEvent, CreateAccountState> {
       yield _mapEmailChangedToState(event, state);
     } else if (event is CreateAccountPasswordChanged) {
       yield _mapPasswordChangedToState(event, state);
+    } else if (event is CreateAccountConfirmPasswordChanged) {
+      yield _mapConfirmPasswordChangedToState(event, state);
     } else if (event is CreateAccounBirthDateChanged) {
       yield _mapBirthDateChangedToState(event, state);
     } else if (event is CreateAccountNameChanged) {
@@ -46,6 +48,17 @@ class CreateAccountBloc extends Bloc<CreateAccountEvent, CreateAccountState> {
     final password = event.password.doDurty();
     return state.copyWith(
       password: password,
+    );
+  }
+
+  /// Evento Senha alterada para estado
+  CreateAccountState _mapConfirmPasswordChangedToState(
+    CreateAccountConfirmPasswordChanged event,
+    CreateAccountState state,
+  ) {
+    final confirmPassword = event.confirmPassword.doDurty();
+    return state.copyWith(
+      confirmPassword: confirmPassword,
     );
   }
 

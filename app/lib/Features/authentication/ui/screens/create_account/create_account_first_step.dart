@@ -86,18 +86,19 @@ class CreateAccountFirstStep extends StatelessWidget {
                       padding: EdgeInsets.symmetric(vertical: 21.0),
                       child: BlocBuilder<CreateAccountBloc, CreateAccountState>(
                         builder: (context, state) => InputLabel(
-                          key: Key('key_email_input'),
+                          key: Key('key_confirm_password_input'),
                           textLabel: 'Confirmar Senha',
                           hintText: '************',
                           obscureText: true,
-                          errorText: state.password!.isValid()
+                          errorText: state.confirmPassword!.isValid() &&
+                                  state.confirmPassword!
+                                      .isEquals(state.password)
                               ? null
                               : 'As senhas devem coincidir.',
-                          onChange: (password) {
+                          onChange: (confirmPassword) {
                             context.read<CreateAccountBloc>().add(
-                                  CreateAccountPasswordChanged(
-                                    Password(value: password),
-                                  ),
+                                  CreateAccountConfirmPasswordChanged(
+                                      Password(value: confirmPassword)),
                                 );
                           },
                         ),

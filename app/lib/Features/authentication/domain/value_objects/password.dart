@@ -20,6 +20,12 @@ class Password {
     return this.value.length > 3;
   }
 
+  /// Check if the password are equals
+  bool isEquals(Password? password) {
+    if (password == null) return false;
+    return password.value.compareTo(this.value) == 0;
+  }
+
   /// Make the field durty
   Password doDurty() {
     return Password(value: this.value, durty: true);

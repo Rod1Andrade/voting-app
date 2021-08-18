@@ -10,13 +10,15 @@ import 'package:app/Features/authentication/domain/value_objects/password.dart';
 class CreateAccountState {
   final Email? email;
   final Password? password;
+  final Password? confirmPassword;
   final BirthDate? birthDate;
   final Name? name;
   final LastName? lastName;
 
-  CreateAccountState({
+  const CreateAccountState({
     this.email = const Email(),
     this.password = const Password(),
+    this.confirmPassword = const Password(),
     this.birthDate,
     this.name,
     this.lastName,
@@ -27,6 +29,7 @@ class CreateAccountState {
   CreateAccountState copyWith({
     Email? email,
     Password? password,
+    Password? confirmPassword,
     BirthDate? birthDate,
     Name? name,
     LastName? lastName,
@@ -34,6 +37,7 @@ class CreateAccountState {
     return CreateAccountState(
       email: email ?? this.email,
       password: password ?? this.password,
+      confirmPassword: confirmPassword ?? this.confirmPassword,
       birthDate: birthDate ?? this.birthDate,
       name: name ?? this.name,
       lastName: lastName ?? this.lastName,

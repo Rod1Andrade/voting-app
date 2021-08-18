@@ -25,6 +25,13 @@ class CreateAccountPasswordChanged extends CreateAccountEvent {
   CreateAccountPasswordChanged(this.password);
 }
 
+/// Evento: Confirmar Senha alterada.
+class CreateAccountConfirmPasswordChanged extends CreateAccountEvent {
+  final Password confirmPassword;
+
+  CreateAccountConfirmPasswordChanged(this.confirmPassword);
+}
+
 /// Evento: Nome alteado.
 class CreateAccountNameChanged extends CreateAccountEvent {
   final Name name;
