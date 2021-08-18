@@ -4,5 +4,5 @@ import 'package:app/Features/authentication/domain/entities/user.dart';
 ///
 /// author: Rodrigo Andrade
 abstract class AbstractRegisterUserRepository {
-  void call(User? user);
+  Future<void> call(User? user);
 }
