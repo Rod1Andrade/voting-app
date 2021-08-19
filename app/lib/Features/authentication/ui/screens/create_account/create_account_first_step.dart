@@ -3,7 +3,8 @@ import 'package:app/Features/authentication/domain/value_objects/password.dart';
 import 'package:app/Features/authentication/ui/bloc/create_account/create_account_bloc.dart';
 import 'package:app/Features/authentication/ui/bloc/create_account/create_account_event.dart';
 import 'package:app/Features/authentication/ui/bloc/create_account/create_account_state.dart';
-import 'package:app/Features/authentication/ui/screens/create_account/create_account_last_step.dart';
+import 'package:app/shared/components/arrow_back_circular_button_component.dart';
+import 'package:app/shared/components/input_label_component.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -20,18 +21,27 @@ class CreateAccountFirstStep extends StatelessWidget {
           child: BlocListener(
             bloc: context.read<CreateAccountBloc>(),
             listener: (context, state) {
-              print(state);
               if (state is CreateAccountStateNext) {
-                Navigator.of(context).pushNamed('/create-account-last-step');
+                Navigator.of(context).pushNamed(
+                  '/create-account-last-step',
+                  arguments: BlocProvider.of<CreateAccountBloc>(context),
+                );
               }
             },
             child: Column(
               children: [
+                Row(
+                  children: [
+                    ArrowBackCircularButtonComponenet(
+                      onPressed: () => print('back to welcome...'),
+                    )
+                  ],
+                ),
                 // Title
                 Row(
                   children: [
                     Container(
-                      margin: EdgeInsets.only(left: 30, top: 50),
+                      margin: EdgeInsets.only(left: 30, top: 25),
                       width: 100,
                       height: 96,
                       child: Text(
@@ -55,7 +65,7 @@ class CreateAccountFirstStep extends StatelessWidget {
                         padding: EdgeInsets.symmetric(vertical: 21.0),
                         child:
                             BlocBuilder<CreateAccountBloc, CreateAccountState>(
-                          builder: (context, state) => InputLabel(
+                          builder: (context, state) => InputLabelComponenet(
                             key: Key('key_email_input'),
                             textLabel: 'Email',
                             hintText: 'seu@email.com',
@@ -66,6 +76,7 @@ class CreateAccountFirstStep extends StatelessWidget {
                                 .read<CreateAccountBloc>()
                                 .add(CreateAccountEmailChanged(
                                     Email(value: email))),
+                            keyBoardType: TextInputType.emailAddress,
                           ),
                         ),
                       ),
@@ -73,7 +84,7 @@ class CreateAccountFirstStep extends StatelessWidget {
                         padding: EdgeInsets.symmetric(vertical: 21.0),
                         child:
                             BlocBuilder<CreateAccountBloc, CreateAccountState>(
-                          builder: (context, state) => InputLabel(
+                          builder: (context, state) => InputLabelComponenet(
                             key: Key('key_password_input'),
                             textLabel: 'Senha',
                             hintText: '************',
@@ -95,7 +106,7 @@ class CreateAccountFirstStep extends StatelessWidget {
                         padding: EdgeInsets.symmetric(vertical: 21.0),
                         child:
                             BlocBuilder<CreateAccountBloc, CreateAccountState>(
-                          builder: (context, state) => InputLabel(
+                          builder: (context, state) => InputLabelComponenet(
                             key: Key('key_confirm_password_input'),
                             textLabel: 'Confirmar Senha',
                             hintText: '************',
@@ -171,78 +182,6 @@ class CreateAccountFirstStep extends StatelessWidget {
           ),
         ),
       ),
-    );
-  }
-}
-
-class InputLabel extends StatelessWidget {
-  final Key key;
-  final bool obscureText;
-  final String? hintText;
-  final String? errorText;
-  final String? textLabel;
-  final void Function(String)? onChange;
-
-  InputLabel({
-    required this.key,
-    this.textLabel,
-    this.hintText,
-    this.errorText,
-    this.onChange,
-    this.obscureText = false,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return BlocBuilder<CreateAccountBloc, CreateAccountState>(
-      builder: (context, state) {
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              width: double.infinity,
-              child: Text(
-                '$textLabel',
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                  fontFamily: 'Segoe UI',
-                  color: Color.fromRGBO(47, 46, 65, 1.0),
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 8.0),
-              child: TextField(
-                obscureText: obscureText,
-                key: key,
-                onChanged: onChange,
-                keyboardType: TextInputType.emailAddress,
-                decoration: InputDecoration(
-                  filled: true,
-                  hintText: '$hintText',
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                      color: Color.fromRGBO(240, 245, 255, 1.0),
-                      style: BorderStyle.none,
-                    ),
-                    borderRadius: BorderRadius.all(Radius.circular(15.0)),
-                  ),
-                  border: OutlineInputBorder(
-                    borderSide: BorderSide(
-                      color: Color.fromRGBO(240, 245, 255, 1.0),
-                      style: BorderStyle.none,
-                    ),
-                    borderRadius: BorderRadius.all(Radius.circular(15.0)),
-                  ),
-                  fillColor: Color.fromRGBO(240, 245, 255, 1.0),
-                  errorText: errorText,
-                ),
-              ),
-            ),
-          ],
-        );
-      },
     );
   }
 }
