@@ -1,4 +1,5 @@
 import 'package:app/Features/authentication/ui/bloc/create_account/create_account_bloc.dart';
+import 'package:app/Features/authentication/ui/screens/create_account/create_account_last_step.dart';
 import 'package:flutter/material.dart';
 import 'package:app/Features/authentication/ui/screens/create_account/create_account_first_step.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -19,6 +20,9 @@ class MyApp extends StatelessWidget {
         create: (context) => CreateAccountBloc(),
         child: CreateAccountFirstStep(),
       ),
+      routes: {
+        '/create-account-last-step': (context) => CreateAccountLastStep()
+      },
     );
   }
 }

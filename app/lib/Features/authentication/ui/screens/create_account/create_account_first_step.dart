@@ -3,6 +3,7 @@ import 'package:app/Features/authentication/domain/value_objects/password.dart';
 import 'package:app/Features/authentication/ui/bloc/create_account/create_account_bloc.dart';
 import 'package:app/Features/authentication/ui/bloc/create_account/create_account_event.dart';
 import 'package:app/Features/authentication/ui/bloc/create_account/create_account_state.dart';
+import 'package:app/Features/authentication/ui/screens/create_account/create_account_last_step.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -12,130 +13,142 @@ class CreateAccountFirstStep extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: Colors.white,
-        body: SingleChildScrollView(
-          child: Column(
-            children: [
-              // Title
-              Row(
-                children: [
-                  Container(
-                    margin: EdgeInsets.only(
-                      left: 30,
-                      top: 100,
-                    ),
-                    width: 100,
-                    height: 96,
-                    child: Text(
-                      'Criar Conta',
-                      style: TextStyle(
-                        fontSize: 36,
-                        fontWeight: FontWeight.bold,
-                        fontFamily: 'Segoe UI',
-                        color: Color.fromRGBO(47, 46, 65, 1.0),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              Container(
-                margin: EdgeInsets.only(top: 10),
-                padding: EdgeInsets.symmetric(horizontal: 30),
-                child: Column(
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: BlocListener(
+            bloc: context.read<CreateAccountBloc>(),
+            listener: (context, state) {
+              print(state);
+              if (state is CreateAccountStateNext) {
+                Navigator.of(context).pushNamed('/create-account-last-step');
+              }
+            },
+            child: Column(
+              children: [
+                // Title
+                Row(
                   children: [
                     Container(
-                      padding: EdgeInsets.symmetric(vertical: 21.0),
-                      child: BlocBuilder<CreateAccountBloc, CreateAccountState>(
-                        builder: (context, state) => InputLabel(
-                          key: Key('key_email_input'),
-                          textLabel: 'Email',
-                          hintText: 'seu@email.com',
-                          errorText:
-                              state.email!.isValid() ? null : 'Email Invalido',
-                          onChange: (email) => context
-                              .read<CreateAccountBloc>()
-                              .add(CreateAccountEmailChanged(
-                                  Email(value: email))),
+                      margin: EdgeInsets.only(left: 30, top: 50),
+                      width: 100,
+                      height: 96,
+                      child: Text(
+                        'Criar Conta',
+                        style: TextStyle(
+                          fontSize: 36,
+                          fontWeight: FontWeight.bold,
+                          fontFamily: 'Segoe UI',
+                          color: Color.fromRGBO(47, 46, 65, 1.0),
                         ),
                       ),
                     ),
-                    Container(
-                      padding: EdgeInsets.symmetric(vertical: 21.0),
-                      child: BlocBuilder<CreateAccountBloc, CreateAccountState>(
-                        builder: (context, state) => InputLabel(
-                          key: Key('key_password_input'),
-                          textLabel: 'Senha',
-                          hintText: '************',
-                          obscureText: true,
-                          errorText: state.password!.isValid()
-                              ? null
-                              : 'Senha Invalida',
-                          onChange: (password) {
-                            context.read<CreateAccountBloc>().add(
-                                  CreateAccountPasswordChanged(
-                                    Password(value: password),
-                                  ),
-                                );
-                          },
-                        ),
-                      ),
-                    ),
-                    Container(
-                      padding: EdgeInsets.symmetric(vertical: 21.0),
-                      child: BlocBuilder<CreateAccountBloc, CreateAccountState>(
-                        builder: (context, state) => InputLabel(
-                          key: Key('key_confirm_password_input'),
-                          textLabel: 'Confirmar Senha',
-                          hintText: '************',
-                          obscureText: true,
-                          errorText: state.confirmPassword!.isValid() &&
-                                  state.confirmPassword!
-                                      .isEquals(state.password)
-                              ? null
-                              : 'As senhas devem coincidir.',
-                          onChange: (confirmPassword) {
-                            context.read<CreateAccountBloc>().add(
-                                  CreateAccountConfirmPasswordChanged(
-                                      Password(value: confirmPassword)),
-                                );
-                          },
-                        ),
-                      ),
-                    ),
-                    Container(
-                      width: double.infinity,
-                      height: 60,
-                      child: OutlinedButton(
-                        style: ButtonStyle(
-                          textStyle: MaterialStateProperty.all(TextStyle(
-                            fontSize: 16,
-                            fontFamily: 'Segoe UI',
-                            fontWeight: FontWeight.bold,
-                          )),
-                          foregroundColor: MaterialStateProperty.all(
-                            Color.fromRGBO(47, 46, 65, 1.0),
+                  ],
+                ),
+                Container(
+                  margin: EdgeInsets.only(top: 10),
+                  padding: EdgeInsets.symmetric(horizontal: 30),
+                  child: Column(
+                    children: [
+                      Container(
+                        padding: EdgeInsets.symmetric(vertical: 21.0),
+                        child:
+                            BlocBuilder<CreateAccountBloc, CreateAccountState>(
+                          builder: (context, state) => InputLabel(
+                            key: Key('key_email_input'),
+                            textLabel: 'Email',
+                            hintText: 'seu@email.com',
+                            errorText: state.email!.isValid()
+                                ? null
+                                : 'Email Invalido',
+                            onChange: (email) => context
+                                .read<CreateAccountBloc>()
+                                .add(CreateAccountEmailChanged(
+                                    Email(value: email))),
                           ),
-                          side: MaterialStateProperty.all<BorderSide>(
-                            BorderSide(
-                              width: 1,
-                              color: Color.fromRGBO(63, 61, 86, 1.0),
+                        ),
+                      ),
+                      Container(
+                        padding: EdgeInsets.symmetric(vertical: 21.0),
+                        child:
+                            BlocBuilder<CreateAccountBloc, CreateAccountState>(
+                          builder: (context, state) => InputLabel(
+                            key: Key('key_password_input'),
+                            textLabel: 'Senha',
+                            hintText: '************',
+                            obscureText: true,
+                            errorText: state.password!.isValid()
+                                ? null
+                                : 'Senha Invalida',
+                            onChange: (password) {
+                              context.read<CreateAccountBloc>().add(
+                                    CreateAccountPasswordChanged(
+                                      Password(value: password),
+                                    ),
+                                  );
+                            },
+                          ),
+                        ),
+                      ),
+                      Container(
+                        padding: EdgeInsets.symmetric(vertical: 21.0),
+                        child:
+                            BlocBuilder<CreateAccountBloc, CreateAccountState>(
+                          builder: (context, state) => InputLabel(
+                            key: Key('key_confirm_password_input'),
+                            textLabel: 'Confirmar Senha',
+                            hintText: '************',
+                            obscureText: true,
+                            errorText: state.confirmPassword!.isValid() &&
+                                    state.confirmPassword!
+                                        .isEquals(state.password)
+                                ? null
+                                : 'As senhas devem coincidir.',
+                            onChange: (confirmPassword) {
+                              context.read<CreateAccountBloc>().add(
+                                    CreateAccountConfirmPasswordChanged(
+                                      Password(value: confirmPassword),
+                                    ),
+                                  );
+                            },
+                          ),
+                        ),
+                      ),
+                      Container(
+                        width: double.infinity,
+                        height: 60,
+                        child: OutlinedButton(
+                          style: ButtonStyle(
+                            textStyle: MaterialStateProperty.all(TextStyle(
+                              fontSize: 16,
+                              fontFamily: 'Segoe UI',
+                              fontWeight: FontWeight.bold,
+                            )),
+                            foregroundColor: MaterialStateProperty.all(
+                              Color.fromRGBO(47, 46, 65, 1.0),
+                            ),
+                            side: MaterialStateProperty.all<BorderSide>(
+                              BorderSide(
+                                width: 1,
+                                color: Color.fromRGBO(63, 61, 86, 1.0),
+                              ),
                             ),
                           ),
+                          onPressed: () {
+                            context
+                                .read<CreateAccountBloc>()
+                                .add(CreateAccountNext());
+                          },
+                          child: Text('Avançar'),
                         ),
-                        onPressed: () {
-                          print('yeah! You press the button.');
-                        },
-                        child: Text('Avançar'),
                       ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 8.0),
-                      child: Row(
-                        children: [
-                          Text('Já possuiu uma conta?'),
-                          TextButton(
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 8.0),
+                        child: Row(
+                          children: [
+                            Text('Já possuiu uma conta?'),
+                            TextButton(
                               onPressed: () {
                                 print('entrar...');
                               },
@@ -145,14 +158,16 @@ class CreateAccountFirstStep extends StatelessWidget {
                                   fontWeight: FontWeight.bold,
                                   color: Color.fromRGBO(63, 61, 86, 1.0),
                                 ),
-                              ))
-                        ],
+                              ),
+                            )
+                          ],
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-              )
-            ],
+                    ],
+                  ),
+                )
+              ],
+            ),
           ),
         ),
       ),

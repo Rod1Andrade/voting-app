@@ -23,7 +23,7 @@ class CreateAccountBloc extends Bloc<CreateAccountEvent, CreateAccountState> {
     } else if (event is CreateAccountLastNameChanged) {
       yield _mapLastNameChangedToState(event, state);
     } else if (event is CreateAccountNext) {
-      yield state; //TODO implementar
+      yield _mapCreateAccountNextToState(event, state); //TODO implementar
     } else if (event is CreateAccountSubmitted) {
       yield state; //TODO implementar
     }
@@ -93,5 +93,16 @@ class CreateAccountBloc extends Bloc<CreateAccountEvent, CreateAccountState> {
     return state.copyWith(
       lastName: lastName,
     );
+  }
+
+  /// Event avançar alterado para estado
+  CreateAccountState _mapCreateAccountNextToState(
+    CreateAccountNext event,
+    CreateAccountState state,
+  ) {
+    if (state.selfValidate(event))
+      return CreateAccountStateNext.byState(state);
+    else
+      return CreateAccountStateFailure.byState(state);
   }
 }

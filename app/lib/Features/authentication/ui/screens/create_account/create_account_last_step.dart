@@ -5,9 +5,12 @@ class CreateAccountLastStep extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Center(
-        child: Text('Hello from Last Step'),
+    return Scaffold(
+      appBar: AppBar(),
+      body: Container(
+        child: Center(
+          child: Text('Hello from Last Step'),
+        ),
       ),
     );
   }
