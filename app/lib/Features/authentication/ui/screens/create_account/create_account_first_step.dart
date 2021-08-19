@@ -24,7 +24,7 @@ class CreateAccountFirstStep extends StatelessWidget {
               if (state is CreateAccountStateNext) {
                 Navigator.of(context).pushNamed(
                   '/create-account-last-step',
-                  arguments: BlocProvider.of<CreateAccountBloc>(context),
+                  arguments: context.read<CreateAccountBloc>(),
                 );
               }
             },

@@ -87,6 +87,35 @@ class CreateAccountStateNext extends CreateAccountState {
   }
 }
 
+class CreateAccountStateBack extends CreateAccountState {
+  CreateAccountStateBack({
+    Email? email,
+    Password? password,
+    Password? confirmPassword,
+    BirthDate? birthDate,
+    Name? name,
+    LastName? lastName,
+  }) : super(
+          email: email,
+          password: password,
+          confirmPassword: confirmPassword,
+          birthDate: birthDate,
+          name: name,
+          lastName: lastName,
+        );
+
+  static CreateAccountStateBack byState(CreateAccountState state) {
+    return CreateAccountStateBack(
+      email: state.email,
+      password: state.password,
+      confirmPassword: state.confirmPassword,
+      birthDate: state.birthDate,
+      name: state.name,
+      lastName: state.lastName,
+    );
+  }
+}
+
 class CreateAccountStateFailure extends CreateAccountState {
   CreateAccountStateFailure({
     Email? email,

@@ -56,5 +56,8 @@ class CreateAccounBirthDateChanged extends CreateAccountEvent {
 /// Evento: Avancar para a proxima tela.
 class CreateAccountNext extends CreateAccountEvent {}
 
+/// Evento: Voltar para a tela anterior
+class CreateAccountBack extends CreateAccountEvent {}
+
 /// Evento: Submeter criacao de conta.
 class CreateAccountSubmitted extends CreateAccountEvent {}

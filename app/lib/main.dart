@@ -9,6 +9,8 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
+  final _createAccountBloc = CreateAccountBloc();
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -16,13 +18,14 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: BlocProvider(
-        create: (context) => CreateAccountBloc(),
-        child: CreateAccountFirstStep(),
-      ),
+      initialRoute: '/create-account-first-step',
       routes: {
-        '/create-account-last-step': (context) => BlocProvider(
-              create: (context) => CreateAccountBloc(),
+        '/create-account-first-step': (context) => BlocProvider.value(
+              value: _createAccountBloc,
+              child: CreateAccountFirstStep(),
+            ),
+        '/create-account-last-step': (context) => BlocProvider.value(
+              value: _createAccountBloc,
               child: CreateAccountLastStep(),
             ),
       },
