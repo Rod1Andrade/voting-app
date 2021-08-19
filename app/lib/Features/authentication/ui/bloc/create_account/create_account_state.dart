@@ -20,9 +20,9 @@ class CreateAccountState {
     this.email = const Email(),
     this.password = const Password(),
     this.confirmPassword = const Password(),
-    this.birthDate,
-    this.name,
-    this.lastName,
+    this.birthDate = const BirthDate(),
+    this.name = const Name(),
+    this.lastName = const LastName(),
   });
 
   /// Cria nova instancia, mas somente com os

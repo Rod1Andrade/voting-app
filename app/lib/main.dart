@@ -21,7 +21,10 @@ class MyApp extends StatelessWidget {
         child: CreateAccountFirstStep(),
       ),
       routes: {
-        '/create-account-last-step': (context) => CreateAccountLastStep(),
+        '/create-account-last-step': (context) => BlocProvider(
+              create: (context) => CreateAccountBloc(),
+              child: CreateAccountLastStep(),
+            ),
       },
     );
   }
