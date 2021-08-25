@@ -17,18 +17,20 @@ class CreateAccountFirstStep extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
-        child: SingleChildScrollView(
-          child: BlocListener(
-            bloc: context.read<CreateAccountBloc>(),
-            listener: (context, state) {
-              if (state is CreateAccountStateNext) {
-                Navigator.of(context).pushNamed(
-                  '/create-account-last-step',
-                  arguments: context.read<CreateAccountBloc>(),
-                );
-              }
-            },
+        child: BlocListener(
+          bloc: context.read<CreateAccountBloc>(),
+          listener: (context, state) {
+            if (state is CreateAccountStateNext) {
+              Navigator.of(context).pushNamed(
+                '/create-account-last-step',
+                arguments: context.read<CreateAccountBloc>(),
+              );
+            }
+          },
+          child: SingleChildScrollView(
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Row(
                   children: [
@@ -37,13 +39,11 @@ class CreateAccountFirstStep extends StatelessWidget {
                     )
                   ],
                 ),
-                // Title
                 Row(
                   children: [
                     Container(
-                      margin: EdgeInsets.only(left: 30, top: 25),
-                      width: 100,
-                      height: 96,
+                      width: 200,
+                      padding: EdgeInsets.symmetric(horizontal: 30),
                       child: Text(
                         'Criar Conta',
                         style: TextStyle(
@@ -57,7 +57,6 @@ class CreateAccountFirstStep extends StatelessWidget {
                   ],
                 ),
                 Container(
-                  margin: EdgeInsets.only(top: 10),
                   padding: EdgeInsets.symmetric(horizontal: 30),
                   child: Column(
                     children: [
@@ -154,25 +153,22 @@ class CreateAccountFirstStep extends StatelessWidget {
                           child: Text('Avançar'),
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 8.0),
-                        child: Row(
-                          children: [
-                            Text('Já possuiu uma conta?'),
-                            TextButton(
-                              onPressed: () {
-                                print('entrar...');
-                              },
-                              child: Text(
-                                'Entrar',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: Color.fromRGBO(63, 61, 86, 1.0),
-                                ),
+                      Row(
+                        children: [
+                          Text('Já possuiu uma conta?'),
+                          TextButton(
+                            onPressed: () {
+                              print('entrar...');
+                            },
+                            child: Text(
+                              'Entrar',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Color.fromRGBO(63, 61, 86, 1.0),
                               ),
-                            )
-                          ],
-                        ),
+                            ),
+                          )
+                        ],
                       ),
                     ],
                   ),

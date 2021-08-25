@@ -17,15 +17,17 @@ class CreateAccountLastStep extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
-        child: SingleChildScrollView(
-          child: BlocListener<CreateAccountBloc, CreateAccountState>(
-            listener: (context, state) {
-              if (state is CreateAccountStateBack) {
-                Navigator.of(context).pop();
-              }
-            },
+        child: BlocListener<CreateAccountBloc, CreateAccountState>(
+          listener: (context, state) {
+            if (state is CreateAccountStateBack) {
+              Navigator.of(context).pop();
+            }
+          },
+          child: SingleChildScrollView(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisSize: MainAxisSize.max,
               children: [
                 Row(
                   children: [
@@ -40,8 +42,8 @@ class CreateAccountLastStep extends StatelessWidget {
                 Row(
                   children: [
                     Container(
-                      margin: EdgeInsets.only(left: 30, top: 50),
-                      width: 210,
+                      width: 300,
+                      padding: EdgeInsets.symmetric(horizontal: 30),
                       child: Text(
                         'Informações Adicionais',
                         style: TextStyle(
@@ -55,7 +57,6 @@ class CreateAccountLastStep extends StatelessWidget {
                   ],
                 ),
                 Container(
-                  margin: EdgeInsets.only(top: 10),
                   padding: EdgeInsets.symmetric(horizontal: 30),
                   child: Column(
                     children: [
